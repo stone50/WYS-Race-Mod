@@ -5,7 +5,7 @@ if (!is_connected)
 
 if (room != menu)
 {
-    var player = instance_find(305);
+    var player = instance_find(obj_player);
     this_racer.current_room = room;
     this_racer.x = (player == -4) ? -9999 : player.x;
     this_racer.y = (player == -4) ? -9999 : player.y;

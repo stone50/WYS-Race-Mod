@@ -1,4 +1,6 @@
-network_manager = instance_find(833);
+visible = false;
+persistent = true;
+network_manager = instance_find(obj_network_manager);
 other_racers_alpha = 0.5;
 other_racer_names_alpha = 0.5;
 other_racer_names_scale = 0.5;

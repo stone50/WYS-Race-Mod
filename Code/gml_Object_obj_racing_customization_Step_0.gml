@@ -47,17 +47,15 @@ if (gui_mouse_y >= 152.5 && gui_mouse_y <= 252.5 && gui_mouse_x >= 500 && gui_mo
             filtered_name += char;
     }
     
-    filtered_name = string_trim_start(filtered_name);
+    filtered_name = scr_string_trim_start(filtered_name);
     
     if (string_length(filtered_name) > 10)
         filtered_name = string_copy(filtered_name, 1, 10);
     
-    filtered_name = string_trim_end(filtered_name);
+    filtered_name = scr_string_trim_end(filtered_name);
     
-    if (filtered_name == "")
-        filtered_name = "Player";
-    
-    network_manager.this_racer.name = filtered_name;
+    if (filtered_name != "")
+        network_manager.this_racer.name = filtered_name;
 }
 else if (gui_mouse_y >= 198.25 && gui_mouse_y <= 234.25)
 {

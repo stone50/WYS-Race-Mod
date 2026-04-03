@@ -7,7 +7,7 @@ if (room == T_01_first_contact && global.save_speedrun_timer_game == 0)
     exit;
 }
 
-var level_transition = instance_find(343);
+var level_transition = instance_find(obj_level_transition);
 
 if (level_transition == -4)
     exit;

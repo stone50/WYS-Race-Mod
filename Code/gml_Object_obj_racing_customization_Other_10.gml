@@ -1,4 +1,4 @@
-var player = instance_find(305);
+var player = instance_find(obj_player);
 
 if (player == -4)
     exit;

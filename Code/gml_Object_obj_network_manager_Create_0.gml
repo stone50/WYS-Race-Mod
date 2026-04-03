@@ -1,3 +1,5 @@
+visible = false;
+persistent = true;
 is_connected = false;
 is_host = false;
 host_ip = "127.0.0.1";

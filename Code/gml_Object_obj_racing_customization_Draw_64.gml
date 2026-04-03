@@ -35,4 +35,4 @@ draw_color_grid(600, 506.25, make_color_rgb(70, 108, 178));
 draw_text_transformed(840, 438.75, "Eye\nColor", 0.5, 0.5, 0);
 draw_color_grid(840, 506.25, make_color_rgb(183, 184, 229));
 draw_text_transformed(480, 580, "F2 to close", 0.5, 0.5, 0);
-draw_sprite_ext(spr_cursor, 0, gui_mouse_x, gui_mouse_y, 1, 1, device_mouse_check_button(0, mb_left) ? 20 : 0, c_white, 1);
+draw_sprite_ext(spr_hat_unicorn, 0, gui_mouse_x + 46, gui_mouse_y + 44, 2, 2, device_mouse_check_button(0, mb_left) ? 110 : 90, c_white, 1);
