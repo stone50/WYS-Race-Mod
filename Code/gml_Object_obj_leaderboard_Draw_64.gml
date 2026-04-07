@@ -33,8 +33,15 @@ for (var i = 0; i < num_all_racers; i++)
     
     var name_text = racer.name;
     
-    while (string_length(name_text) < 10)
-        name_text += " ";
+    if (string_length(name_text) > 10)
+    {
+        name_text = string_copy(name_text, 1, 10);
+    }
+    else
+    {
+        while (string_length(name_text) < 10)
+            name_text += " ";
+    }
     
     var furthest_checkpoint = racer.furthest_checkpoint;
     var diff_to_first = racer.diff_to_first;

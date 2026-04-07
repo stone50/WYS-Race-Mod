@@ -35,7 +35,7 @@ if (!device_mouse_check_button_released(0, mb_left))
 
 if (gui_mouse_y >= 152.5 && gui_mouse_y <= 252.5 && gui_mouse_x >= 500 && gui_mouse_x <= 700)
 {
-    var raw_name = get_string("Name (max 10 characters)", this_racer.name);
+    var raw_name = get_string("Name (max 20 characters)", this_racer.name);
     var filtered_name = "";
     
     for (var i = 1; i <= string_length(raw_name); i++)
@@ -49,8 +49,8 @@ if (gui_mouse_y >= 152.5 && gui_mouse_y <= 252.5 && gui_mouse_x >= 500 && gui_mo
     
     filtered_name = scr_string_trim_start(filtered_name);
     
-    if (string_length(filtered_name) > 10)
-        filtered_name = string_copy(filtered_name, 1, 10);
+    if (string_length(filtered_name) > 20)
+        filtered_name = string_copy(filtered_name, 1, 20);
     
     filtered_name = scr_string_trim_end(filtered_name);
     
