@@ -1,5 +1,5 @@
 event_user(0);
-var player = instance_find(177);
+var player = instance_find(obj_player);
 
 if (player == -4)
     exit;
