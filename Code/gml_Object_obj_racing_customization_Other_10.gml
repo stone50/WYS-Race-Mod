@@ -35,7 +35,7 @@ if (!device_mouse_check_button_released(0, mb_left))
 
 if (gui_mouse_y >= 152.5 && gui_mouse_y <= 252.5 && gui_mouse_x >= 500 && gui_mouse_x <= 700)
 {
-    var raw_name = get_string("Name (max 10 characters)", network_manager.this_racer.name);
+    var raw_name = get_string("Name (max 10 characters)", this_racer.name);
     var filtered_name = "";
     
     for (var i = 1; i <= string_length(raw_name); i++)
@@ -55,137 +55,137 @@ if (gui_mouse_y >= 152.5 && gui_mouse_y <= 252.5 && gui_mouse_x >= 500 && gui_mo
     filtered_name = scr_string_trim_end(filtered_name);
     
     if (filtered_name != "")
-        network_manager.this_racer.name = filtered_name;
+        this_racer.name = filtered_name;
 }
 else if (gui_mouse_y >= 198.25 && gui_mouse_y <= 234.25)
 {
     if (gui_mouse_x >= 762 && gui_mouse_x <= 798)
-        network_manager.this_racer.name_color = name_colors[0];
+        this_racer.name_color = name_colors[0];
     
     if (gui_mouse_x >= 802 && gui_mouse_x <= 838)
-        network_manager.this_racer.name_color = name_colors[1];
+        this_racer.name_color = name_colors[1];
     
     if (gui_mouse_x >= 842 && gui_mouse_x <= 878)
-        network_manager.this_racer.name_color = name_colors[2];
+        this_racer.name_color = name_colors[2];
     
     if (gui_mouse_x >= 882 && gui_mouse_x <= 918)
-        network_manager.this_racer.name_color = name_colors[3];
+        this_racer.name_color = name_colors[3];
 }
 else if (gui_mouse_y >= 238.25 && gui_mouse_y <= 274.25)
 {
     if (gui_mouse_x >= 762 && gui_mouse_x <= 798)
-        network_manager.this_racer.name_color = name_colors[4];
+        this_racer.name_color = name_colors[4];
     
     if (gui_mouse_x >= 802 && gui_mouse_x <= 838)
-        network_manager.this_racer.name_color = name_colors[5];
+        this_racer.name_color = name_colors[5];
     
     if (gui_mouse_x >= 842 && gui_mouse_x <= 878)
-        network_manager.this_racer.name_color = name_colors[6];
+        this_racer.name_color = name_colors[6];
     
     if (gui_mouse_x >= 882 && gui_mouse_x <= 918)
-        network_manager.this_racer.name_color = name_colors[7];
+        this_racer.name_color = name_colors[7];
 }
 else if (gui_mouse_y >= 333.25 && gui_mouse_y <= 369.25)
 {
     if (gui_mouse_x >= 522 && gui_mouse_x <= 558)
-        network_manager.this_racer.outline_color = outline_colors[0];
+        this_racer.outline_color = outline_colors[0];
     
     if (gui_mouse_x >= 562 && gui_mouse_x <= 598)
-        network_manager.this_racer.outline_color = outline_colors[1];
+        this_racer.outline_color = outline_colors[1];
     
     if (gui_mouse_x >= 602 && gui_mouse_x <= 638)
-        network_manager.this_racer.outline_color = outline_colors[2];
+        this_racer.outline_color = outline_colors[2];
     
     if (gui_mouse_x >= 642 && gui_mouse_x <= 678)
-        network_manager.this_racer.outline_color = outline_colors[3];
+        this_racer.outline_color = outline_colors[3];
     
     if (gui_mouse_x >= 762 && gui_mouse_x <= 798)
-        network_manager.this_racer.body_color = body_colors[0];
+        this_racer.body_color = body_colors[0];
     
     if (gui_mouse_x >= 802 && gui_mouse_x <= 838)
-        network_manager.this_racer.body_color = body_colors[1];
+        this_racer.body_color = body_colors[1];
     
     if (gui_mouse_x >= 842 && gui_mouse_x <= 878)
-        network_manager.this_racer.body_color = body_colors[2];
+        this_racer.body_color = body_colors[2];
     
     if (gui_mouse_x >= 882 && gui_mouse_x <= 918)
-        network_manager.this_racer.body_color = body_colors[3];
+        this_racer.body_color = body_colors[3];
 }
 else if (gui_mouse_y >= 373.25 && gui_mouse_y <= 409.25)
 {
     if (gui_mouse_x >= 522 && gui_mouse_x <= 558)
-        network_manager.this_racer.outline_color = outline_colors[4];
+        this_racer.outline_color = outline_colors[4];
     
     if (gui_mouse_x >= 562 && gui_mouse_x <= 598)
-        network_manager.this_racer.outline_color = outline_colors[5];
+        this_racer.outline_color = outline_colors[5];
     
     if (gui_mouse_x >= 602 && gui_mouse_x <= 638)
-        network_manager.this_racer.outline_color = outline_colors[6];
+        this_racer.outline_color = outline_colors[6];
     
     if (gui_mouse_x >= 642 && gui_mouse_x <= 678)
-        network_manager.this_racer.outline_color = outline_colors[7];
+        this_racer.outline_color = outline_colors[7];
     
     if (gui_mouse_x >= 762 && gui_mouse_x <= 798)
-        network_manager.this_racer.body_color = body_colors[4];
+        this_racer.body_color = body_colors[4];
     
     if (gui_mouse_x >= 802 && gui_mouse_x <= 838)
-        network_manager.this_racer.body_color = body_colors[5];
+        this_racer.body_color = body_colors[5];
     
     if (gui_mouse_x >= 842 && gui_mouse_x <= 878)
-        network_manager.this_racer.body_color = body_colors[6];
+        this_racer.body_color = body_colors[6];
     
     if (gui_mouse_x >= 882 && gui_mouse_x <= 918)
-        network_manager.this_racer.body_color = body_colors[7];
+        this_racer.body_color = body_colors[7];
 }
 else if (gui_mouse_y >= 468.25 && gui_mouse_y <= 504.25)
 {
     if (gui_mouse_x >= 522 && gui_mouse_x <= 558)
-        network_manager.this_racer.shell_color = shell_colors[0];
+        this_racer.shell_color = shell_colors[0];
     
     if (gui_mouse_x >= 562 && gui_mouse_x <= 598)
-        network_manager.this_racer.shell_color = shell_colors[1];
+        this_racer.shell_color = shell_colors[1];
     
     if (gui_mouse_x >= 602 && gui_mouse_x <= 638)
-        network_manager.this_racer.shell_color = shell_colors[2];
+        this_racer.shell_color = shell_colors[2];
     
     if (gui_mouse_x >= 642 && gui_mouse_x <= 678)
-        network_manager.this_racer.shell_color = shell_colors[3];
+        this_racer.shell_color = shell_colors[3];
     
     if (gui_mouse_x >= 762 && gui_mouse_x <= 798)
-        network_manager.this_racer.eye_color = eye_colors[0];
+        this_racer.eye_color = eye_colors[0];
     
     if (gui_mouse_x >= 802 && gui_mouse_x <= 838)
-        network_manager.this_racer.eye_color = eye_colors[1];
+        this_racer.eye_color = eye_colors[1];
     
     if (gui_mouse_x >= 842 && gui_mouse_x <= 878)
-        network_manager.this_racer.eye_color = eye_colors[2];
+        this_racer.eye_color = eye_colors[2];
     
     if (gui_mouse_x >= 882 && gui_mouse_x <= 918)
-        network_manager.this_racer.eye_color = eye_colors[3];
+        this_racer.eye_color = eye_colors[3];
 }
 else if (gui_mouse_y >= 508.25 && gui_mouse_y <= 544.25)
 {
     if (gui_mouse_x >= 522 && gui_mouse_x <= 558)
-        network_manager.this_racer.shell_color = shell_colors[4];
+        this_racer.shell_color = shell_colors[4];
     
     if (gui_mouse_x >= 562 && gui_mouse_x <= 598)
-        network_manager.this_racer.shell_color = shell_colors[5];
+        this_racer.shell_color = shell_colors[5];
     
     if (gui_mouse_x >= 602 && gui_mouse_x <= 638)
-        network_manager.this_racer.shell_color = shell_colors[6];
+        this_racer.shell_color = shell_colors[6];
     
     if (gui_mouse_x >= 642 && gui_mouse_x <= 678)
-        network_manager.this_racer.shell_color = shell_colors[7];
+        this_racer.shell_color = shell_colors[7];
     
     if (gui_mouse_x >= 762 && gui_mouse_x <= 798)
-        network_manager.this_racer.eye_color = eye_colors[4];
+        this_racer.eye_color = eye_colors[4];
     
     if (gui_mouse_x >= 802 && gui_mouse_x <= 838)
-        network_manager.this_racer.eye_color = eye_colors[5];
+        this_racer.eye_color = eye_colors[5];
     
     if (gui_mouse_x >= 842 && gui_mouse_x <= 878)
-        network_manager.this_racer.eye_color = eye_colors[6];
+        this_racer.eye_color = eye_colors[6];
     
     if (gui_mouse_x >= 882 && gui_mouse_x <= 918)
-        network_manager.this_racer.eye_color = eye_colors[7];
+        this_racer.eye_color = eye_colors[7];
 }

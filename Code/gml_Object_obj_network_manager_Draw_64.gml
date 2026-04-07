@@ -24,4 +24,8 @@ draw_set_color(c_white);
 draw_text_transformed(200, 937, "Edit Host Port", 0.7, 0.7);
 draw_set_color(c_white);
 draw_text_transformed(200, 1030, "F1 to close", 0.5, 0.5, 0);
-draw_sprite_ext(spr_hat_unicorn, 0, gui_mouse_x + 46, gui_mouse_y + 44, 2, 2, device_mouse_check_button(0, mb_left) ? 110 : 90, c_white, 1);
+
+if (device_mouse_check_button(0, mb_left))
+    draw_sprite_ext(spr_hat_unicorn, 0, gui_mouse_x + 35, gui_mouse_y + 33, 1.5, 1.5, 90, c_gray, 1);
+else
+    draw_sprite_ext(spr_hat_unicorn, 0, gui_mouse_x + 46, gui_mouse_y + 44, 2, 2, 90, c_white, 1);

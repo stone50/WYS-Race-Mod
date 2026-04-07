@@ -1,7 +1,7 @@
 visible = false;
 persistent = true;
 depth = -1;
-network_manager = instance_find(obj_network_manager);
+this_racer = instance_find(obj_network_manager).this_racer;
 other_racers_alpha = 0.5;
 other_racer_names_alpha = 0.5;
 other_racer_names_scale = 0.5;
