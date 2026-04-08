@@ -39,8 +39,4 @@ draw_color_grid(600, 506.25, shell_colors);
 draw_text_transformed(840, 438.75, "Eye\nColor", 0.5, 0.5, 0);
 draw_color_grid(840, 506.25, eye_colors);
 draw_text_transformed(480, 580, "F2 to close", 0.5, 0.5, 0);
-
-if (device_mouse_check_button(0, mb_left))
-    draw_sprite_ext(spr_hat_unicorn, 0, gui_mouse_x + 35, gui_mouse_y + 33, 1.5, 1.5, 90, c_gray, 1);
-else
-    draw_sprite_ext(spr_hat_unicorn, 0, gui_mouse_x + 46, gui_mouse_y + 44, 2, 2, 90, c_white, 1);
+scr_draw_mouse();
