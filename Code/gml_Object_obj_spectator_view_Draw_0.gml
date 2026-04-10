@@ -1,95 +1,46 @@
-draw_level([spr_A01__0_0, spr_A01__1_0], [[0, 0], [1, 0]], 0);
-draw_level([spr_A01_1__0_0, spr_A01_1__1_0], [[0, 0], [1, 0]], 1);
-draw_level([spr_A02__0_0, spr_A02__0_1], [[0, 0], [0, 1]], 2);
-draw_level([spr_A03__0_0, spr_A03__1_0], [[0, 0], [1, 0]], 4);
-draw_level([spr_A04__0_0, spr_A04__1_0, spr_A04__2_0], [[0, 0], [1, 0], [2, 0]], 6);
-draw_level([spr_A05__0_0, spr_A05__1_0, spr_A05__2_0], [[0, 0], [1, 0], [2, 0]], 7);
-draw_level([spr_A06__0_0], [[0, 0]], 8);
-draw_level([spr_A07__0_0, spr_A07__1_0], [[0, 0], [1, 0]], 9);
-draw_level([spr_A08__0_0], [[0, 0]], 10);
-draw_level([spr_A09__0_0, spr_A09__1_0], [[0, 0], [1, 0]], 11);
-draw_level([spr_A10__0_0, spr_A10__1_0], [[0, 0], [1, 0]], 12);
-draw_level([spr_A11__0_0, spr_A11__1_0], [[0, 0], [1, 0]], 15);
-draw_level([spr_A12__0_0, spr_A12__1_0], [[0, 0], [1, 0]], 16);
-draw_level([spr_A13__0_0], [[0, 0]], 17);
-draw_level([spr_A14__0_0, spr_A14__1_0], [[0, 0], [1, 0]], 18);
-draw_level([spr_A15__0_0], [[0, 0]], 20);
-draw_level([spr_A16__0_0], [[0, 0]], 21);
-draw_level([spr_A17__0_0], [[0, 0]], 22);
-draw_level([spr_A18__0_0], [[0, 0]], 23);
-draw_level([spr_A19__0_0], [[0, 0]], 24);
-draw_level([spr_A20__0_0], [[0, 0]], 25);
-draw_level([spr_A21__0_0], [[0, 0]], 26);
-draw_level([spr_B01__0_0, spr_B01__1_0], [[0, 0], [1, 0]], 27);
-draw_level([spr_B02__0_0, spr_B02__1_0], [[0, 0], [1, 0]], 28);
-draw_level([spr_B04__0_0, spr_B04__1_0], [[0, 0], [1, 0]], 31);
-draw_level([spr_B05__0_0, spr_B05__1_0], [[0, 0], [1, 0]], 36);
-draw_level([spr_B06__0_0, spr_B06__0_1], [[0, 0], [0, 1]], 37);
-draw_level([spr_B07__0_0, spr_B07__1_0], [[0, 0], [1, 0]], 38);
-draw_level([spr_B08__0_0, spr_B08__1_0], [[0, 0], [1, 0]], 39);
-draw_level([spr_B09__0_0, spr_B09__0_1], [[0, 0], [0, 1]], 40);
-draw_level([spr_B10__0_0], [[0, 0]], 41);
-draw_level([spr_B11__0_0, spr_B11__1_0], [[0, 0], [1, 0]], 42);
-draw_level([spr_B12__0_0, spr_B12__0_1], [[0, 0], [0, 1]], 43);
-draw_level([spr_B13__0_0, spr_B13__1_0, spr_B13__2_0], [[0, 0], [1, 0], [2, 0]], 44);
-draw_level([spr_B14__0_0], [[0, 0]], 45);
-draw_level([spr_B15__0_0], [[0, 0]], 46);
-draw_level([spr_B16__0_0, spr_B16__1_0], [[0, 0], [1, 0]], 47);
-draw_level([spr_B17__0_0], [[0, 0]], 48);
-draw_level([spr_B18__0_0], [[0, 0]], 49);
-draw_level([spr_B19__0_0], [[0, 0]], 50);
-draw_level([spr_C01__0_0, spr_C01__1_0], [[0, 0], [1, 0]], 51);
-draw_level([spr_C04__0_0, spr_C04__1_0], [[0, 0], [1, 0]], 55);
-draw_level([spr_C05__0_0, spr_C05__0_1], [[0, 0], [0, 1]], 56);
-draw_level([spr_C06__0_0], [[0, 0]], 57);
-draw_level([spr_C07__0_0, spr_C07__1_0], [[0, 0], [1, 0]], 58);
-draw_level([spr_C08__0_0, spr_C08__1_0], [[0, 0], [1, 0]], 59);
-draw_level([spr_C09__0_0], [[0, 0]], 60);
-draw_level([spr_C10__0_0], [[0, 0]], 61);
-draw_level([spr_C11__0_0, spr_C11__1_0], [[0, 0], [1, 0]], 62);
-draw_level([spr_C12__0_0], [[0, 0]], 63);
-draw_level([spr_C13__0_0, spr_C13__1_0], [[0, 0], [1, 0]], 64);
-draw_level([spr_C14__0_0, spr_C14__1_0], [[0, 0], [1, 0]], 66);
-draw_level([spr_C15__0_0], [[0, 0]], 67);
-draw_level([spr_C16__0_0, spr_C16__1_0], [[0, 0], [1, 0]], 68);
-draw_level([spr_C17__0_0, spr_C17__0_1], [[0, 0], [0, 1]], 69);
-draw_level([spr_C18__0_0, spr_C18__0_1], [[0, 0], [0, 1]], 70);
-draw_level([spr_C19__0_0, spr_C19__1_0], [[0, 0], [1, 0]], 71);
-draw_level([spr_C20__0_0, spr_C20__1_0], [[0, 0], [1, 0]], 72);
-draw_level([spr_C21__0_0, spr_C21__1_0, spr_C21__2_0], [[0, 0], [1, 0], [2, 0]], 73);
-draw_level([spr_C22__0_0], [[0, 0]], 74);
-draw_level([spr_D01__0_0, spr_D01__1_0], [[0, 0], [1, 0]], 75);
-draw_level([spr_D05__0_0, spr_D05__1_0], [[0, 0], [1, 0]], 80);
-draw_level([spr_D06__0_0], [[0, 0]], 83);
-draw_level([spr_D07__0_0], [[0, 0]], 89);
-draw_level([spr_D08__0_0], [[0, 0]], 90);
-draw_level([spr_D09__0_0, spr_D09__1_0], [[0, 0], [1, 0]], 91);
-draw_level([spr_D10__0_0, spr_D10__1_0], [[0, 0], [1, 0]], 92);
-draw_level([spr_D11__0_0], [[0, 0]], 94);
-draw_level([spr_D12__0_0, spr_D12__1_0], [[0, 0], [1, 0]], 95);
-draw_level([spr_D13__0_0, spr_D13__0_1], [[0, 0], [0, 1]], 96);
-draw_level([spr_D14__0_0], [[0, 0]], 97);
-draw_level([spr_D15__0_0], [[0, 0]], 98);
-draw_level([spr_D16__0_0], [[0, 0]], 99);
-draw_level([spr_D17__0_0], [[0, 0]], 100);
-draw_level([spr_D18__0_0, spr_D18__0_1], [[0, 0], [0, 1]], 101);
-draw_level([spr_D19__0_0], [[0, 0]], 102);
-draw_level([spr_D20__0_0], [[0, 0]], 103);
-draw_level([spr_E01__0_0, spr_E01__1_0], [[0, 0], [1, 0]], 104);
-draw_level([spr_E02__0_0, spr_E02__1_0], [[0, 0], [1, 0]], 105);
-draw_level([spr_E05__0_0, spr_E05__1_0, spr_E05__2_0, spr_E05__3_0, spr_E05__4_0], [[0, 0], [1, 0], [2, 0], [3, 0], [4, 0]], 109);
-draw_level([spr_E06__0_0, spr_E06__1_0, spr_E06__2_0, spr_E06__3_0, spr_E06__4_0, spr_E06__5_0, spr_E06__6_0, spr_E06__7_0], [[0, 0], [1, 0], [2, 0], [3, 0], [4, 0], [5, 0], [6, 0], [7, 0]], 110);
-draw_level([spr_E07__0_0], [[0, 0]], 112);
-draw_level([spr_E08__0_0, spr_E08__0_1, spr_E08__0_2], [[0, 0], [0, 1], [0, 2]], 113);
-draw_level([spr_E09__0_0], [[0, 0]], 114);
-draw_level([spr_E10__0_0], [[0, 0]], 115);
-draw_level([spr_E11__0_0, spr_E11__1_0], [[0, 0], [1, 0]], 116);
-draw_level([spr_E12__0_0, spr_E12__1_0], [[0, 0], [1, 0]], 117);
-draw_level([spr_E13__0_0, spr_E13__1_0], [[0, 0], [1, 0]], 118);
-draw_level([spr_E14__0_0, spr_E14__1_0], [[0, 0], [1, 0]], 119);
-draw_level([spr_E15__0_0], [[0, 0]], 120);
-draw_level([spr_E16__0_0, spr_E16__1_0], [[0, 0], [1, 0]], 123);
-draw_level([spr_E17__0_0, spr_E17__1_0], [[0, 0], [1, 0]], 124);
-draw_level([spr_E18__0_0, spr_E18__1_0], [[0, 0], [1, 0]], 125);
-draw_level([spr_E19__0_0, spr_E19__1_0, spr_E19__2_0, spr_E19__3_0, spr_E19__4_0, spr_E19__5_0], [[0, 0], [1, 0], [2, 0], [3, 0], [4, 0], [5, 0]], 126);
+draw_set_valign(fa_top);
+var did_prefetch_this_frame = false;
+var top_left_visible_limit = -2048 * scale;
+
+for (var i = 0; i < 170; i++)
+{
+    var level_index = level_indices[i];
+    var level_offset = scr_get_level_offset(level_index);
+    var grid_offset = grid_offsets[i];
+    var grid_x_offset = grid_offset[0];
+    var grid_y_offset = grid_offset[1];
+    var level_x = get_transformed_x(level_offset[0] + (2048 * grid_x_offset));
+    var level_y = get_transformed_y(level_offset[1] + (2048 * grid_y_offset));
+    
+    if (level_x < top_left_visible_limit || level_x > 1920 || level_y < top_left_visible_limit || level_y > 1080)
+        continue;
+    
+    var sprite = sprites[i];
+    
+    if (!prefetched_flags[i])
+    {
+        if (did_prefetch_this_frame)
+        {
+            continue;
+        }
+        else
+        {
+            sprite_prefetch(sprite);
+            prefetched_flags[i] = true;
+            did_prefetch_this_frame = true;
+        }
+    }
+    
+    draw_sprite_ext(sprite, 0, level_x, level_y, scale, scale, 0, c_white, 1);
+    
+    if (grid_x_offset == 0 && grid_y_offset == 0)
+    {
+        var level_name = ds_list_find_value(global.li_lvldat_name, level_index);
+        draw_set_color(c_black);
+        draw_text_transformed(level_x + (3 * scale), level_y + (3 * scale), level_name, scale, scale, 0);
+        draw_set_color(c_fuchsia);
+        draw_text_transformed(level_x, level_y, level_name, scale, scale, 0);
+    }
+}
+
 scr_draw_mouse();
