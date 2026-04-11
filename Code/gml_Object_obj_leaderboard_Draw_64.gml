@@ -16,6 +16,7 @@ draw_rectangle(1920 - (891 * scale), 0, 1920, num_all_racers * 33 * scale, false
 draw_set_alpha(1);
 draw_set_halign(fa_right);
 draw_set_valign(fa_top);
+draw_set_font(font_aiTalk);
 var text_alpha = racing_customization.leaderboard_text_alpha;
 
 for (var i = 0; i < num_all_racers; i++)
