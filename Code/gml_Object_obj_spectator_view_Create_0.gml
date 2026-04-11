@@ -9,6 +9,7 @@ sprites = data.sprites;
 grid_offsets = data.grid_offsets;
 level_indices = data.level_indices;
 prefetched_flags = data.prefetched_flags;
+menu_main = instance_find(obj_menu_MAIN);
 
 function get_transformed_x(arg0)
 {
