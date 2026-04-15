@@ -31,7 +31,7 @@ if (gui_mouse_y >= 610 && gui_mouse_y <= 660)
     {
         var port = is_host ? host_port : 0;
         var num_max_connections = is_host ? 16 : 1;
-        server = network_create_server(1, port, num_max_connections);
+        server = network_create_server_raw(1, port, num_max_connections);
         is_connected = true;
     }
 }

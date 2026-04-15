@@ -65,7 +65,7 @@ for (var i = 0; i < num_other_racers; i++)
     
     buffer_write(buffer, buffer_u8, other_racer.placement);
     buffer_write(buffer, buffer_f32, other_racer.diff_to_first);
-    network_send_udp(server, other_racer.ip, other_racer.port, buffer, buffer_tell(buffer));
+    network_send_udp_raw(server, other_racer.ip, other_racer.port, buffer, buffer_tell(buffer));
 }
 
 if (send_metadata_cooldown >= 180)
@@ -88,7 +88,7 @@ if (send_metadata_cooldown >= 180)
             buffer_write(buffer, buffer_u32, other_other_racer.eye_color);
         }
         
-        network_send_udp(server, other_racer.ip, other_racer.port, buffer, buffer_tell(buffer));
+        network_send_udp_raw(server, other_racer.ip, other_racer.port, buffer, buffer_tell(buffer));
     }
     
     send_metadata_cooldown = 0;

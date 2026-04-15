@@ -36,4 +36,4 @@ if (should_send_metadata)
     send_metadata_cooldown = 0;
 }
 
-network_send_udp(server, host_ip, host_port, buffer, buffer_tell(buffer));
+network_send_udp_raw(server, host_ip, host_port, buffer, buffer_tell(buffer));
