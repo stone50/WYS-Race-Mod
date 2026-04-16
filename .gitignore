@@ -1,1 +1,6 @@
 game files/
+.vs/
+bin/
+obj/
+*.csproj.user
+*.pubxml.user
