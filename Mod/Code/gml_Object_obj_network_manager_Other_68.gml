@@ -9,6 +9,6 @@ if (type != 3)
 latest_packet_time = current_time;
 
 if (is_host)
-    event_user(3);
+    event_user(2);
 else
-    event_user(4);
+    event_user(3);
