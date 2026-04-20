@@ -6,16 +6,6 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<PublishAot>true</PublishAot>
-		<OptimizationPreference>Speed</OptimizationPreference>
-		<StackTraceSupport>false</StackTraceSupport>
-		<InvariantGlobalization>true</InvariantGlobalization>
-		<ServerGarbageCollection>false</ServerGarbageCollection>
-		<ConcurrentGarbageCollection>true</ConcurrentGarbageCollection>
 	</PropertyGroup>
-
-	<ItemGroup>
-		<RuntimeHostConfigurationOption Include="System.GC.RetainVM" Value="true" />
-		<RuntimeHostConfigurationOption Include="System.Threading.ThreadPool.MinThreads" Value="4" />
-	</ItemGroup>
 
 </Project>

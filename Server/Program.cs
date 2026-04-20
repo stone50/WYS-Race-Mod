@@ -1,6 +1,4 @@
 ﻿namespace Server {
-    using System.Buffers;
-    using System.Buffers.Binary;
     using System.Collections.Concurrent;
     using System.Net;
     using System.Net.Sockets;
@@ -9,38 +7,61 @@
     internal class Program {
         private static readonly UdpClient Client = new();
         private static readonly ConcurrentQueue<Packet> PacketQueue = new();
-        private static readonly List<Racer> Racers = new(Constants.NumMaxConnections);
-        private static DateTime LastMetadataPacketsSentDate = DateTime.UtcNow;
-        private static readonly byte[] PacketBuffer = new byte[Constants.NumMaxPacketBytes];
-        private static readonly List<Racer> SortedRacers = new(Constants.NumMaxConnections);
-        private static readonly byte[] DefaultMetadataBlock = [
-            80, 108, 97, 121, 101, 114, 0,  // "Player" + null char
-            255, 255, 255, 0,               // name_color (RGBA)
-            18, 20, 66, 0,                  // outline_color (RGBA)
-            60, 92, 153, 0,                 // body_color (RGBA)
-            70, 108, 178, 0,                // shell_color (RGBA)
-            183, 184, 229, 0                // eye_color (RGBA)
-        ];
+        private static readonly List<Racer> Racers = new(Constants.NumMaxRacers);
+        private static DateTime LastMetaDataPacketSentDate = DateTime.UtcNow;
+        private static readonly CancellationTokenSource CancellationTokenSource = new();
 
         private static async Task Main(string[] args) {
-            Client.Client.Bind(new IPEndPoint(IPAddress.Any, args.Length > 0 && int.TryParse(args[0], out var port) ? port : Constants.DefaultPort));
+            Console.CancelKeyPress += (s, e) => {
+                e.Cancel = true;
+                CancellationTokenSource.Cancel();
+            };
+
+            if (args.Length == 0 || !int.TryParse(args[0], out var port)) {
+                port = Constants.DefaultPort;
+            }
+
+            Client.Client.Bind(new IPEndPoint(IPAddress.Any, port));
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) {
+                _ = NativeMethods.TimeBeginPeriod(1);
+            }
+
             _ = Task.Run(ContinuouslyReceivePackets);
-            await ContinuouslySendPacketsAsync();
+            try {
+                await ContinuouslySendPacketsAsync(CancellationTokenSource.Token);
+            } finally {
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) {
+                    _ = NativeMethods.TimeEndPeriod(1);
+                }
+            }
         }
 
         private static void ContinuouslyReceivePackets() {
             while (true) {
                 var endpoint = new IPEndPoint(IPAddress.Any, 0);
-                var data = Client.Receive(ref endpoint);
-                if (data.Length > Constants.MetadataOffset && data.Length <= Constants.NumMaxPacketBytes && PacketQueue.Count < Constants.MaxPacketQueueSize) {
-                    PacketQueue.Enqueue(new(endpoint, data));
+                byte[] data;
+                try {
+                    data = Client.Receive(ref endpoint);
+                } catch {
+                    continue;
                 }
+
+                if (
+                    data.Length < Constants.NumMinPacketDataBytes ||
+                    data.Length > Constants.NumMaxPacketDataBytes ||
+                    PacketQueue.Count > Constants.NumMaxPackets
+                ) {
+                    continue;
+                }
+
+                PacketQueue.Enqueue(new(endpoint, data));
             }
         }
 
-        private static async Task ContinuouslySendPacketsAsync() {
-            var timer = new PeriodicTimer(TimeSpan.FromSeconds(Constants.TickRateSeconds));
-            while (await timer.WaitForNextTickAsync()) {
+        private static async Task ContinuouslySendPacketsAsync(CancellationToken cancellationToken) {
+            var timer = new PeriodicTimer(TimeSpan.FromSeconds(Constants.RegularDataTickRateSeconds));
+            while (!cancellationToken.IsCancellationRequested && await timer.WaitForNextTickAsync(cancellationToken)) {
                 ProcessPacketQueue();
                 FilterRacers();
                 if (Racers.Count == 0) {
@@ -50,141 +71,131 @@
 
                 CalculateLeaderboardData();
                 SendRegularPackets();
-                if ((DateTime.UtcNow - LastMetadataPacketsSentDate).TotalSeconds > Constants.MetadataSendTimeoutSeconds) {
-                    SendMetadataPackets();
+                if ((DateTime.UtcNow - LastMetaDataPacketSentDate).TotalSeconds > Constants.MetaDataTickRateSeconds) {
+                    SendMetaDataPackets();
+                    GC.Collect();
                 }
             }
         }
 
         private static void ProcessPacketQueue() {
-            for (var numPacketsToProcess = PacketQueue.Count; numPacketsToProcess > 0; numPacketsToProcess--) {
+            for (var packetCount = PacketQueue.Count; packetCount > 0; packetCount--) {
                 _ = PacketQueue.TryDequeue(out var packet);
-                var racerExists = false;
-                var racerSpan = CollectionsMarshal.AsSpan(Racers);
-                for (var i = 0; i < racerSpan.Length; i++) {
-                    var racer = racerSpan[i];
-                    if (racer.Endpoint.Equals(packet!.Endpoint)) {
-                        racerExists = true;
-                        switch (packet.Data[0]) {
-                            case Constants.RegularPacketType:
-                                Buffer.BlockCopy(packet.Data, 1, racer.Data, 0, Constants.MetadataOffset);
-                                break;
-                            case Constants.MetadataPacketType:
-                                Buffer.BlockCopy(packet.Data, 1, racer.Data, 0, packet.Data.Length - 1);
-                                break;
-                        }
-
-                        racer.LastPacketReceivedDate = packet.ReveivedDate;
+                Racer? matchingRacer = null;
+                foreach (var racer in Racers) {
+                    if (racer.IPEndPoint.Equals(packet!.IPEndPoint)) {
+                        matchingRacer = racer;
                         break;
                     }
                 }
 
-                if (racerExists || Racers.Count >= Constants.NumMaxConnections) {
-                    continue;
+                if (matchingRacer == null) {
+                    matchingRacer = new Racer(packet!.IPEndPoint);
+                    Racers.Add(matchingRacer);
                 }
 
-                var numDataBytes = packet!.Data.Length - 1;
-                byte[] data;
-                switch (packet.Data[0]) {
-                    case Constants.RegularPacketType:
-                        data = new byte[numDataBytes + DefaultMetadataBlock.Length];
-                        packet.Data.AsSpan(1).CopyTo(data.AsSpan());
-                        DefaultMetadataBlock.CopyTo(data.AsSpan(numDataBytes));
-                        break;
-                    case Constants.MetadataPacketType:
-                        data = new byte[numDataBytes];
-                        packet.Data.AsSpan(1).CopyTo(data.AsSpan());
-                        break;
-                    default:
-                        return;
-                }
-
-                Racers.Add(new(packet!.Endpoint, data));
+                matchingRacer.ProcessPacket(packet!);
             }
         }
 
         private static void FilterRacers() {
             for (var i = Racers.Count - 1; i >= 0; i--) {
-                if ((DateTime.UtcNow - Racers[i].LastPacketReceivedDate).TotalSeconds >= Constants.DisconnectTimeoutSeconds) {
+                var racer = Racers[i];
+                if ((DateTime.UtcNow - racer.LastPacketReceivedDate).TotalSeconds > Constants.DisconnectTimeoutSeconds) {
                     Racers.RemoveAt(i);
                 }
             }
         }
 
-        private static void SendRegularPackets() {
-            var racerSpan = CollectionsMarshal.AsSpan(Racers);
-            PacketBuffer[0] = Constants.RegularPacketType;
-            PacketBuffer[1] = (byte)(racerSpan.Length - 1);
-            int offset;
-            for (var i = 0; i < racerSpan.Length; i++) {
-                var racer = racerSpan[i];
-                offset = 2;
-                for (var ii = 0; ii < racerSpan.Length; ii++) {
-                    if (i == ii) {
-                        continue;
-                    }
-
-                    var otherRacer = racerSpan[ii];
-                    Buffer.BlockCopy(otherRacer.Data, 0, PacketBuffer, offset, Constants.CheckpointOffset);
-                    offset += Constants.CheckpointOffset;
-                    PacketBuffer[offset++] = otherRacer.GetFurthestCheckpoint();
-                    PacketBuffer[offset++] = otherRacer.Placement;
-                    Buffer.BlockCopy(otherRacer.DiffToFirst, 0, PacketBuffer, offset, sizeof(float));
-                    offset += sizeof(float);
-                }
-
-                PacketBuffer[offset++] = racer.Placement;
-                Buffer.BlockCopy(racer.DiffToFirst, 0, PacketBuffer, offset, sizeof(float));
-                offset += sizeof(float);
-                _ = Client.Send(PacketBuffer, offset, racer.Endpoint);
-            }
-        }
-
         private static void CalculateLeaderboardData() {
-            SortedRacers.Clear();
-            SortedRacers.AddRange(Racers);
-            SortedRacers.Sort(CompareRacers);
-            var racerSpan = CollectionsMarshal.AsSpan(SortedRacers);
-            for (var i = 0; i < racerSpan.Length; i++) {
-                var racer = racerSpan[i];
-                var furthestCheckpoint = racer.GetFurthestCheckpoint();
-                racer.Placement = (byte)i;
-                var diffToFirst = (furthestCheckpoint == Constants.NumCheckpoints - 1) ? racer.GetCheckpointAt(Constants.NumCheckpoints - 1) : (racer.GetCheckpointAt(furthestCheckpoint) - racerSpan[0].GetCheckpointAt(furthestCheckpoint));
-                BinaryPrimitives.WriteSingleLittleEndian(racer.DiffToFirst, diffToFirst);
+            var sortedRacers = new List<Racer>(Racers);
+            sortedRacers.Sort((a, b) => a.GetFurthestCheckpoint() > b.GetFurthestCheckpoint()
+                    ? -1
+                    : b.GetFurthestCheckpoint() > a.GetFurthestCheckpoint()
+                        ? 1
+                        : MathF.Sign(a.GetCheckpointTimeAt(a.GetFurthestCheckpoint()) - b.GetCheckpointTimeAt(b.GetFurthestCheckpoint())));
+
+            for (var i = 0; i < sortedRacers.Count; i++) {
+                var racer = sortedRacers[i];
+                racer.SetPlacement((byte)i);
+                var racerFurthestCheckpoint = racer.GetFurthestCheckpoint();
+                if (racerFurthestCheckpoint == Constants.NumCheckpoints - 1) {
+                    racer.SetDiffToFirst(racer.GetCheckpointTimeAt(Constants.NumCheckpoints - 1));
+                } else {
+                    racer.SetDiffToFirst(sortedRacers[0].GetCheckpointTimeAt(racerFurthestCheckpoint) - racer.GetCheckpointTimeAt(racerFurthestCheckpoint));
+                }
             }
         }
 
-        private static int CompareRacers(Racer a, Racer b) {
-            var aFurthestCheckpoint = a.GetFurthestCheckpoint();
-            var bFurthestCheckpoint = b.GetFurthestCheckpoint();
-            return aFurthestCheckpoint == bFurthestCheckpoint
-                ? a.GetCheckpointAt(aFurthestCheckpoint).CompareTo(b.GetCheckpointAt(bFurthestCheckpoint))
-                : bFurthestCheckpoint.CompareTo(aFurthestCheckpoint);
-        }
-
-        private static void SendMetadataPackets() {
-            var racerSpan = CollectionsMarshal.AsSpan(Racers);
-            PacketBuffer[0] = Constants.MetadataPacketType;
-            PacketBuffer[1] = (byte)(Racers.Count - 1);
-            int offset;
-            for (var i = 0; i < racerSpan.Length; i++) {
-                var racer = racerSpan[i];
-                offset = 2;
-                for (var ii = 0; ii < racerSpan.Length; ii++) {
+        private static void SendRegularPackets() {
+            var numOtherRacers = Racers.Count - 1;
+            var numRegularPacketBytes =
+                sizeof(byte) +  // packet_type
+                sizeof(byte) +  // num_other_racers
+                (
+                    Constants.CheckpointRacerDataOffset +
+                    sizeof(byte) +  // furthest_checkpoint
+                    sizeof(byte) +  // placement
+                    sizeof(float)   // diff_to_first
+                ) * numOtherRacers +
+                sizeof(byte) +  // placement
+                sizeof(float);  // diff_to_first
+            for (var i = 0; i < Racers.Count; i++) {
+                var packet = new byte[numRegularPacketBytes];
+                packet[0] = Constants.RegularPacketType;
+                packet[1] = (byte)numOtherRacers;
+                var offset = 2;
+                for (var ii = 0; ii < Racers.Count; ii++) {
                     if (i == ii) {
                         continue;
                     }
 
-                    var otherRacer = racerSpan[ii];
-                    var count = otherRacer.Data.Length - Constants.MetadataOffset;
-                    Buffer.BlockCopy(otherRacer.Data, Constants.MetadataOffset, PacketBuffer, offset, count);
-                    offset += count;
+                    var otherRacer = Racers[ii];
+                    otherRacer.Data.AsSpan(0, Constants.CheckpointRacerDataOffset).CopyTo(packet.AsSpan(offset));
+                    offset += Constants.CheckpointRacerDataOffset;
+                    otherRacer.Data.AsSpan(Constants.FurthestCheckpointRacerDataOffset, Constants.NumPastCheckpointsRacerOutboundPacketDataBytes).CopyTo(packet.AsSpan(offset));
+                    offset += Constants.NumPastCheckpointsRacerOutboundPacketDataBytes;
                 }
 
-                _ = Client.Send(PacketBuffer, offset, racer.Endpoint);
+                var racer = Racers[i];
+                racer.Data.AsSpan(Constants.PlacementRacerDataOffset, sizeof(byte) + sizeof(float)).CopyTo(packet.AsSpan(offset));
+                _ = Client.Send(packet, racer.IPEndPoint);
+            }
+        }
+
+        private static void SendMetaDataPackets() {
+            var numOtherRacers = Racers.Count - 1;
+            var numMaxMetaDataPacketBytes =
+                sizeof(byte) +  // packet_type
+                sizeof(byte) +  // num_other_racers
+                (
+                    Constants.NumMaxNameChars +
+                    sizeof(uint) +  // name_color
+                    sizeof(uint) +  // outline_color
+                    sizeof(uint) +  // body_color
+                    sizeof(uint) +  // shell_color
+                    sizeof(uint)    // eye_color
+                ) * numOtherRacers;
+            for (var i = 0; i < Racers.Count; i++) {
+                var packet = new byte[numMaxMetaDataPacketBytes];
+                packet[0] = Constants.MetaDataPacketType;
+                packet[1] = (byte)numOtherRacers;
+                var offset = 2;
+                for (var ii = 0; ii < Racers.Count; ii++) {
+                    if (i == ii) {
+                        continue;
+                    }
+
+                    var otherRacer = Racers[ii];
+                    var numBytesToCopy = otherRacer.NumDataBytes - Constants.NameRacerDataOffset;
+                    otherRacer.Data.AsSpan(Constants.NameRacerDataOffset, numBytesToCopy).CopyTo(packet.AsSpan(offset));
+                    offset += numBytesToCopy;
+                }
+
+                _ = Client.Send(packet, offset, Racers[i].IPEndPoint);
             }
 
-            LastMetadataPacketsSentDate = DateTime.UtcNow;
+            LastMetaDataPacketSentDate = DateTime.UtcNow;
         }
     }
 }
