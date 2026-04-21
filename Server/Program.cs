@@ -159,7 +159,11 @@
 
                 var racer = Racers[i];
                 racer.Data.AsSpan(Constants.PlacementRacerDataOffset, sizeof(byte) + sizeof(float)).CopyTo(packet.AsSpan(offset));
-                _ = Client.Send(packet, racer.IPEndPoint);
+                try {
+                    _ = Client.Send(packet, racer.IPEndPoint);
+                } catch {
+                    continue;
+                }
             }
         }
 
@@ -192,7 +196,11 @@
                     offset += numBytesToCopy;
                 }
 
-                _ = Client.Send(packet, offset, Racers[i].IPEndPoint);
+                try {
+                    _ = Client.Send(packet, offset, Racers[i].IPEndPoint);
+                } catch {
+                    continue;
+                }
             }
 
             LastMetaDataPacketSentDate = DateTime.UtcNow;
