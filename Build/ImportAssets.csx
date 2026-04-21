@@ -5,8 +5,14 @@ using UndertaleModLib.Compiler;
 using UndertaleModLib.Models;
 using UndertaleModLib.Util;
 
+var scriptDir = Path.GetDirectoryName(ScriptPath);
+
+string GetFullPath(string relativePath) {
+    return Path.GetFullPath(Path.Combine(scriptDir, relativePath));
+}
+
 Console.WriteLine("\timporting sprites");
-foreach (var file in Directory.GetFiles("../Mod/Sprites", "*.png")) {
+foreach (var file in Directory.GetFiles(GetFullPath("../Mod/Sprites"), "*.png")) {
     var spriteName = Path.GetFileNameWithoutExtension(file);
     var texture = new UndertaleEmbeddedTexture() {
         Name = Data.Strings.MakeString("tex_" + spriteName)
@@ -101,7 +107,7 @@ AddNewInstance(spectatorView, "menu", "Spots");
 
 Console.WriteLine("\timporting code");
 var compilerGroup = new CompileGroup(Data);
-foreach (var file in Directory.GetFiles("../Mod/Code", "*.gml")) {
+foreach (var file in Directory.GetFiles(GetFullPath("../Mod/Code"), "*.gml")) {
     var entryName = Path.GetFileNameWithoutExtension(file);
     var gmlCode = File.ReadAllText(file);
     var code = Data.Code.ByName(entryName);
