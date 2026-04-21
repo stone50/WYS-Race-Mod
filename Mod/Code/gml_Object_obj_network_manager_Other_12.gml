@@ -1,5 +1,6 @@
 var data_buffer = ds_map_find_value(async_load, "buffer");
 var other_racer_ip = string(ds_map_find_value(async_load, "ip"));
+var other_racer_port = ds_map_find_value(async_load, "port");
 var num_other_racers = ds_list_size(other_racers);
 var other_racer = -4;
 
@@ -7,7 +8,7 @@ for (var i = 0; i < num_other_racers; i++)
 {
     var searching_other_racer = ds_list_find_value(other_racers, i);
     
-    if (searching_other_racer.ip == other_racer_ip)
+    if (searching_other_racer.ip == other_racer_ip && searching_other_racer.port == other_racer_port)
     {
         other_racer = searching_other_racer;
         break;
@@ -28,7 +29,7 @@ if (other_racer == -4)
         shell_color: make_color_rgb(70, 108, 178),
         eye_color: make_color_rgb(183, 184, 229),
         ip: other_racer_ip,
-        port: ds_map_find_value(async_load, "port")
+        port: other_racer_port
     };
     ds_list_add(other_racers, other_racer);
     num_other_racers++;
