@@ -1,4 +1,6 @@
 Game/
+Build/Output/
+Build/Tools/
 .vs/
 bin/
 obj/
