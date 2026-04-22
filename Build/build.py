@@ -32,11 +32,11 @@ def build_mod(game_version):
     print(f"building mod for {game_version}")
     log_path = get_path(f"./Logs/{game_version}.log")
 
-    input_win = get_path(f"../Game/{game_version}/data.win")
+    input_win = get_path(f"./Game/{game_version}/data.win")
     output_win = get_path(f"./Output/{game_version}.win")
 
     umt_cmd = [
-        get_path("./Tools/UndertaleModCli.exe"),
+        get_path("./Tools/UndertaleModCli/UndertaleModCli.exe"),
         "load", input_win,
         "-s", get_path("./ImportAssets.csx"),
         "-o", output_win
@@ -44,7 +44,7 @@ def build_mod(game_version):
 
     patch_path = get_path(f"./Output/{game_version}.xdelta")
     xdelta_cmd = [
-        get_path("./Tools/xdelta3.exe"), "-f", "-e", "-s", input_win, output_win, patch_path
+        get_path("./Tools/xdelta3/xdelta3.exe"), "-f", "-e", "-s", input_win, output_win, patch_path
     ]
 
     with open(log_path, "w") as f:
