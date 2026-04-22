@@ -31,9 +31,10 @@
                 _ = NativeMethods.TimeBeginPeriod(1);
             }
 
-            _ = Task.Run(ContinuouslyReceivePackets);
+            _ = Task.Run(() => ContinuouslyReceivePackets(CancellationTokenSource.Token));
             try {
                 await ContinuouslySendPacketsAsync(CancellationTokenSource.Token);
+            } catch (OperationCanceledException) {
             } finally {
                 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) {
                     _ = NativeMethods.TimeEndPeriod(1);
@@ -41,8 +42,8 @@
             }
         }
 
-        private static void ContinuouslyReceivePackets() {
-            while (true) {
+        private static void ContinuouslyReceivePackets(CancellationToken cancellationToken) {
+            while (!cancellationToken.IsCancellationRequested) {
                 var endpoint = new IPEndPoint(IPAddress.Any, 0);
                 byte[] data;
                 try {
@@ -69,7 +70,7 @@
                 ProcessPacketQueue();
                 FilterRacers();
                 if (Racers.Count == 0) {
-                    Thread.Sleep(Constants.EmptyServerSleepMillis);
+                    await Task.Delay(Constants.EmptyServerSleepMillis, cancellationToken);
                     continue;
                 }
 
