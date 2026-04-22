@@ -9,7 +9,7 @@ if [ ! -d "$script_dir/Game" ]; then
 fi
 
 if command -v python3 &>/dev/null; then
-    if python3 --version 2>$null | grep -qE "Python 3\.(1[0-9]|[2-9][0-9])"; then
+    if python3 --version 2>/dev/null | grep -qE "Python 3\.(1[0-9]|[2-9][0-9])"; then
         echo -e "\e[32mPython 3.10+ already installed\e[0m"
     else
         echo "Incompatible Python version found. Please install Python 3.10+." >&2
@@ -19,7 +19,7 @@ else
 fi
 
 if command -v dotnet &>/dev/null; then
-    if dotnet --version 2>$null | grep -q "^10\."; then
+    if dotnet --version 2>/dev/null | grep -q "^10\."; then
         echo -e "\e[32m.NET 10 already installed\e[0m"
     else
         echo "Incompatible .NET version found. Please install .NET 10 SDK." >&2
