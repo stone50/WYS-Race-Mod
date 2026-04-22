@@ -1,6 +1,7 @@
 import subprocess
 import argparse
 import os
+import sys
 from concurrent.futures import ThreadPoolExecutor
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -35,16 +36,22 @@ def build_mod(game_version):
     input_win = get_path(f"./Game/{game_version}/data.win")
     output_win = get_path(f"./Output/{game_version}.win")
 
+    if sys.platform == "win32":
+        umt_exe = get_path("./Tools/UndertaleModCli/UndertaleModCli.exe")
+        xdelta_exe = get_path("./Tools/xdelta3/xdelta3.exe")
+    else:
+        umt_exe = get_path("./Tools/UndertaleModCli/UndertaleModCli")
+        xdelta_exe = "xdelta3"
+
     umt_cmd = [
-        get_path("./Tools/UndertaleModCli/UndertaleModCli.exe"),
+        umt_exe,
         "load", input_win,
         "-s", get_path("./ImportAssets.csx"),
         "-o", output_win
     ]
 
-    patch_path = get_path(f"./Output/{game_version}.xdelta")
     xdelta_cmd = [
-        get_path("./Tools/xdelta3/xdelta3.exe"), "-f", "-e", "-s", input_win, output_win, patch_path
+        xdelta_exe, "-f", "-e", "-s", input_win, output_win, get_path(f"./Output/{game_version}.xdelta")
     ]
 
     with open(log_path, "w") as f:
@@ -56,6 +63,7 @@ def build_mod(game_version):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+    parser.add_argument("--all", action="store_true", help="Build everything")
     parser.add_argument("--old", action="store_true", help="Build mod for WYS v1.42 (speedrunner version)")
     parser.add_argument("--new", action="store_true", help="Build mod for WYS v2.12 (current version)")
     parser.add_argument("--server-win", action="store_true", help="Build server for Windows")
@@ -66,11 +74,11 @@ if __name__ == "__main__":
     os.makedirs(get_path("./Logs"), exist_ok=True)
 
     with ThreadPoolExecutor() as executor:
-        if args.old:
+        if args.old or args.all:
             executor.submit(build_mod, "1.42")
-        if args.new:
+        if args.new or args.all:
             executor.submit(build_mod, "2.12")
-        if args.server_win:
+        if args.server_win or args.all:
             executor.submit(build_server, "win")
-        if args.server_linux:
+        if args.server_linux or args.all:
             executor.submit(build_server, "linux")
