@@ -28,12 +28,13 @@ else
     echo ".NET not found. Please install .NET 10 SDK." >&2
 fi
 
-if [ -f "$script_dir/Tools/UndertaleModCli/UndertaleModCli.exe" ]; then
+if [ -f "$script_dir/Tools/UndertaleModCli/UndertaleModCli" ]; then
     echo -e "\e[32mUndertaleModCli already installed\e[0m"
 else
     echo -e "\e[36mdownloading UndertaleModCli\e[0m"
-    if wget -q "https://github.com/UnderminersTeam/UndertaleModTool/releases/download/0.8.4.1/UTMT_CLI_v0.8.4.1-Windows.zip" -O "$script_dir/umt.zip"; then
+    if wget -q "https://github.com/UnderminersTeam/UndertaleModTool/releases/download/0.8.4.1/UTMT_CLI_v0.8.4.1-Ubuntu.zip" -O "$script_dir/umt.zip"; then
         unzip -q "$script_dir/umt.zip" -d "$script_dir/Tools/UndertaleModCli"
+        chmod +x "$script_dir/Tools/UndertaleModCli/UndertaleModCli"
         rm "$script_dir/umt.zip"
         echo -e "\e[32mUndertaleModCli installed\e[0m"
     else
@@ -41,18 +42,14 @@ else
     fi
 fi
 
-if [ -f "$script_dir/Tools/xdelta3/xdelta3" ]; then
+if command -v xdelta3 &>/dev/null; then
     echo -e "\e[32mxdelta3 already installed\e[0m"
 else
-    echo -e "\e[36mdownloading xdelta3\e[0m"
-    if wget -q "https://github.com/jmacd/xdelta-gpl/releases/download/v3.0.11/xdelta3-3.0.11-x86_64.exe.zip" -O "$script_dir/xdelta.zip"; then
-        unzip -q "$script_dir/xdelta.zip" -d "$script_dir/Tools/xdelta3"
-        mv "$script_dir/Tools/xdelta3/xdelta3-3.0.11-x86_64.exe" "$script_dir/Tools/xdelta3/xdelta3"
-        chmod +x "$script_dir/Tools/xdelta3/xdelta3"
-        rm "$script_dir/xdelta.zip"
-        echo -e "\e[32mxdelta3 installed\e[0m"
+    echo -e "\e[36minstalling xdelta3\e[0m"
+    if command -v apt-get &>/dev/null; then
+        sudo apt-get update && sudo apt-get install -y xdelta3
     else
-        echo "xdelta3 download failed." >&2
+        echo "xdelta3 not found. Please install it using your package manager." >&2
     fi
 fi
 
