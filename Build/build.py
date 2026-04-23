@@ -63,22 +63,36 @@ def build_mod(game_version):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--all", action="store_true", help="Build everything")
     parser.add_argument("--old", action="store_true", help="Build mod for WYS v1.42 (speedrunner version)")
     parser.add_argument("--new", action="store_true", help="Build mod for WYS v2.12 (current version)")
+    parser.add_argument("--mod", action="store_true", help="Build mod for both WYS v1.42 and v2.12")
     parser.add_argument("--server-win", action="store_true", help="Build server for Windows")
     parser.add_argument("--server-linux", action="store_true", help="Build server for Linux")
+    parser.add_argument("--server", action="store_true", help="Build server for both Windows and Linux")
+    parser.add_argument("--all", action="store_true", help="Build everything")
     args = parser.parse_args()
 
     os.makedirs(get_path("./Output"), exist_ok=True)
     os.makedirs(get_path("./Logs"), exist_ok=True)
 
+    if args.all:
+        args.mod = True
+        args.server = True
+
+    if args.mod:
+        args.old = True
+        args.new = True
+
+    if args.server:
+        args.server_win = True
+        args.server_linux = True
+
     with ThreadPoolExecutor() as executor:
-        if args.old or args.all:
+        if args.old:
             executor.submit(build_mod, "1.42")
-        if args.new or args.all:
+        if args.new:
             executor.submit(build_mod, "2.12")
-        if args.server_win or args.all:
+        if args.server_win:
             executor.submit(build_server, "win")
-        if args.server_linux or args.all:
+        if args.server_linux:
             executor.submit(build_server, "linux")
