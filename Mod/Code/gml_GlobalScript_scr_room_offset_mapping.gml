@@ -66,58 +66,58 @@ function scr_get_level_offset(arg0)
             return [42180, -420];
         
         case 26:
-            return [0, 2000];
+            return [0, 2520];
         
         case 27:
-            return [1920, 1940];
+            return [1920, 2460];
         
         case 28:
-            return [5940, 800];
+            return [5940, 1320];
         
         case 31:
-            return [8580, 560];
+            return [8580, 1080];
         
         case 36:
-            return [12600, 1520];
+            return [12600, 2040];
         
         case 37:
-            return [15420, -520];
+            return [15420, 0];
         
         case 38:
-            return [17340, -880];
+            return [17340, -360];
         
         case 39:
-            return [21180, -1120];
+            return [21180, -600];
         
         case 40:
-            return [23580, -880];
+            return [23580, -360];
         
         case 41:
-            return [24120, 1280];
+            return [24120, 1800];
         
         case 42:
-            return [-9999, -9999];
+            return [26040, 1080];
         
         case 43:
-            return [-9999, -9999];
+            return [30060, 660];
         
         case 44:
-            return [-9999, -9999];
+            return [30540, 3360];
         
         case 45:
-            return [-9999, -9999];
+            return [35160, 2520];
         
         case 46:
-            return [-9999, -9999];
+            return [37080, 2820];
         
         case 47:
-            return [-9999, -9999];
+            return [39000, 2760];
         
         case 48:
-            return [-9999, -9999];
+            return [41400, 2220];
         
         case 49:
-            return [-9999, -9999];
+            return [41400, 720];
         
         case 50:
             return [-9999, -9999];
