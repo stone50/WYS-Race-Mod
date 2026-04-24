@@ -171,64 +171,64 @@ function scr_get_level_offset(arg0)
             return [37138, 3900];
         
         case 71:
-            return [-9999, -9999];
+            return [39058, 6300];
         
         case 72:
-            return [-9999, -9999];
+            return [42118, 6120];
         
         case 73:
-            return [-9999, -9999];
+            return [44218, 5040];
         
         case 74:
-            return [-9999, -9999];
+            return [0, 12120];
         
         case 75:
-            return [-9999, -9999];
+            return [1920, 11700];
         
         case 80:
-            return [-9999, -9999];
+            return [4620, 12780];
         
         case 83:
-            return [-9999, -9999];
+            return [5460, 11700];
         
         case 89:
-            return [-9999, -9999];
+            return [7380, 12120];
         
         case 90:
-            return [-9999, -9999];
+            return [7380, 13200];
         
         case 91:
-            return [-9999, -9999];
+            return [9300, 13380];
         
         case 92:
-            return [-9999, -9999];
+            return [11940, 13560];
         
         case 94:
-            return [-9999, -9999];
+            return [15600, 13440];
         
         case 95:
-            return [-9999, -9999];
+            return [17640, 13380];
         
         case 96:
-            return [-9999, -9999];
+            return [19860, 12300];
         
         case 97:
-            return [-9999, -9999];
+            return [21780, 12060];
         
         case 98:
-            return [-9999, -9999];
+            return [23700, 11640];
         
         case 99:
-            return [-9999, -9999];
+            return [25620, 10860];
         
         case 100:
-            return [-9999, -9999];
+            return [27540, 10140];
         
         case 101:
-            return [-9999, -9999];
+            return [29520, 9300];
         
         case 102:
-            return [-9999, -9999];
+            return [31440, 9060];
         
         case 103:
             return [-9999, -9999];
