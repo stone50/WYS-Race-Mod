@@ -6,7 +6,7 @@ function scr_get_level_offset(arg0)
             return [0, 0];
         
         case 1:
-            return [2160, -1080];
+            return [12540, -480];
         
         case 2:
             return [3840, -1500];
