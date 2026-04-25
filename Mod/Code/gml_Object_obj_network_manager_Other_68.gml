@@ -8,7 +8,13 @@ if (type != 3)
 
 latest_packet_time = current_time;
 
-if (is_host)
-    event_user(2);
-else
-    event_user(3);
+try
+{
+    if (is_host)
+        event_user(2);
+    else
+        event_user(3);
+}
+catch (_e)
+{
+}
