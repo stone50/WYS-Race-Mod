@@ -1,1 +1,9 @@
-game files/
+Build/Game/
+Build/Logs/
+Build/Output/
+Build/Tools/
+.vs/
+bin/
+obj/
+*.csproj.user
+*.pubxml.user
