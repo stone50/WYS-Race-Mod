@@ -13,7 +13,8 @@ while (ds_list_size(other_racers) < num_other_racers)
         current_room: -1,
         x: -9999,
         y: -9999,
-        look_dir: 1,
+        on_speedrunner_version: true,
+        is_looking_right: true,
         house_height: 1,
         house_tilt: 0,
         eye_1_x: -9999,
@@ -41,7 +42,9 @@ switch (packet_type)
             other_racer.current_room = buffer_read(data_buffer, buffer_u16);
             other_racer.x = buffer_read(data_buffer, buffer_f32);
             other_racer.y = buffer_read(data_buffer, buffer_f32);
-            other_racer.look_dir = buffer_read(data_buffer, buffer_s8);
+            var flags = buffer_read(data_buffer, buffer_u8);
+            other_racer.is_looking_right = (flags & 1) != 0;
+            other_racer.on_speedrunner_version = (flags & 2) != 0;
             other_racer.house_height = buffer_read(data_buffer, buffer_f32);
             other_racer.house_tilt = buffer_read(data_buffer, buffer_f32);
             other_racer.eye_1_x = buffer_read(data_buffer, buffer_f32);

@@ -21,7 +21,12 @@ var other_racer_names_scale = racing_customization.other_racer_names_scale * spe
 for (var i = 0; i < num_other_racers; i++)
 {
     var other_racer = ds_list_find_value(other_racers, i);
-    var level_index = ds_list_find_index(global.li_lvldat_ids, other_racer.current_room);
+    var other_racer_room = scr_get_mapped_room(other_racer.current_room, other_racer.on_speedrunner_version);
+    
+    if (other_racer_room == -1)
+        continue;
+    
+    var level_index = ds_list_find_index(global.li_lvldat_ids, other_racer_room);
     
     if (level_index == -1)
         continue;
@@ -33,7 +38,7 @@ for (var i = 0; i < num_other_racers; i++)
     
     var other_racer_x = get_transformed_x(other_racer.x + level_offset[0]);
     var other_racer_y = get_transformed_y(other_racer.y + level_offset[1]);
-    var look_dir = other_racer.look_dir;
+    var look_dir = other_racer.is_looking_right ? 1 : -1;
     var house_x = other_racer_x - (15 * look_dir * spectator_view_scale);
     var house_y = other_racer_y + (16 * spectator_view_scale);
     var house_height = other_racer.house_height;
