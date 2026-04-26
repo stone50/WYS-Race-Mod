@@ -13,7 +13,7 @@ draw_text(200, 637, is_connected ? "Disconnect" : "Connect");
 draw_set_color((is_mouse_x_hovering && gui_mouse_y >= 710 && gui_mouse_y <= 760) ? c_purple : c_dkgray);
 draw_roundrect(10, 710, 390, 760, false);
 draw_set_color(c_white);
-draw_text_transformed(200, 737, is_host ? "Stop Hosing" : "Become Host", 0.8, 0.8);
+draw_text_transformed(200, 737, is_host ? "Stop Hosting" : "Become Host", 0.8, 0.8);
 draw_set_color((is_mouse_x_hovering && gui_mouse_y >= 810 && gui_mouse_y <= 860) ? c_purple : c_dkgray);
 draw_roundrect(10, 810, 390, 860, false);
 draw_set_color(c_white);
