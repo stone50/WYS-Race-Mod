@@ -35,27 +35,17 @@ if (!device_mouse_check_button_released(0, mb_left))
 
 if (gui_mouse_y >= 152.5 && gui_mouse_y <= 252.5 && gui_mouse_x >= 500 && gui_mouse_x <= 700)
 {
-    var raw_name = get_string("Name (max 20 characters)", this_racer.name);
-    var filtered_name = "";
+    var name = get_string("Name (max 20 characters)", this_racer.name);
+    name = scr_filter_unsupported_ords(name);
+    name = scr_string_trim_start(name);
     
-    for (var i = 1; i <= string_length(raw_name); i++)
-    {
-        var char = string_char_at(raw_name, i);
-        var code = ord(char);
-        
-        if (code >= 32 && code <= 126)
-            filtered_name += char;
-    }
+    if (string_length(name) > 20)
+        name = string_copy(name, 1, 20);
     
-    filtered_name = scr_string_trim_start(filtered_name);
+    name = scr_string_trim_end(name);
     
-    if (string_length(filtered_name) > 20)
-        filtered_name = string_copy(filtered_name, 1, 20);
-    
-    filtered_name = scr_string_trim_end(filtered_name);
-    
-    if (filtered_name != "")
-        this_racer.name = filtered_name;
+    if (name != "")
+        this_racer.name = name;
 }
 else if (gui_mouse_y >= 198.25 && gui_mouse_y <= 234.25)
 {
