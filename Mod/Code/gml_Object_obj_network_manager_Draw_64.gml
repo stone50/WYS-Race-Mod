@@ -2,26 +2,31 @@ var gui_mouse_x = device_mouse_x_to_gui(0);
 var gui_mouse_y = device_mouse_y_to_gui(0);
 var is_mouse_x_hovering = gui_mouse_x >= 10 && gui_mouse_x <= 390;
 draw_set_color(c_gray);
-draw_roundrect(0, 600, 400, 1080, false);
+draw_roundrect(0, 690, 400, 1080, false);
 draw_set_halign(fa_center);
 draw_set_valign(fa_middle);
-var is_mouse_on_connect_button = is_mouse_x_hovering && gui_mouse_y >= 610 && gui_mouse_y <= 660;
-draw_set_color(is_connected ? (is_mouse_on_connect_button ? c_maroon : c_red) : (is_mouse_on_connect_button ? c_navy : c_blue));
-draw_roundrect(10, 610, 390, 660, false);
+var is_mouse_on_connect_button = is_mouse_x_hovering && gui_mouse_y >= 700 && gui_mouse_y <= 848;
+var connect_button_color;
+
+if (host_ip == "" || host_port == -1)
+    connect_button_color = 4210752;
+else if (is_connected)
+    connect_button_color = is_mouse_on_connect_button ? 128 : 255;
+else
+    connect_button_color = is_mouse_on_connect_button ? 8388608 : 16711680;
+
+draw_set_color(connect_button_color);
+draw_roundrect(10, 700, 390, 848, false);
 draw_set_color(c_white);
-draw_text(200, 637, is_connected ? "Disconnect" : "Connect");
-draw_set_color((is_mouse_x_hovering && gui_mouse_y >= 710 && gui_mouse_y <= 760) ? c_purple : c_dkgray);
-draw_roundrect(10, 710, 390, 760, false);
+draw_text(200, 774, is_connected ? "Disconnect" : "Connect");
+draw_set_color((is_mouse_x_hovering && gui_mouse_y >= 858 && gui_mouse_y <= 957) ? c_purple : c_dkgray);
+draw_roundrect(10, 858, 390, 957, false);
 draw_set_color(c_white);
-draw_text_transformed(200, 737, is_host ? "Stop Hosting" : "Become Host", 0.8, 0.8);
-draw_set_color((is_mouse_x_hovering && gui_mouse_y >= 810 && gui_mouse_y <= 860) ? c_purple : c_dkgray);
-draw_roundrect(10, 810, 390, 860, false);
+draw_text_transformed(200, 907.5, "Edit\nConnection", 0.9, 0.9);
+draw_set_color((is_mouse_x_hovering && gui_mouse_y >= 967 && gui_mouse_y <= 1041) ? c_purple : c_dkgray);
+draw_roundrect(10, 967, 390, 1041, false);
 draw_set_color(c_white);
-draw_text_transformed(200, 837, "Edit Host IP", 0.8, 0.8);
-draw_set_color((is_mouse_x_hovering && gui_mouse_y >= 910 && gui_mouse_y <= 960) ? c_purple : c_dkgray);
-draw_roundrect(10, 910, 390, 960, false);
+draw_text_transformed(200, 1004, is_host ? "Stop Hosting" : "Become Host", 0.9, 0.9);
 draw_set_color(c_white);
-draw_text_transformed(200, 937, "Edit Host Port", 0.7, 0.7);
-draw_set_color(c_white);
-draw_text_transformed(200, 1030, "F1 to close", 0.5, 0.5, 0);
+draw_text_transformed(200, 1062, "F1 to close", 0.5, 0.5, 0);
 scr_draw_mouse();

@@ -4,6 +4,7 @@ is_connected = false;
 is_host = false;
 host_ip = "127.0.0.1";
 host_port = 25565;
+connection_string = host_ip + ":" + string(host_port);
 server = -1;
 buffer = buffer_create(1024, buffer_fixed, 1);
 latest_packet_time = 0;
