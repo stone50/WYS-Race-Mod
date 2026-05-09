@@ -41,7 +41,7 @@ if (selected_racer_has_disconnected)
     exit;
 }
 
-var level_index = ds_list_find_index(global.li_lvldat_ids, selected_racer.current_room);
+var level_index = ds_list_find_index(global.li_lvldat_ids, scr_get_mapped_room(selected_racer.current_room, selected_racer.on_speedrunner_version));
 
 if (level_index == -1)
     exit;
