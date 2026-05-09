@@ -4,6 +4,7 @@ is_connected = false;
 is_host = false;
 host_ip = "127.0.0.1";
 host_port = 25565;
+connection_string = host_ip + ":" + string(host_port);
 server = -1;
 buffer = buffer_create(1024, buffer_fixed, 1);
 latest_packet_time = 0;
@@ -14,7 +15,8 @@ this_racer =
     current_room: room,
     x: -9999,
     y: -9999,
-    look_dir: 1,
+    on_speedrunner_version: scr_get_is_speedrunner_version(),
+    is_looking_right: true,
     house_height: 1,
     house_tilt: 0,
     eye_1_x: -9999,

@@ -11,18 +11,20 @@ if (gui_mouse_x < 10 || gui_mouse_x > 390)
 
 var gui_mouse_y = device_mouse_y_to_gui(0);
 
-if (gui_mouse_y >= 610 && gui_mouse_y <= 660)
+if (gui_mouse_y >= 700 && gui_mouse_y <= 848)
 {
+    if (host_ip == "" || host_port == -1)
+        exit;
+    
+    if (server != -1)
+    {
+        network_destroy(server);
+        server = -1;
+    }
+    
     if (is_connected)
     {
         is_connected = false;
-        
-        if (server != -1)
-        {
-            network_destroy(server);
-            server = -1;
-        }
-        
         ds_list_clear(other_racers);
         this_racer.placement = 0;
         this_racer.diff_to_first = 0;
@@ -35,38 +37,17 @@ if (gui_mouse_y >= 610 && gui_mouse_y <= 660)
         is_connected = true;
     }
 }
-else if (gui_mouse_y >= 710 && gui_mouse_y <= 760)
+else if (gui_mouse_y >= 858 && gui_mouse_y <= 957)
+{
+    if (is_connected)
+        show_message("Disconnect before changing connection info");
+    else
+        event_user(4);
+}
+else if (gui_mouse_y >= 967 && gui_mouse_y <= 1041)
 {
     if (is_connected)
         show_message("Disconnect before changing connection info");
     else
         is_host = !is_host;
-}
-else if (gui_mouse_y >= 810 && gui_mouse_y <= 860)
-{
-    if (is_connected)
-    {
-        show_message("Disconnect before changing connection info");
-    }
-    else
-    {
-        var new_host_ip = get_string("Host IP", host_ip);
-        
-        if (new_host_ip != "")
-            host_ip = new_host_ip;
-    }
-}
-else if (gui_mouse_y >= 910 && gui_mouse_y <= 960)
-{
-    if (is_connected)
-    {
-        show_message("Disconnect before changing connection info");
-    }
-    else
-    {
-        var new_host_port = get_integer("Host Port", host_port);
-        
-        if (is_numeric(new_host_port))
-            host_port = new_host_port;
-    }
 }

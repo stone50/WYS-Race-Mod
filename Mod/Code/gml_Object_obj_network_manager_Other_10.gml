@@ -51,7 +51,8 @@ for (var i = 0; i < num_other_racers; i++)
         buffer_write(buffer, buffer_u16, other_other_racer.current_room);
         buffer_write(buffer, buffer_f32, other_other_racer.x);
         buffer_write(buffer, buffer_f32, other_other_racer.y);
-        buffer_write(buffer, buffer_s8, other_other_racer.look_dir);
+        var flags = (real(other_other_racer.on_speedrunner_version) << 1) | real(other_other_racer.is_looking_right);
+        buffer_write(buffer, buffer_u8, flags);
         buffer_write(buffer, buffer_f32, other_other_racer.house_height);
         buffer_write(buffer, buffer_f32, other_other_racer.house_tilt);
         buffer_write(buffer, buffer_f32, other_other_racer.eye_1_x);
