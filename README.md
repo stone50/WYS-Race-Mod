@@ -50,10 +50,10 @@ Press **F1** to toggle the network manager menu.
 
 - **Hosting a Game**:
   1.  **Port Forward**: [Forward a port](https://www.wikihow.com/Set-Up-Port-Forwarding-on-a-Router) (Default: `25565`). Ensure the service type is set to **UDP**.
-  2.  **Configure**: Set your desired port in-game. (Note: Editing the "Host IP" field as a host does not affect the connection).
-  3.  **Connect**: Click Connect, then provide your IP and Port to other players.
+  2.  **Configure**: Set your connection info in-game.
+  3.  **Connect**: Click Connect, then provide your connection info to other players.
 - **Joining a Game**:
-  1.  **Configure**: Enter the IP and Port provided by the host into the in-game menu.
+  1.  **Configure**: Enter the connection info provided by the host into the in-game menu.
   2.  **Connect**: Click Connect to join the lobby.
 
 ### Customization
@@ -68,6 +68,7 @@ Press **F3** while in the pause menu to toggle the spectator view.
 
 - Click and drag to pan around.
 - Use the scroll wheel to zoom in or out.
+- Press Tab to cycle through players to follow
 
 ### Racing & Leaderboards
 
