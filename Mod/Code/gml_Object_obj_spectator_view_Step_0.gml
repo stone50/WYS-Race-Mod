@@ -41,12 +41,16 @@ if (selected_racer_has_disconnected)
     exit;
 }
 
-var level_index = ds_list_find_index(global.li_lvldat_ids, selected_racer.current_room);
+var level_index = ds_list_find_index(global.li_lvldat_ids, scr_get_mapped_room(selected_racer.current_room, selected_racer.on_speedrunner_version));
 
 if (level_index == -1)
     exit;
 
 var level_offset = scr_get_level_offset(level_index);
+
+if (level_offset == -4)
+    exit;
+
 var target_x_offset = 960 - (level_offset[0] + selected_racer.x);
 var target_y_offset = 540 - (level_offset[1] + selected_racer.y);
 x_offset = (x_offset * 0.9) + (target_x_offset * 0.1);
