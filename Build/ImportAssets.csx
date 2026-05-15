@@ -74,7 +74,7 @@ UndertaleGameObject GetGameObject(string name) {
     var gameObject = Data.GameObjects.ByName(name);
     if (gameObject == null) {
         gameObject = new UndertaleGameObject() { 
-            Name = TheadMakeString(name)
+            Name = Data.Strings.MakeString(name)
         };
         Data.GameObjects.Add(gameObject);
     }
@@ -128,7 +128,7 @@ foreach (var file in Directory.GetFiles(GetFullPath("../Mod/Code"), "*.gml")) {
     var code = Data.Code.ByName(entryName);
     if (code == null) {
         code = new UndertaleCode() {
-            Name = TheadMakeString(entryName)
+            Name = Data.Strings.MakeString(entryName)
         };
         Data.Code.Add(code);
     }
