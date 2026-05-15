@@ -23,32 +23,65 @@ draw_slider(480, 330, 250, other_racer_names_alpha);
 draw_text_transformed(480, 390, "Name\nScale", 0.6, 0.6, 0);
 draw_slider(480, 450, 250, other_racer_names_scale);
 draw_set_color(c_black);
+draw_text_transformed(800, 270, "Hats\n\nComing\n\nSoon", 1.5, 1.5, 0);
 draw_text_transformed(160, 590, "Player", 1.1, 1.1, 0);
-draw_set_color((gui_mouse_x >= 300 && gui_mouse_x <= 500 && gui_mouse_y >= 560 && gui_mouse_y <= 620) ? c_purple : c_dkgray);
+draw_set_color((gui_mouse_x >= 300 && gui_mouse_x <= 480 && gui_mouse_y >= 565 && gui_mouse_y <= 615) ? c_purple : c_dkgray);
 draw_roundrect(300, 565, 480, 615, false);
 draw_set_color(c_white);
 draw_text_transformed(390, 590, "Edit Name", 0.5, 0.5, 0);
-draw_set_color((gui_mouse_x >= 300 && gui_mouse_x <= 500 && gui_mouse_y >= 560 && gui_mouse_y <= 620) ? c_purple : c_dkgray);
+draw_set_color((selected_color_category == 0 || (gui_mouse_x >= 50 && gui_mouse_x <= 160 && gui_mouse_y >= 700 && gui_mouse_y <= 750)) ? c_purple : c_dkgray);
 draw_roundrect(50, 700, 160, 750, false);
 draw_set_color(c_white);
 draw_text_transformed(105, 725, "Name", 0.5, 0.5, 0);
-draw_set_color((gui_mouse_x >= 300 && gui_mouse_x <= 500 && gui_mouse_y >= 560 && gui_mouse_y <= 620) ? c_purple : c_dkgray);
+draw_set_color((selected_color_category == 1 || (gui_mouse_x >= 210 && gui_mouse_x <= 320 && gui_mouse_y >= 700 && gui_mouse_y <= 750)) ? c_purple : c_dkgray);
 draw_roundrect(210, 700, 320, 750, false);
 draw_set_color(c_white);
 draw_text_transformed(265, 725, "Eye", 0.5, 0.5, 0);
-draw_set_color((gui_mouse_x >= 300 && gui_mouse_x <= 500 && gui_mouse_y >= 560 && gui_mouse_y <= 620) ? c_purple : c_dkgray);
+draw_set_color((selected_color_category == 2 || (gui_mouse_x >= 370 && gui_mouse_x <= 480 && gui_mouse_y >= 700 && gui_mouse_y <= 750)) ? c_purple : c_dkgray);
 draw_roundrect(370, 700, 480, 750, false);
 draw_set_color(c_white);
 draw_text_transformed(425, 725, "Body", 0.5, 0.5, 0);
-draw_set_color((gui_mouse_x >= 300 && gui_mouse_x <= 500 && gui_mouse_y >= 560 && gui_mouse_y <= 620) ? c_purple : c_dkgray);
+draw_set_color((selected_color_category == 3 || (gui_mouse_x >= 70 && gui_mouse_x <= 240 && gui_mouse_y >= 775 && gui_mouse_y <= 825)) ? c_purple : c_dkgray);
 draw_roundrect(70, 775, 240, 825, false);
 draw_set_color(c_white);
 draw_text_transformed(155, 800, "Shell", 0.5, 0.5, 0);
-draw_set_color((gui_mouse_x >= 300 && gui_mouse_x <= 500 && gui_mouse_y >= 560 && gui_mouse_y <= 620) ? c_purple : c_dkgray);
+draw_set_color((selected_color_category == 4 || (gui_mouse_x >= 290 && gui_mouse_x <= 460 && gui_mouse_y >= 775 && gui_mouse_y <= 825)) ? c_purple : c_dkgray);
 draw_roundrect(290, 775, 460, 825, false);
 draw_set_color(c_white);
 draw_text_transformed(375, 800, "Outline", 0.5, 0.5, 0);
 draw_sprite_stretched(spr_color_picker, 0, 530, 590, 380, 380);
+var selected_color;
+
+switch (selected_color_category)
+{
+    case 0:
+        selected_color = this_racer.name_color;
+        break;
+    
+    case 1:
+        selected_color = this_racer.eye_color;
+        break;
+    
+    case 2:
+        selected_color = this_racer.body_color;
+        break;
+    
+    case 3:
+        selected_color = this_racer.shell_color;
+        break;
+    
+    case 4:
+        selected_color = this_racer.outline_color;
+        break;
+}
+
+var selected_hue = color_get_hue(selected_color);
+var selected_saturation = color_get_saturation(selected_color);
+draw_sprite_stretched(spr_dialog_arrows, 0, 505 + ((selected_hue * 380) / 255), 943 - ((selected_saturation * 380) / 255), 50, 35);
+draw_set_halign(fa_left);
+draw_set_valign(fa_middle);
+draw_text_transformed(155, 900, "Hue: " + string(selected_hue), 0.5, 0.5, 0);
+draw_text_transformed(155, 950, "Saturation: " + string(selected_saturation), 0.5, 0.5, 0);
 var preview_scale = 10;
 var preview_x = 1920 - (26 * preview_scale) - 100;
 var preview_y = 1080 - (20 * preview_scale) - 100;
