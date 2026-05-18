@@ -35,7 +35,7 @@ if (Test-Path (Join-Path $toolsDir "UndertaleModCli/UndertaleModCli.exe")) {
     Write-Host "downloading UndertaleModCli" -ForegroundColor Cyan
     $zipPath = Join-Path $PSScriptRoot "umt.zip"
     try {
-        Invoke-WebRequest -Uri "https://github.com/UnderminersTeam/UndertaleModTool/releases/download/0.8.4.1/UTMT_CLI_v0.8.4.1-Windows.zip" -OutFile $zipPath
+        Invoke-WebRequest -Uri "https://github.com/UnderminersTeam/UndertaleModTool/releases/download/0.9.0.0/UTMT_CLI_v0.9.0.0-Windows.zip" -OutFile $zipPath
         Expand-Archive $zipPath -DestinationPath (Join-Path $toolsDir "UndertaleModCli")
         Remove-Item $zipPath
         Write-Host "UndertaleModCli installed" -ForegroundColor Green 
