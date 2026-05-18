@@ -83,7 +83,7 @@ foreach (var file in Directory.GetFiles(GetFullPath("../Mod/Code"), "*.gml")) {
     Data.Code.Add(code);
 
     compilerGroup.QueueCodeReplace(code, gmlCode);
-    Console.WriteLine($"\t\tqueued {entryName}");
+    Console.WriteLine($"\t\tqueued {code.Name}");
     if (!entryName.StartsWith("gml_Object_")) {
         continue;
     }
@@ -107,7 +107,7 @@ foreach (var file in Directory.GetFiles(GetFullPath("../Mod/Code"), "*.gml")) {
         ExeType = 2
     });
     gameObject.Events[(int)eventTypeIndex].Add(eventEntry);
-    Console.WriteLine($"\t\tlinked {entryName} to {objectName}");
+    Console.WriteLine($"\t\tlinked {code.Name} to {gameObject.Name}");
 }
 
 var compilationResult = compilerGroup.Compile();
