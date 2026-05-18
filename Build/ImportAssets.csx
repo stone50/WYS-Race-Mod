@@ -4,6 +4,9 @@ using UndertaleModLib;
 using UndertaleModLib.Compiler;
 using UndertaleModLib.Models;
 using UndertaleModLib.Util;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Collections.Concurrent;
 
 var scriptDir = Path.GetDirectoryName(ScriptPath);
 
@@ -12,30 +15,37 @@ string GetFullPath(string relativePath) {
 }
 
 Console.WriteLine("\timporting sprites");
-foreach (var file in Directory.GetFiles(GetFullPath("../Mod/Sprites"), "*.png")) {
+
+var spriteData = new ConcurrentBag<(string spriteName, GMImage pngData, int width, int height)>();
+
+Parallel.ForEach(Directory.GetFiles(GetFullPath("../Mod/Sprites"), "*.png"), file => {
     var spriteName = Path.GetFileNameWithoutExtension(file);
+    var magickImage = TextureWorker.ReadBGRAImageFromFile(file);
+    var pngData = GMImage.FromMagickImage(magickImage).ConvertToPng();
+    (var width, var height) = TextureWorker.GetImageSizeFromFile(file);
+    spriteData.Add((spriteName, pngData, width, height));
+});
+
+foreach (var (spriteName, pngData, width, height) in spriteData)
+{
     var texture = new UndertaleEmbeddedTexture() {
         Name = Data.Strings.MakeString("tex_" + spriteName)
     };
+    texture.TextureData.Image = pngData;
     Data.EmbeddedTextures.Add(texture);
-    var magickImage = TextureWorker.ReadBGRAImageFromFile(file);
-    var gmImage = GMImage.FromMagickImage(magickImage);
-    texture.TextureData.Image = gmImage.ConvertToPng();
-    (var width, var height) = TextureWorker.GetImageSizeFromFile(file);
+
     var texturePageItem = new UndertaleTexturePageItem() {
         Name = Data.Strings.MakeString("tpag_" + spriteName),
         TexturePage = texture,
-        SourceWidth = (ushort)width,
-        SourceHeight = (ushort)height,
-        TargetWidth = (ushort)width,
-        TargetHeight = (ushort)height,
-        BoundingWidth = (ushort)width,
+        SourceWidth    = (ushort)width,
+        SourceHeight   = (ushort)height,
+        TargetWidth    = (ushort)width,
+        TargetHeight   = (ushort)height,
+        BoundingWidth  = (ushort)width,
         BoundingHeight = (ushort)height
     };
     Data.TexturePageItems.Add(texturePageItem);
-    var textureEntry = new UndertaleSprite.TextureEntry() {
-        Texture = texturePageItem
-    };
+
     var sprite = Data.Sprites.ByName(spriteName);
     if (sprite == null) {
         sprite = new UndertaleSprite() {
@@ -43,13 +53,18 @@ foreach (var file in Directory.GetFiles(GetFullPath("../Mod/Sprites"), "*.png"))
         };
         Data.Sprites.Add(sprite);
     }
-    sprite.Width = (uint)width;
+
+    sprite.Width  = (uint)width;
     sprite.Height = (uint)height;
-    if (sprite.Textures.Count > 0) {
+
+    var textureEntry = new UndertaleSprite.TextureEntry() {
+        Texture = texturePageItem
+    };
+
+    if (sprite.Textures.Count > 0)
         sprite.Textures[0] = textureEntry;
-    } else {
+    else
         sprite.Textures.Add(textureEntry);
-    }
 
     Console.WriteLine($"\t\timported {spriteName}");
 }
