@@ -25,8 +25,11 @@ draw_slider(480, 450, 250, other_racer_names_scale);
 draw_set_color(c_black);
 draw_text_transformed(800, 270, "Hats\n\nComing\n\nSoon", 1.5, 1.5, 0);
 draw_set_halign(fa_left);
+draw_text_transformed(25, 595, this_racer.name, 1.1, 1.1, 0);
+draw_set_color(this_racer.name_color);
 draw_text_transformed(20, 590, this_racer.name, 1.1, 1.1, 0);
 draw_set_halign(fa_center);
+draw_set_color(c_black);
 draw_set_color((gui_mouse_x >= 760 && gui_mouse_x <= 940 && gui_mouse_y >= 565 && gui_mouse_y <= 615) ? c_purple : c_dkgray);
 draw_roundrect(760, 565, 940, 615, false);
 draw_set_color(c_white);
@@ -60,46 +63,64 @@ draw_rectangle(382, 635, 386, 735, false);
 draw_rectangle(574, 635, 578, 735, false);
 draw_rectangle(766, 635, 770, 735, false);
 draw_rectangle(958, 635, 960, 735, false);
-var selected_color_category_outline_center_x;
+var selected_color_category_outline_center_x, selected_color;
 
 switch (selected_color_category)
 {
     case 0:
         selected_color_category_outline_center_x = 96;
-        var selected_color = this_racer.name_color;
+        selected_color = this_racer.name_color;
         break;
     
     case 1:
         selected_color_category_outline_center_x = 288;
-        var selected_color = this_racer.shell_color;
+        selected_color = this_racer.shell_color;
         break;
     
     case 2:
         selected_color_category_outline_center_x = 480;
-        var selected_color = this_racer.body_color;
+        selected_color = this_racer.body_color;
         break;
     
     case 3:
         selected_color_category_outline_center_x = 672;
-        var selected_color = this_racer.eye_color;
+        selected_color = this_racer.eye_color;
         break;
     
     case 4:
         selected_color_category_outline_center_x = 864;
-        var selected_color = this_racer.outline_color;
+        selected_color = this_racer.outline_color;
         break;
 }
 
+draw_set_color(c_aqua);
 draw_rectangle(selected_color_category_outline_center_x - 96, 635, selected_color_category_outline_center_x + 96, 640);
 draw_rectangle(selected_color_category_outline_center_x - 96, 730, selected_color_category_outline_center_x + 96, 735);
-draw_rectangle(selected_color_category_outline_center_x - 96, 635, (selected_color_category_outline_center_x - 96) + 5, 735);
-draw_rectangle(selected_color_category_outline_center_x + 96, 635, (selected_color_category_outline_center_x + 96) - 5, 735);
+draw_rectangle(selected_color_category_outline_center_x - 96, 635, selected_color_category_outline_center_x - 91, 735);
+draw_rectangle(selected_color_category_outline_center_x + 91, 635, selected_color_category_outline_center_x + 96, 735);
 draw_set_color(c_white);
 draw_text_transformed(96, 685, "Name", 0.5, 0.5, 0);
 draw_text_transformed(288, 685, "Shell", 0.5, 0.5, 0);
 draw_text_transformed(480, 685, "Body", 0.5, 0.5, 0);
 draw_text_transformed(672, 685, "Eye", 0.5, 0.5, 0);
 draw_text_transformed(864, 685, "Outline", 0.5, 0.5, 0);
+draw_set_halign(fa_left);
+draw_text_transformed(40, 792.5, "Red", 0.7, 0.7, 0);
+draw_text_transformed(40, 907.5, "Green", 0.7, 0.7, 0);
+draw_text_transformed(40, 1022.5, "Blue", 0.7, 0.7, 0);
+var selected_red = color_get_red(selected_color);
+var selected_green = color_get_green(selected_color);
+var selected_blue = color_get_blue(selected_color);
+draw_set_color(c_white);
+draw_text_transformed(200, 792.5, string(selected_red), 0.7, 0.7, 0);
+draw_text_transformed(200, 907.5, string(selected_green), 0.7, 0.7, 0);
+draw_text_transformed(200, 1022.5, string(selected_blue), 0.7, 0.7, 0);
+draw_set_color(make_color_rgb(255, 255 - selected_red, 255 - selected_red));
+draw_slider(620, 792.5, 600, selected_red / 255);
+draw_set_color(make_color_rgb(255 - selected_green, 255, 255 - selected_green));
+draw_slider(620, 907.5, 600, selected_green / 255);
+draw_set_color(make_color_rgb(255 - selected_blue, 255 - selected_blue, 255));
+draw_slider(620, 1022.5, 600, selected_blue / 255);
 var preview_scale = 10;
 var preview_x = 1920 - (26 * preview_scale) - 100;
 var preview_y = 1080 - (20 * preview_scale) - 100;

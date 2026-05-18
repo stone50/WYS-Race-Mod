@@ -26,7 +26,8 @@ if (device_mouse_check_button(0, mb_left))
             exit;
         }
     }
-    else if (gui_mouse_x >= 335 && gui_mouse_x <= 625)
+    
+    if (gui_mouse_x >= 335 && gui_mouse_x <= 625)
     {
         if (gui_mouse_y >= 180 && gui_mouse_y <= 240)
         {
@@ -44,6 +45,72 @@ if (device_mouse_check_button(0, mb_left))
         {
             other_racer_names_scale = clamp((gui_mouse_x - 355) / 250, 0, 1);
             exit;
+        }
+    }
+    
+    if (gui_mouse_x >= 300 && gui_mouse_x <= 940 && gui_mouse_y >= 762.5 && gui_mouse_y <= 1052.5)
+    {
+        var selected_color;
+        
+        switch (selected_color_category)
+        {
+            case 0:
+                selected_color = this_racer.name_color;
+                break;
+            
+            case 1:
+                selected_color = this_racer.shell_color;
+                break;
+            
+            case 2:
+                selected_color = this_racer.body_color;
+                break;
+            
+            case 3:
+                selected_color = this_racer.eye_color;
+                break;
+            
+            case 4:
+                selected_color = this_racer.outline_color;
+                break;
+        }
+        
+        var selected_red = color_get_red(selected_color);
+        var selected_green = color_get_green(selected_color);
+        var selected_blue = color_get_blue(selected_color);
+        
+        if (gui_mouse_y <= 822.5)
+            selected_red = clamp((gui_mouse_x - 320) / 600, 0, 1) * 255;
+        
+        if (gui_mouse_y >= 877.5 && gui_mouse_y <= 937.5)
+            selected_green = clamp((gui_mouse_x - 320) / 600, 0, 1) * 255;
+        
+        if (gui_mouse_y >= 992.5)
+            selected_blue = clamp((gui_mouse_x - 320) / 600, 0, 1) * 255;
+        
+        selected_color = make_color_rgb(selected_red, selected_green, selected_blue);
+        
+        switch (selected_color_category)
+        {
+            case 0:
+                this_racer.name_color = selected_color;
+                break;
+            
+            case 1:
+                this_racer.shell_color = selected_color;
+                break;
+            
+            case 2:
+                this_racer.body_color = selected_color;
+                break;
+            
+            case 3:
+                this_racer.eye_color = selected_color;
+                break;
+            
+            case 4:
+                this_racer.outline_color = selected_color;
+                break;
         }
     }
 }
