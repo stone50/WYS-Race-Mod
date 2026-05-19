@@ -132,6 +132,9 @@ if (gui_mouse_x >= 760 && gui_mouse_x <= 940 && gui_mouse_y >= 565 && gui_mouse_
     if (name != "")
         this_racer.name = name;
     
+    ini_open("racing_settings.ini");
+    ini_write_string("Customization", "name", this_racer.name);
+    ini_close();
     exit;
 }
 
