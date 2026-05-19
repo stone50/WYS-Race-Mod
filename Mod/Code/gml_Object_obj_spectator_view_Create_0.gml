@@ -11,7 +11,8 @@ level_indices = data.level_indices;
 prefetched_flags = data.prefetched_flags;
 menu_main = instance_find(obj_menu_MAIN);
 other_racers = instance_find(obj_network_manager).other_racers;
-selected_racer = -4;
+racing_customization = instance_find(obj_racing_customization);
+selected_racers = ds_list_create();
 
 function get_transformed_x(arg0)
 {
