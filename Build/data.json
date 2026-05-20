@@ -1,0 +1,29 @@
+{
+  "obj_instance_creation_list": [
+    {
+      "name": "obj_network_manager",
+      "room": "empty_start_room",
+      "layer": "FadeOutIn"
+    },
+    {
+      "name": "obj_racing_customization",
+      "room": "empty_start_room",
+      "layer": "FadeOutIn"
+    },
+    {
+      "name": "obj_leaderboard",
+      "room": "empty_start_room",
+      "layer": "FadeOutIn"
+    },
+    {
+      "name": "obj_racers",
+      "room": "empty_start_room",
+      "layer": "Player"
+    },
+    {
+      "name": "obj_spectator_view",
+      "room": "menu",
+      "layer": "Spots"
+    }
+  ]
+}

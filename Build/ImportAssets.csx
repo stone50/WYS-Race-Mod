@@ -1,196 +1,113 @@
-using System.IO;
 using System.Linq;
-using UndertaleModLib;
-using UndertaleModLib.Compiler;
-using UndertaleModLib.Models;
+using System.Text.Json;
 using UndertaleModLib.Util;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Collections.Concurrent;
 
 var scriptDir = Path.GetDirectoryName(ScriptPath);
-
-string GetFullPath(string relativePath) {
-    return Path.GetFullPath(Path.Combine(scriptDir, relativePath));
-}
+string GetFullPath(string relativePath) => Path.GetFullPath(Path.Combine(scriptDir, relativePath));
 
 Console.WriteLine("\timporting sprites");
-
-var spriteData = new ConcurrentBag<(string spriteName, GMImage pngData, int width, int height)>();
-
-Parallel.ForEach(Directory.GetFiles(GetFullPath("../Mod/Sprites"), "*.png"), file => {
-    var spriteName = Path.GetFileNameWithoutExtension(file);
-    var magickImage = TextureWorker.ReadBGRAImageFromFile(file);
-    var pngData = GMImage.FromMagickImage(magickImage).ConvertToPng();
-    (var width, var height) = TextureWorker.GetImageSizeFromFile(file);
-    spriteData.Add((spriteName, pngData, width, height));
-});
-
-foreach (var (spriteName, pngData, width, height) in spriteData)
-{
+foreach (var filePath in Directory.GetFiles(GetFullPath("../Mod/Sprites"), "*.png")) {
+    var spriteName = Path.GetFileNameWithoutExtension(filePath);
     var texture = new UndertaleEmbeddedTexture() {
-        Name = Data.Strings.MakeString("tex_" + spriteName)
+        Name = Data.Strings.MakeString("tex_" + spriteName),
+        TextureData = {
+            Image = GMImage.FromPng(File.ReadAllBytes(filePath))
+        }
     };
-    texture.TextureData.Image = pngData;
     Data.EmbeddedTextures.Add(texture);
-
+    (var w, var h) = TextureWorker.GetImageSizeFromFile(filePath);
+    var width = (ushort)w;
+    var height = (ushort)h;
     var texturePageItem = new UndertaleTexturePageItem() {
         Name = Data.Strings.MakeString("tpag_" + spriteName),
         TexturePage = texture,
-        SourceWidth    = (ushort)width,
-        SourceHeight   = (ushort)height,
-        TargetWidth    = (ushort)width,
-        TargetHeight   = (ushort)height,
-        BoundingWidth  = (ushort)width,
-        BoundingHeight = (ushort)height
+        SourceWidth = width,
+        SourceHeight = height,
+        TargetWidth = width,
+        TargetHeight = height,
+        BoundingWidth = width,
+        BoundingHeight = height
     };
     Data.TexturePageItems.Add(texturePageItem);
-
-    var sprite = Data.Sprites.ByName(spriteName);
-    if (sprite == null) {
-        sprite = new UndertaleSprite() {
-            Name = Data.Strings.MakeString(spriteName)
-        };
-        Data.Sprites.Add(sprite);
-    }
-
-    sprite.Width  = (uint)width;
-    sprite.Height = (uint)height;
-
-    var textureEntry = new UndertaleSprite.TextureEntry() {
-        Texture = texturePageItem
+    var sprite = new UndertaleSprite() {
+        Name = Data.Strings.MakeString(spriteName),
+        Width = width,
+        Height = height
     };
-
-    if (sprite.Textures.Count > 0)
-        sprite.Textures[0] = textureEntry;
-    else
-        sprite.Textures.Add(textureEntry);
-
-    Console.WriteLine($"\t\timported {spriteName}");
+    sprite.Textures.Add(new() {
+        Texture = texturePageItem
+    });
+    Data.Sprites.Add(sprite);
+    Console.WriteLine($"\t\timported {sprite.Name}");
 }
 
 Console.WriteLine("\tcreating objects");
-UndertaleGameObject GetGameObject(string name) {
-    var gameObject = Data.GameObjects.ByName(name);
-    if (gameObject == null) {
-        gameObject = new UndertaleGameObject() { 
-            Name = Data.Strings.MakeString(name)
-        };
-        Data.GameObjects.Add(gameObject);
+class JsonData {
+    public class ObjInstanceCreation {
+        public string Name { get; set; }
+        public string Room { get; set; }
+        public string Layer { get; set; }
     }
 
-    return gameObject;
+    public ObjInstanceCreation[] ObjInstanceCreationList { get; set; }
 }
 
-var networkManager = GetGameObject("obj_network_manager");
-var racingCustomization = GetGameObject("obj_racing_customization");
-var leaderboard = GetGameObject("obj_leaderboard");
-var racers = GetGameObject("obj_racers");
-var spectatorView = GetGameObject("obj_spectator_view");
-
-void AddNewInstance(UndertaleGameObject obj, string roomName, string layerName) {
-    var room = Data.Rooms.ByName(roomName);
-    if (room == null) {
-        Console.WriteLine($"\t\tcould not import game object {obj.Name} because room {roomName} could not be found");
-        return;
-    }
-
-    var layer = room.Layers.FirstOrDefault(l => l.LayerName.Content == layerName);
-    if (layer == null) {
-        Console.WriteLine($"\t\tcould not import game object {obj.Name} because layer {layerName} could not be found");
-        return;
-    }
-
-    var layerInstancesData = (UndertaleRoom.Layer.LayerInstancesData)layer.Data;
-    if (!layerInstancesData.Instances.Any(i => i.ObjectDefinition == obj)) {
-        var instance = new UndertaleRoom.GameObject() {
-            InstanceID = Data.GeneralInfo.LastObj++,
-            ObjectDefinition = obj
-        };
-        layerInstancesData.Instances.Add(instance);
-        room.GameObjects.Add(instance);
-    }
-
-    Console.WriteLine($"\t\tcreated {obj.Name}");
+var jsonSerializerOptions = new JsonSerializerOptions {
+    PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower
+};
+var jsonData = JsonSerializer.Deserialize<JsonData>(File.ReadAllText(GetFullPath("./data.json")), jsonSerializerOptions);
+foreach (var objInstanceCreation in jsonData.ObjInstanceCreationList) {
+    var gameObject = new UndertaleGameObject() {
+        Name = Data.Strings.MakeString(objInstanceCreation.Name)
+    };
+    Data.GameObjects.Add(gameObject);
+    var gameObjectInstance = new UndertaleRoom.GameObject() {
+        InstanceID = Data.GeneralInfo.LastObj++,
+        ObjectDefinition = gameObject
+    };
+    var room = Data.Rooms.ByName(objInstanceCreation.Room);
+    room.GameObjects.Add(gameObjectInstance);
+    var layerInstancesData = (UndertaleRoom.Layer.LayerInstancesData)room.Layers.First(l => l.LayerName.Content == objInstanceCreation.Layer).Data;
+    layerInstancesData.Instances.Add(gameObjectInstance);
+    Console.WriteLine($"\t\tcreated {gameObject.Name}");
 }
-
-AddNewInstance(networkManager, "empty_start_room", "FadeOutIn");
-AddNewInstance(racingCustomization, "empty_start_room", "FadeOutIn");
-AddNewInstance(leaderboard, "empty_start_room", "FadeOutIn");
-AddNewInstance(racers, "empty_start_room", "Player");
-AddNewInstance(spectatorView, "menu", "Spots");
 
 Console.WriteLine("\timporting code");
 var compilerGroup = new CompileGroup(Data);
 foreach (var file in Directory.GetFiles(GetFullPath("../Mod/Code"), "*.gml")) {
     var entryName = Path.GetFileNameWithoutExtension(file);
     var gmlCode = File.ReadAllText(file);
-    var code = Data.Code.ByName(entryName);
-    if (code == null) {
-        code = new UndertaleCode() {
-            Name = Data.Strings.MakeString(entryName)
-        };
-        Data.Code.Add(code);
-    }
+    var code = new UndertaleCode() {
+        Name = Data.Strings.MakeString(entryName)
+    };
+    Data.Code.Add(code);
 
     compilerGroup.QueueCodeReplace(code, gmlCode);
-    Console.WriteLine($"\t\tqueued {entryName}");
+    Console.WriteLine($"\t\tqueued {code.Name}");
     if (!entryName.StartsWith("gml_Object_")) {
         continue;
     }
 
     var objectScriptName = entryName.Replace("gml_Object_", "");
     var parts = objectScriptName.Split('_');
-    if (parts.Length < 3) {
-        Console.WriteLine($"\t\tcould not link {entryName} because the file name format is incorrect");
-        continue;
-    }
-
     var objectName = string.Join("_", parts.Take(parts.Length - 2));
     var eventType = parts[parts.Length - 2];
-    var eventSubtype = parts[parts.Length - 1];
     var gameObject = Data.GameObjects.ByName(objectName);
-    if (gameObject == null) {
-        Console.WriteLine($"\t\tcould not link {entryName} because the game object {objectName} could not be found");
-        continue;
-    }
-
     uint eventTypeIndex;
     if (!uint.TryParse(eventType, out eventTypeIndex)) {
-        if (!Enum.TryParse<EventType>(eventType, true, out var eventTypeId)) {
-            Console.WriteLine($"\t\tcould not link {entryName} because the event type {eventType} is unknown");
-            continue;
-        }
-        
-        eventTypeIndex = (uint)eventTypeId;
+        eventTypeIndex = (uint)Enum.Parse(typeof(EventType), eventType, true);
     }
 
-    if (!uint.TryParse(eventSubtype, out uint eventSubtypeId)) {
-        Console.WriteLine($"\t\tcould not link {entryName} because the event sub-type {eventSubtype} is unknown");
-        continue;
-    }
-
-    var eventGroup = gameObject.Events[(int)eventTypeIndex];
-    var eventEntry = eventGroup.FirstOrDefault(e => e.EventSubtype == eventSubtypeId);
-    if (eventEntry == null) {
-        eventEntry = new UndertaleGameObject.Event() {
-            EventSubtype = eventSubtypeId
-        };
-        eventGroup.Add(eventEntry);
-    }
-
-    var action = new UndertaleGameObject.EventAction() {
+    var eventEntry = new UndertaleGameObject.Event() {
+        EventSubtype = uint.Parse(parts[parts.Length - 1])
+    };
+    eventEntry.Actions.Add(new() {
         CodeId = code,
         Kind = 7,
         ExeType = 2
-    };
-    if (eventEntry.Actions.Count == 0) {
-        eventEntry.Actions.Add(action);
-    } else {
-        eventEntry.Actions[0] = action;
-    }
-
-    Console.WriteLine($"\t\tlinked {entryName} to {objectName}");
+    });
+    gameObject.Events[(int)eventTypeIndex].Add(eventEntry);
+    Console.WriteLine($"\t\tlinked {code.Name} to {gameObject.Name}");
 }
 
 var compilationResult = compilerGroup.Compile();

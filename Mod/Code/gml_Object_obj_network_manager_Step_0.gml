@@ -40,9 +40,22 @@ if (gui_mouse_y >= 700 && gui_mouse_y <= 848)
 else if (gui_mouse_y >= 858 && gui_mouse_y <= 957)
 {
     if (is_connected)
+    {
         show_message("Disconnect before changing connection info");
+    }
     else
-        event_user(4);
+    {
+        var input = get_string("Connection String (default is 127.0.0.1:25565)", connection_string);
+        
+        if (input == "")
+            exit;
+        
+        connection_string = input;
+        ini_open("racing_settings.ini");
+        ini_write_string("Network", "connection_string", connection_string);
+        ini_close();
+        process_connection_string();
+    }
 }
 else if (gui_mouse_y >= 967 && gui_mouse_y <= 1041)
 {

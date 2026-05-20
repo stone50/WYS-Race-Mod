@@ -32,7 +32,7 @@ if [ -f "$script_dir/Tools/UndertaleModCli/UndertaleModCli" ]; then
     echo -e "\e[32mUndertaleModCli already installed\e[0m"
 else
     echo -e "\e[36mdownloading UndertaleModCli\e[0m"
-    if wget -q "https://github.com/UnderminersTeam/UndertaleModTool/releases/download/0.8.4.1/UTMT_CLI_v0.8.4.1-Ubuntu.zip" -O "$script_dir/umt.zip"; then
+    if wget -q "https://github.com/UnderminersTeam/UndertaleModTool/releases/download/0.9.0.0/UTMT_CLI_v0.9.0.0-Ubuntu.zip" -O "$script_dir/umt.zip"; then
         unzip -q "$script_dir/umt.zip" -d "$script_dir/Tools/UndertaleModCli"
         chmod +x "$script_dir/Tools/UndertaleModCli/UndertaleModCli"
         rm "$script_dir/umt.zip"

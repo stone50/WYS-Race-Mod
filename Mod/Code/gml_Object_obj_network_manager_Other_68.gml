@@ -8,7 +8,7 @@ try
     if (!is_connected)
     {
         if (host_ip == "" || host_port == -1)
-            event_user(5);
+            event_user(4);
         
         exit;
     }

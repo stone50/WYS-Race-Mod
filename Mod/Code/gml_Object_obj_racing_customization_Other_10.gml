@@ -6,34 +6,119 @@ var gui_mouse_y = device_mouse_y_to_gui(0);
 
 if (device_mouse_check_button(0, mb_left))
 {
-    if (gui_mouse_x >= 30 && gui_mouse_x <= 210)
+    if (gui_mouse_x >= 15 && gui_mouse_x <= 305)
     {
-        if (gui_mouse_y >= 221.25 && gui_mouse_y <= 251.25)
-            leaderboard_background_alpha = clamp((gui_mouse_x - 50) / 140, 0, 1);
+        if (gui_mouse_y >= 180 && gui_mouse_y <= 240)
+        {
+            leaderboard_background_alpha = clamp((gui_mouse_x - 35) / 250, 0, 1);
+            exit;
+        }
         
-        if (gui_mouse_y >= 356.25 && gui_mouse_y <= 386.25)
-            leaderboard_text_alpha = clamp((gui_mouse_x - 50) / 140, 0, 1);
+        if (gui_mouse_y >= 300 && gui_mouse_y <= 360)
+        {
+            leaderboard_text_alpha = clamp((gui_mouse_x - 35) / 250, 0, 1);
+            exit;
+        }
         
-        if (gui_mouse_y >= 491.25 && gui_mouse_y <= 521.25)
-            leaderboard_scale = clamp((gui_mouse_x - 50) / 140, 0, 1);
+        if (gui_mouse_y >= 420 && gui_mouse_y <= 480)
+        {
+            leaderboard_scale = clamp((gui_mouse_x - 35) / 250, 0, 1);
+            exit;
+        }
     }
-    else if (gui_mouse_x >= 270 && gui_mouse_x <= 450)
+    
+    if (gui_mouse_x >= 335 && gui_mouse_x <= 625)
     {
-        if (gui_mouse_y >= 221.25 && gui_mouse_y <= 251.25)
-            other_racers_alpha = clamp((gui_mouse_x - 290) / 140, 0, 1);
+        if (gui_mouse_y >= 180 && gui_mouse_y <= 240)
+        {
+            other_racers_alpha = clamp((gui_mouse_x - 355) / 250, 0, 1);
+            exit;
+        }
         
-        if (gui_mouse_y >= 356.25 && gui_mouse_y <= 386.25)
-            other_racer_names_alpha = clamp((gui_mouse_x - 290) / 140, 0, 1);
+        if (gui_mouse_y >= 300 && gui_mouse_y <= 360)
+        {
+            other_racer_names_alpha = clamp((gui_mouse_x - 355) / 250, 0, 1);
+            exit;
+        }
         
-        if (gui_mouse_y >= 491.25 && gui_mouse_y <= 521.25)
-            other_racer_names_scale = clamp((gui_mouse_x - 290) / 140, 0, 1);
+        if (gui_mouse_y >= 420 && gui_mouse_y <= 480)
+        {
+            other_racer_names_scale = clamp((gui_mouse_x - 355) / 250, 0, 1);
+            exit;
+        }
+    }
+    
+    if (gui_mouse_x >= 300 && gui_mouse_x <= 940 && gui_mouse_y >= 762.5 && gui_mouse_y <= 1052.5)
+    {
+        var selected_color;
+        
+        switch (selected_color_category)
+        {
+            case 0:
+                selected_color = this_racer.name_color;
+                break;
+            
+            case 1:
+                selected_color = this_racer.shell_color;
+                break;
+            
+            case 2:
+                selected_color = this_racer.body_color;
+                break;
+            
+            case 3:
+                selected_color = this_racer.eye_color;
+                break;
+            
+            case 4:
+                selected_color = this_racer.outline_color;
+                break;
+        }
+        
+        var selected_red = color_get_red(selected_color);
+        var selected_green = color_get_green(selected_color);
+        var selected_blue = color_get_blue(selected_color);
+        
+        if (gui_mouse_y <= 822.5)
+            selected_red = clamp((gui_mouse_x - 320) / 600, 0, 1) * 255;
+        
+        if (gui_mouse_y >= 877.5 && gui_mouse_y <= 937.5)
+            selected_green = clamp((gui_mouse_x - 320) / 600, 0, 1) * 255;
+        
+        if (gui_mouse_y >= 992.5)
+            selected_blue = clamp((gui_mouse_x - 320) / 600, 0, 1) * 255;
+        
+        selected_color = make_color_rgb(selected_red, selected_green, selected_blue);
+        
+        switch (selected_color_category)
+        {
+            case 0:
+                this_racer.name_color = selected_color;
+                break;
+            
+            case 1:
+                this_racer.shell_color = selected_color;
+                break;
+            
+            case 2:
+                this_racer.body_color = selected_color;
+                break;
+            
+            case 3:
+                this_racer.eye_color = selected_color;
+                break;
+            
+            case 4:
+                this_racer.outline_color = selected_color;
+                break;
+        }
     }
 }
 
 if (!device_mouse_check_button_released(0, mb_left))
     exit;
 
-if (gui_mouse_y >= 152.5 && gui_mouse_y <= 252.5 && gui_mouse_x >= 500 && gui_mouse_x <= 700)
+if (gui_mouse_x >= 760 && gui_mouse_x <= 940 && gui_mouse_y >= 565 && gui_mouse_y <= 615)
 {
     var name = get_string("Name (max 20 characters)", this_racer.name);
     name = scr_filter_unsupported_ords(name);
@@ -46,136 +131,42 @@ if (gui_mouse_y >= 152.5 && gui_mouse_y <= 252.5 && gui_mouse_x >= 500 && gui_mo
     
     if (name != "")
         this_racer.name = name;
+    
+    ini_open("racing_settings.ini");
+    ini_write_string("Customization", "name", this_racer.name);
+    ini_close();
+    exit;
 }
-else if (gui_mouse_y >= 198.25 && gui_mouse_y <= 234.25)
+
+if (gui_mouse_y < 635 || gui_mouse_y > 735)
+    exit;
+
+if (gui_mouse_x >= 0 && gui_mouse_x <= 192)
 {
-    if (gui_mouse_x >= 762 && gui_mouse_x <= 798)
-        this_racer.name_color = name_colors[0];
-    
-    if (gui_mouse_x >= 802 && gui_mouse_x <= 838)
-        this_racer.name_color = name_colors[1];
-    
-    if (gui_mouse_x >= 842 && gui_mouse_x <= 878)
-        this_racer.name_color = name_colors[2];
-    
-    if (gui_mouse_x >= 882 && gui_mouse_x <= 918)
-        this_racer.name_color = name_colors[3];
+    selected_color_category = 0;
+    exit;
 }
-else if (gui_mouse_y >= 238.25 && gui_mouse_y <= 274.25)
+
+if (gui_mouse_x >= 192 && gui_mouse_x <= 384)
 {
-    if (gui_mouse_x >= 762 && gui_mouse_x <= 798)
-        this_racer.name_color = name_colors[4];
-    
-    if (gui_mouse_x >= 802 && gui_mouse_x <= 838)
-        this_racer.name_color = name_colors[5];
-    
-    if (gui_mouse_x >= 842 && gui_mouse_x <= 878)
-        this_racer.name_color = name_colors[6];
-    
-    if (gui_mouse_x >= 882 && gui_mouse_x <= 918)
-        this_racer.name_color = name_colors[7];
+    selected_color_category = 1;
+    exit;
 }
-else if (gui_mouse_y >= 333.25 && gui_mouse_y <= 369.25)
+
+if (gui_mouse_x >= 384 && gui_mouse_x <= 576)
 {
-    if (gui_mouse_x >= 522 && gui_mouse_x <= 558)
-        this_racer.outline_color = outline_colors[0];
-    
-    if (gui_mouse_x >= 562 && gui_mouse_x <= 598)
-        this_racer.outline_color = outline_colors[1];
-    
-    if (gui_mouse_x >= 602 && gui_mouse_x <= 638)
-        this_racer.outline_color = outline_colors[2];
-    
-    if (gui_mouse_x >= 642 && gui_mouse_x <= 678)
-        this_racer.outline_color = outline_colors[3];
-    
-    if (gui_mouse_x >= 762 && gui_mouse_x <= 798)
-        this_racer.body_color = body_colors[0];
-    
-    if (gui_mouse_x >= 802 && gui_mouse_x <= 838)
-        this_racer.body_color = body_colors[1];
-    
-    if (gui_mouse_x >= 842 && gui_mouse_x <= 878)
-        this_racer.body_color = body_colors[2];
-    
-    if (gui_mouse_x >= 882 && gui_mouse_x <= 918)
-        this_racer.body_color = body_colors[3];
+    selected_color_category = 2;
+    exit;
 }
-else if (gui_mouse_y >= 373.25 && gui_mouse_y <= 409.25)
+
+if (gui_mouse_x >= 576 && gui_mouse_x <= 768)
 {
-    if (gui_mouse_x >= 522 && gui_mouse_x <= 558)
-        this_racer.outline_color = outline_colors[4];
-    
-    if (gui_mouse_x >= 562 && gui_mouse_x <= 598)
-        this_racer.outline_color = outline_colors[5];
-    
-    if (gui_mouse_x >= 602 && gui_mouse_x <= 638)
-        this_racer.outline_color = outline_colors[6];
-    
-    if (gui_mouse_x >= 642 && gui_mouse_x <= 678)
-        this_racer.outline_color = outline_colors[7];
-    
-    if (gui_mouse_x >= 762 && gui_mouse_x <= 798)
-        this_racer.body_color = body_colors[4];
-    
-    if (gui_mouse_x >= 802 && gui_mouse_x <= 838)
-        this_racer.body_color = body_colors[5];
-    
-    if (gui_mouse_x >= 842 && gui_mouse_x <= 878)
-        this_racer.body_color = body_colors[6];
-    
-    if (gui_mouse_x >= 882 && gui_mouse_x <= 918)
-        this_racer.body_color = body_colors[7];
+    selected_color_category = 3;
+    exit;
 }
-else if (gui_mouse_y >= 468.25 && gui_mouse_y <= 504.25)
+
+if (gui_mouse_x >= 768 && gui_mouse_x <= 960)
 {
-    if (gui_mouse_x >= 522 && gui_mouse_x <= 558)
-        this_racer.shell_color = shell_colors[0];
-    
-    if (gui_mouse_x >= 562 && gui_mouse_x <= 598)
-        this_racer.shell_color = shell_colors[1];
-    
-    if (gui_mouse_x >= 602 && gui_mouse_x <= 638)
-        this_racer.shell_color = shell_colors[2];
-    
-    if (gui_mouse_x >= 642 && gui_mouse_x <= 678)
-        this_racer.shell_color = shell_colors[3];
-    
-    if (gui_mouse_x >= 762 && gui_mouse_x <= 798)
-        this_racer.eye_color = eye_colors[0];
-    
-    if (gui_mouse_x >= 802 && gui_mouse_x <= 838)
-        this_racer.eye_color = eye_colors[1];
-    
-    if (gui_mouse_x >= 842 && gui_mouse_x <= 878)
-        this_racer.eye_color = eye_colors[2];
-    
-    if (gui_mouse_x >= 882 && gui_mouse_x <= 918)
-        this_racer.eye_color = eye_colors[3];
-}
-else if (gui_mouse_y >= 508.25 && gui_mouse_y <= 544.25)
-{
-    if (gui_mouse_x >= 522 && gui_mouse_x <= 558)
-        this_racer.shell_color = shell_colors[4];
-    
-    if (gui_mouse_x >= 562 && gui_mouse_x <= 598)
-        this_racer.shell_color = shell_colors[5];
-    
-    if (gui_mouse_x >= 602 && gui_mouse_x <= 638)
-        this_racer.shell_color = shell_colors[6];
-    
-    if (gui_mouse_x >= 642 && gui_mouse_x <= 678)
-        this_racer.shell_color = shell_colors[7];
-    
-    if (gui_mouse_x >= 762 && gui_mouse_x <= 798)
-        this_racer.eye_color = eye_colors[4];
-    
-    if (gui_mouse_x >= 802 && gui_mouse_x <= 838)
-        this_racer.eye_color = eye_colors[5];
-    
-    if (gui_mouse_x >= 842 && gui_mouse_x <= 878)
-        this_racer.eye_color = eye_colors[6];
-    
-    if (gui_mouse_x >= 882 && gui_mouse_x <= 918)
-        this_racer.eye_color = eye_colors[7];
+    selected_color_category = 4;
+    exit;
 }
