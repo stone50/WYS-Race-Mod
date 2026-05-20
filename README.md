@@ -68,7 +68,7 @@ Press **F3** while in the pause menu to toggle the spectator view.
 
 - Click and drag to pan around.
 - Use the scroll wheel to zoom in or out.
-- Press Tab to cycle through players to follow
+- Click the pink buttons next to players' names on the leaderboard to follow them
 
 ### Racing & Leaderboards
 
@@ -91,7 +91,7 @@ Press **F3** while in the pause menu to toggle the spectator view.
 1.  **Repository Setup**: Fork [this repository](https://github.com/stone50/WYS-Race-Mod) and clone it.
 2.  **Preparation**:
     - In `/Build`, run the `setup` script (`setup.ps1` for Windows, `setup.sh` for Linux).
-    - This will download [UndertaleModCli](https://github.com/UnderminersTeam/UndertaleModTool/releases/0.8.4.1), [xdelta3](https://github.com/jmacd/xdelta-gpl/releases/v3.0.11) (or install it via `apt-get` on Linux), and [DepotDownloader](https://github.com/SteamRE/DepotDownloader/releases/DepotDownloader_3.4.0) which is then used to automatically download the game files.
+    - This will download [UndertaleModCli](https://github.com/UnderminersTeam/UndertaleModTool/releases/0.9.0.0), [xdelta3](https://github.com/jmacd/xdelta-gpl/releases/v3.0.11) (or install it via `apt-get` on Linux), and [DepotDownloader](https://github.com/SteamRE/DepotDownloader/releases/DepotDownloader_3.4.0) which is then used to automatically download the game files.
     - Python 3.10+ is needed to run the `build.py` script, and .NET 10 is needed to build the `Server`.
 3.  **Project Setup**:
     - Use the game files from `/Build/Game/1.42` to replace the game files installed by Steam.
