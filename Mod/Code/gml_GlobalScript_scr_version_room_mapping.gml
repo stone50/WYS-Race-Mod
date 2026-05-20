@@ -15,7 +15,7 @@ function scr_get_mapped_room(arg0, arg1)
         return arg0;
     
     if (arg1)
-        return room_id_map[arg0];
+        return (arg0 >= 0 && arg0 < 166) ? room_id_map[arg0] : -1;
     
     for (var i = 0; i < 166; i++)
     {
