@@ -1,10 +1,6 @@
-// VersionShader.gdshader
-// Applied to the background TextureRect.
-// Blends between two tint colours with an animated diagonal wipe + ripple.
-//
 // Uniforms set by VersionShaderController.cs:
-//   tint_a   — colour for V1.42 (warm)
-//   tint_b   — colour for V2.12 (cool)
+//   tint_a   — colour for V1.42
+//   tint_b   — colour for V2.12
 //   blend    — 0.0 = full A, 1.0 = full B (animated by controller)
 //   time     — OS time passed through for ripple
 

@@ -4,21 +4,6 @@ using Godot;
 //  VersionShaderController
 // ─────────────────────────────────────────────
 
-/// <summary>
-/// Attach to the same node as Main (or as a child).
-/// Drives the VersionShader.gdshader blend uniform with a smooth tween
-/// whenever the version toggle changes.
-///
-/// HOW TO WIRE IN THE SCENE:
-///   1. Select the TextureRect node in the scene.
-///   2. In the Inspector → CanvasItem → Material → new ShaderMaterial.
-///   3. Set Shader = VersionShader.gdshader.
-///   4. Add this script as a child node of Main (e.g. Node named "ShaderController").
-///   5. Export-assign BackgroundRect to the TextureRect node.
-///   6. In Main._Ready(), after getting _versionToggle, add:
-///        GetNode<VersionShaderController>("ShaderController").Init(_versionToggle);
-///   That's it — no other Main.cs change needed.
-/// </summary>
 public partial class VersionShaderController : Node
 {
     [Export] public TextureRect? BackgroundRect { get; set; }
@@ -28,8 +13,6 @@ public partial class VersionShaderController : Node
     private float           _currentBlend = 0f;
     private double          _time         = 0.0;
 
-    // Colours matching the shader defaults — override in Inspector if you change the shader.
-    // V1.42 = warm amber, V2.12 = cool steel blue
     [Export] public Color TintA { get; set; } = new Color(0.72f, 0.44f, 0.18f);
     [Export] public Color TintB { get; set; } = new Color(0.18f, 0.44f, 0.72f);
 
