@@ -1,0 +1,70 @@
+[gd_scene load_steps=2 format=3 uid="uid://wys_entry"]
+
+[ext_resource type="Script" path="res://ReleaseEntry.cs" id="1_entry"]
+
+[node name="ReleaseEntry" type="PanelContainer"]
+script = ExtResource("1_entry")
+custom_minimum_size = Vector2(0, 44)
+size_flags_horizontal = 3
+
+[node name="Inner" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_bottom = 6
+theme_override_constants/separation = 8
+
+[node name="NameLabel" type="Label" parent="Inner"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+vertical_alignment = 1
+text = "Release Name"
+text_overrun_behavior = 3
+theme_override_font_sizes/font_size = 14
+
+[node name="TagLabel" type="Label" parent="Inner"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(70, 0)
+size_flags_vertical = 1
+vertical_alignment = 1
+text = "v0.0.0"
+theme_override_colors/font_color = Color(0.55, 0.55, 0.55, 1)
+theme_override_font_sizes/font_size = 12
+
+[node name="StatusLabel" type="Label" parent="Inner"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(130, 0)
+size_flags_vertical = 1
+horizontal_alignment = 1
+vertical_alignment = 1
+text = "Not downloaded"
+theme_override_colors/font_color = Color(0.65, 0.65, 0.65, 1)
+theme_override_font_sizes/font_size = 12
+
+[node name="DownloadBtn" type="Button" parent="Inner"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 1
+custom_minimum_size = Vector2(110, 0)
+text = "Download"
+
+[node name="PlayBtn" type="Button" parent="Inner"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 1
+custom_minimum_size = Vector2(80, 0)
+text = "▶  Play"
+visible = false
+
+[node name="RemoveBtn" type="Button" parent="Inner"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 1
+text = "✕"
+visible = false
+theme_override_colors/font_color = Color(0.9, 0.35, 0.35, 1)

@@ -1,0 +1,322 @@
+[gd_scene format=3 uid="uid://b6xrfnadetu1a"]
+
+[ext_resource type="Script" uid="uid://cwola6et1wmo4" path="res://Main.cs" id="1_main"]
+[ext_resource type="PackedScene" path="res://ReleaseEntry.tscn" id="2_entry"]
+[ext_resource type="Texture2D" uid="uid://bmioxixqvomqu" path="res://RaceThumbnailLmao.png" id="3_3dxm6"]
+[ext_resource type="PackedScene" path="res://CredentialsDialog.tscn" id="3_creds"]
+[ext_resource type="Texture2D" uid="uid://bnse5n1saggqs" path="res://SteamBackground_B.png" id="3_fos0i"]
+[ext_resource type="PackedScene" path="res://SteamGuardDialog.tscn" id="4_sg"]
+[ext_resource type="Shader" uid="uid://cc3cly86dutjp" path="res://VersionShader.gdshader" id="5_trn2v"]
+[ext_resource type="FontFile" uid="uid://balm32lw58sy0" path="res://Handlee-Regular.ttf" id="6_wkp8b"]
+[ext_resource type="FontFile" uid="uid://1yq3bq2xdfw2" path="res://Mogra-Regular.ttf" id="7_20pc6"]
+[ext_resource type="Script" uid="uid://dms05k2qaatjt" path="res://VersionShaderController.cs" id="8_03owx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_trn2v"]
+shader = ExtResource("5_trn2v")
+shader_parameter/tint_a = Color(0.56129175, 0.5211551, 0.31267223, 1)
+shader_parameter/tint_b = Color(0.26033178, 0.43440026, 0.6926758, 1)
+shader_parameter/blend = 0.0
+shader_parameter/time = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wkp8b"]
+shader = ExtResource("5_trn2v")
+shader_parameter/tint_a = Color(0.72, 0.44, 0.18, 1)
+shader_parameter/tint_b = Color(0.18, 0.44, 0.72, 1)
+shader_parameter/blend = 0.0
+shader_parameter/time = 0.0
+
+[sub_resource type="FontVariation" id="FontVariation_5vvyt"]
+base_font = ExtResource("6_wkp8b")
+variation_embolden = 1.18
+
+[node name="Main" type="Control" unique_id=1173681745 node_paths=PackedStringArray("BgTextureRect")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_main")
+ReleaseEntryScene = ExtResource("2_entry")
+BgTextureRect = NodePath("TextureRect")
+DefaultBG = ExtResource("3_fos0i")
+EasterEggBG = ExtResource("3_3dxm6")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1851148519]
+modulate = Color(0.3900579, 0.41865924, 0.2778358, 1)
+material = SubResource("ShaderMaterial_trn2v")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_fos0i")
+
+[node name="Background" type="ColorRect" parent="." unique_id=2006710831]
+visible = false
+material = SubResource("ShaderMaterial_wkp8b")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.11, 0.11, 0.14, 1)
+
+[node name="SteamBackgroundB" type="Sprite2D" parent="Background" unique_id=1966498096]
+position = Vector2(578, 327)
+texture = ExtResource("3_fos0i")
+
+[node name="MainMargin" type="MarginContainer" parent="." unique_id=2000031023]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 16
+
+[node name="MainVBox" type="VBoxContainer" parent="MainMargin" unique_id=1639217335]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="Header" type="HBoxContainer" parent="MainMargin/MainVBox" unique_id=1748901231]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="AppTitle" type="Label" parent="MainMargin/MainVBox/Header" unique_id=2006333159]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = SubResource("FontVariation_5vvyt")
+theme_override_font_sizes/font_size = 32
+text = "WYS Race Mod Launcher"
+
+[node name="HSpacer" type="Control" parent="MainMargin/MainVBox/Header" unique_id=1324907774]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VersionLabel" type="Label" parent="MainMargin/MainVBox/Header" unique_id=1588197318]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_20pc6")
+theme_override_font_sizes/font_size = 20
+text = "Game version:"
+vertical_alignment = 1
+
+[node name="VersionToggle" type="CheckButton" parent="MainMargin/MainVBox/Header" unique_id=1913158384]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_20pc6")
+theme_override_font_sizes/font_size = 20
+text = "v1.42"
+
+[node name="SetupPanel" type="PanelContainer" parent="MainMargin/MainVBox" unique_id=1519248749]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SetupInner" type="VBoxContainer" parent="MainMargin/MainVBox/SetupPanel" unique_id=1633776939]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="SetupLabel" type="Label" parent="MainMargin/MainVBox/SetupPanel/SetupInner" unique_id=392494617]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Initialising…"
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="SetupProgress" type="ProgressBar" parent="MainMargin/MainVBox/SetupPanel/SetupInner" unique_id=1670960525]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+show_percentage = false
+
+[node name="SteamRow" type="HBoxContainer" parent="MainMargin/MainVBox" unique_id=341529981]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="SteamLabel" type="Label" parent="MainMargin/MainVBox/SteamRow" unique_id=1738003903]
+layout_mode = 2
+text = "Steam path (optional):"
+vertical_alignment = 1
+
+[node name="SteamPathEdit" type="LineEdit" parent="MainMargin/MainVBox/SteamRow" unique_id=1571774275]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "e.g. C:/Program Files (x86)/Steam/steamapps/common/Will You Snail"
+
+[node name="SteamBrowseBtn" type="Button" parent="MainMargin/MainVBox/SteamRow" unique_id=1979714803]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Browse…"
+
+[node name="Separator" type="HSeparator" parent="MainMargin/MainVBox" unique_id=1609892310]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SandboxPanel" type="PanelContainer" parent="MainMargin/MainVBox" unique_id=514059282]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SandboxInner" type="HBoxContainer" parent="MainMargin/MainVBox/SandboxPanel" unique_id=1610943373]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="SandboxInfoLabel" type="Label" parent="MainMargin/MainVBox/SandboxPanel/SandboxInner" unique_id=1287685533]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.85, 0.75, 0.35, 1)
+text = "Sandbox game files not yet downloaded. These are required to install and play mod versions."
+autowrap_mode = 3
+
+[node name="DlSandboxesBtn" type="Button" parent="MainMargin/MainVBox/SandboxPanel/SandboxInner" unique_id=403738734]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Download Sandboxes"
+
+[node name="ReleasesSection" type="VBoxContainer" parent="MainMargin/MainVBox" unique_id=1445851034]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 6
+
+[node name="ReleasesHeader" type="HBoxContainer" parent="MainMargin/MainVBox/ReleasesSection" unique_id=504048731]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="ReleasesTitle" type="Label" parent="MainMargin/MainVBox/ReleasesSection/ReleasesHeader" unique_id=1743786014]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 15
+text = "Mod Versions"
+
+[node name="RefreshBtn" type="Button" parent="MainMargin/MainVBox/ReleasesSection/ReleasesHeader" unique_id=556920746]
+unique_name_in_owner = true
+layout_mode = 2
+text = "↺  Refresh"
+
+[node name="ReleasesScroll" type="ScrollContainer" parent="MainMargin/MainVBox/ReleasesSection" unique_id=402083796]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="ReleasesList" type="VBoxContainer" parent="MainMargin/MainVBox/ReleasesSection/ReleasesScroll" unique_id=554689213]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
+
+[node name="PlayingPanel" type="PanelContainer" parent="MainMargin/MainVBox" unique_id=1998887621]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PlayingInner" type="VBoxContainer" parent="MainMargin/MainVBox/PlayingPanel" unique_id=1234500001]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="NowPlayingHeader" type="Label" parent="MainMargin/MainVBox/PlayingPanel/PlayingInner" unique_id=1234500002]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.9, 0.4, 1)
+theme_override_font_sizes/font_size = 13
+text = "▶  NOW PLAYING"
+horizontal_alignment = 1
+
+[node name="PlayingNameLabel" type="Label" parent="MainMargin/MainVBox/PlayingPanel/PlayingInner" unique_id=1234500003]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Version Name"
+horizontal_alignment = 1
+
+[node name="PlayingStepLabel" type="Label" parent="MainMargin/MainVBox/PlayingPanel/PlayingInner" unique_id=1234500004]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.65, 0.65, 0.65, 1)
+theme_override_font_sizes/font_size = 13
+text = "Preparing…"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="ForceCloseSpacer" type="Control" parent="MainMargin/MainVBox/PlayingPanel/PlayingInner" unique_id=1234500005]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+
+[node name="ForceCloseBtn" type="Button" parent="MainMargin/MainVBox/PlayingPanel/PlayingInner" unique_id=1234500006]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.35, 0.35, 1)
+text = "✕  Force Close Game"
+
+[node name="Separator2" type="HSeparator" parent="MainMargin/MainVBox" unique_id=2020660585]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="StatusRow" type="HBoxContainer" parent="MainMargin/MainVBox" unique_id=2051628527]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="StatusLabel" type="Label" parent="MainMargin/MainVBox/StatusRow" unique_id=1856628547]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.65, 0.65, 0.65, 1)
+text = "Ready."
+vertical_alignment = 1
+text_overrun_behavior = 3
+
+[node name="StatusProgress" type="ProgressBar" parent="MainMargin/MainVBox/StatusRow" unique_id=2146669391]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+show_percentage = false
+
+[node name="ErrorDialog" type="AcceptDialog" parent="." unique_id=311752917]
+unique_name_in_owner = true
+title = "Error"
+size = Vector2i(440, 160)
+
+[node name="CredentialsDialog" parent="." unique_id=1584816521 instance=ExtResource("3_creds")]
+unique_name_in_owner = true
+
+[node name="SteamPathDialog" type="FileDialog" parent="." unique_id=2104311718]
+unique_name_in_owner = true
+title = "Open a Directory"
+size = Vector2i(720, 520)
+min_size = Vector2i(720, 520)
+file_mode = 2
+access = 2
+
+[node name="SteamGuardDialog" parent="." unique_id=1833783381 instance=ExtResource("4_sg")]
+unique_name_in_owner = true
+
+[node name="ShaderController" type="Control" parent="." unique_id=152620717 node_paths=PackedStringArray("BackgroundRect")]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("8_03owx")
+BackgroundRect = NodePath("../TextureRect")
+TintA = Color(0.56078434, 0.52156866, 0.3137255, 1)
+TintB = Color(0.25882354, 0.43529412, 0.69411767, 1)
