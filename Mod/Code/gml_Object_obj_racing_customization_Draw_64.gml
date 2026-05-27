@@ -121,37 +121,13 @@ draw_set_color(make_color_rgb(255 - selected_green, 255, 255 - selected_green));
 draw_slider(620, 907.5, 600, selected_green / 255);
 draw_set_color(make_color_rgb(255 - selected_blue, 255 - selected_blue, 255));
 draw_slider(620, 1022.5, 600, selected_blue / 255);
-var preview_scale = 10;
-var preview_x = 1920 - (26 * preview_scale) - 100;
-var preview_y = 1080 - (20 * preview_scale) - 100;
-var house_x = preview_x - (15 * preview_scale);
-var house_y = preview_y + (16 * preview_scale);
-var outline_color = this_racer.outline_color;
-draw_sprite_ext(spr_snail_house, 0, house_x, house_y, preview_scale, preview_scale, 0, this_racer.shell_color, 1);
-draw_sprite_ext(spr_snail_house, 1, house_x, house_y, preview_scale, preview_scale, 0, outline_color, 1);
-var body_color = this_racer.body_color;
-draw_sprite_ext(spr_player_base, 0, preview_x, preview_y, preview_scale, preview_scale, 0, body_color, 1);
-draw_sprite_ext(spr_player_base, 1, preview_x, preview_y, preview_scale, preview_scale, 0, outline_color, 1);
-var eye_y_connection = preview_y + (15 * preview_scale);
-var eye_1_x = preview_x + (8 * preview_scale);
-var eye_1_y = preview_y - (15 * preview_scale);
-var eye_1_x_connection = preview_x + (8 * preview_scale);
-var eye_1_x_scale = point_distance(eye_1_x, eye_1_y, eye_1_x_connection, eye_y_connection) / 11;
-var eye_1_dir = point_direction(eye_1_x_connection, eye_y_connection, eye_1_x, eye_1_y);
-var eye_color = this_racer.eye_color;
-draw_sprite_ext(spr_snail_eye_connection, 0, eye_1_x_connection, eye_y_connection, eye_1_x_scale, preview_scale, eye_1_dir, body_color, 1);
-draw_sprite_ext(spr_snail_eye_connection, 1, eye_1_x_connection, eye_y_connection, eye_1_x_scale, preview_scale, eye_1_dir, outline_color, 1);
-draw_sprite_ext(spr_snail_eye, 0, eye_1_x, eye_1_y, preview_scale, preview_scale, 0, eye_color, 1);
-draw_sprite_ext(spr_snail_eye, 1, eye_1_x, eye_1_y, preview_scale, preview_scale, 0, outline_color, 1);
-draw_sprite_ext(spr_snail_pupil, 0, eye_1_x + (2 * preview_scale), eye_1_y, preview_scale, preview_scale, 0, outline_color, 1);
-var eye_2_x = preview_x + (20 * preview_scale);
-var eye_2_y = preview_y - (15 * preview_scale);
-var eye_2_x_connection = preview_x + (20 * preview_scale);
-var eye_2_x_scale = point_distance(eye_2_x, eye_2_y, eye_2_x_connection, eye_y_connection) / 11;
-var eye_2_dir = point_direction(eye_2_x_connection, eye_y_connection, eye_2_x, eye_2_y);
-draw_sprite_ext(spr_snail_eye_connection, 0, eye_2_x_connection, eye_y_connection, eye_2_x_scale, preview_scale, eye_2_dir, body_color, 1);
-draw_sprite_ext(spr_snail_eye_connection, 1, eye_2_x_connection, eye_y_connection, eye_2_x_scale, preview_scale, eye_2_dir, outline_color, 1);
-draw_sprite_ext(spr_snail_eye, 0, eye_2_x, eye_2_y, preview_scale, preview_scale, 0, eye_color, 1);
-draw_sprite_ext(spr_snail_eye, 1, eye_2_x, eye_2_y, preview_scale, preview_scale, 0, outline_color, 1);
-draw_sprite_ext(spr_snail_pupil, 0, eye_2_x + (2 * preview_scale), eye_2_y, preview_scale, preview_scale, 0, outline_color, 1);
+scr_draw_snail_from_racer_object_transformed(this_racer, 
+{
+    transform: transform_preview_x_closure_transform,
+    args: [this_racer.x]
+}, 
+{
+    transform: transform_preview_y_closure_transform,
+    args: [this_racer.y]
+}, 10, 1);
 scr_draw_mouse();

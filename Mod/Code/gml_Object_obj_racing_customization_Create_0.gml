@@ -15,6 +15,16 @@ function draw_slider(arg0, arg1, arg2, arg3)
     draw_set_color(c_white);
 }
 
+function transform_preview_x_closure_transform(arg0, arg1)
+{
+    return ((arg0 - arg1[0] - 26) * 10) + 1820;
+}
+
+function transform_preview_y_closure_transform(arg0, arg1)
+{
+    return ((arg0 - arg1[0] - 20) * 10) + 980;
+}
+
 ini_open("racing_settings.ini");
 this_racer.name = ini_read_string("Customization", "name", "Player");
 this_racer.name_color = ini_read_real("Customization", "name_color", 16777215);
