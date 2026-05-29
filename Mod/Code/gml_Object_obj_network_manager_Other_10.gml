@@ -82,6 +82,7 @@ if (send_metadata_cooldown >= 180)
         {
             var other_other_racer = (i == ii) ? this_racer : ds_list_find_value(other_racers, ii);
             buffer_write(buffer, buffer_string, other_other_racer.name);
+            buffer_write(buffer, buffer_s8, other_other_racer.hat);
             buffer_write(buffer, buffer_u32, other_other_racer.name_color);
             buffer_write(buffer, buffer_u32, other_other_racer.outline_color);
             buffer_write(buffer, buffer_u32, other_other_racer.body_color);

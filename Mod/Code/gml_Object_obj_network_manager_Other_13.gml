@@ -25,6 +25,7 @@ while (ds_list_size(other_racers) < num_other_racers)
         placement: 0,
         diff_to_first: 0,
         name: "Player",
+        hat: -1,
         name_color: 16777215,
         outline_color: make_color_rgb(18, 20, 66),
         body_color: make_color_rgb(60, 92, 153),
@@ -65,6 +66,7 @@ switch (packet_type)
         {
             var other_racer = ds_list_find_value(other_racers, i);
             other_racer.name = buffer_read(data_buffer, buffer_string);
+            other_racer.hat = buffer_read(data_buffer, buffer_s8);
             other_racer.name_color = buffer_read(data_buffer, buffer_u32);
             other_racer.outline_color = buffer_read(data_buffer, buffer_u32);
             other_racer.body_color = buffer_read(data_buffer, buffer_u32);

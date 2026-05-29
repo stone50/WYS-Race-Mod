@@ -45,6 +45,7 @@
         internal const int NumMaxRacerDataBytes =
             NameRacerDataOffset +
             NumMaxNameChars +
+            sizeof(sbyte) + // hat
             sizeof(uint) +  // name_color
             sizeof(uint) +  // outline_color
             sizeof(uint) +  // body_color
@@ -66,6 +67,7 @@
         internal const int NumMaxPacketDataBytes =
             NamePacketDataOffset +
             NumMaxNameChars +
+            sizeof(sbyte) + // hat
             sizeof(uint) +  // name_color
             sizeof(uint) +  // outline_color
             sizeof(uint) +  // body_color
@@ -78,6 +80,7 @@
 
         internal static readonly byte[] DefaultMetaDataBytes = [
             80, 108, 97, 121, 101, 114, 0,  // "Player" + null char
+            255,                            // hat
             255, 255, 255, 0,               // name_color (RGBA)
             18, 20, 66, 0,                  // outline_color (RGBA)
             60, 92, 153, 0,                 // body_color (RGBA)

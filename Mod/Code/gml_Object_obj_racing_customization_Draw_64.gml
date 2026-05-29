@@ -129,5 +129,5 @@ scr_draw_snail_from_racer_object_transformed(this_racer,
 {
     transform: transform_preview_y_closure_transform,
     args: [this_racer.y]
-}, 10, 1);
+}, 5, 1);
 scr_draw_mouse();

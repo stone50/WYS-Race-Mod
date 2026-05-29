@@ -17,16 +17,17 @@ function draw_slider(arg0, arg1, arg2, arg3)
 
 function transform_preview_x_closure_transform(arg0, arg1)
 {
-    return ((arg0 - arg1[0] - 26) * 10) + 1820;
+    return ((arg0 - arg1[0] - 26) * 5) + 1570;
 }
 
 function transform_preview_y_closure_transform(arg0, arg1)
 {
-    return ((arg0 - arg1[0] - 20) * 10) + 980;
+    return ((arg0 - arg1[0] - 20) * 5) + 1030;
 }
 
 ini_open("racing_settings.ini");
 this_racer.name = ini_read_string("Customization", "name", "Player");
+this_racer.hat = ini_read_real("Customization", "hat", -1);
 this_racer.name_color = ini_read_real("Customization", "name_color", 16777215);
 this_racer.outline_color = ini_read_real("Customization", "outline_color", make_color_rgb(18, 20, 66));
 this_racer.body_color = ini_read_real("Customization", "body_color", make_color_rgb(60, 92, 153));
@@ -39,3 +40,4 @@ other_racers_alpha = ini_read_real("Customization", "other_racers_alpha", 0.5);
 other_racer_names_alpha = ini_read_real("Customization", "other_racer_names_alpha", 0.5);
 other_racer_names_scale = ini_read_real("Customization", "other_racer_names_scale", 0.5);
 ini_close();
+global.save_equipped_hat = this_racer.hat;

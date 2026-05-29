@@ -46,5 +46,5 @@ for (var i = 0; i < num_other_racers; i++)
         args: [get_transformed_y, level_offset[1]]
     }, spectator_view_scale, 1);
     draw_set_color(other_racer.name_color);
-    draw_text_transformed(get_transformed_x(other_racer.x + level_offset[0]), get_transformed_y(other_racer.y + level_offset[1]) - (32 * spectator_view_scale), other_racer.name, other_racer_names_scale, other_racer_names_scale, 0);
+    draw_text_transformed(get_transformed_x(other_racer.x + level_offset[0]), get_transformed_y(other_racer.y + level_offset[1]) - (50 * spectator_view_scale), other_racer.name, other_racer_names_scale, other_racer_names_scale, 0);
 }

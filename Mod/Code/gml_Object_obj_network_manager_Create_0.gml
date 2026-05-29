@@ -25,7 +25,8 @@ this_racer =
     checkpoints: array_create(91, 0),
     furthest_checkpoint: 0,
     placement: 0,
-    diff_to_first: 0
+    diff_to_first: 0,
+    hat: -1
 };
 
 process_connection_string = function()

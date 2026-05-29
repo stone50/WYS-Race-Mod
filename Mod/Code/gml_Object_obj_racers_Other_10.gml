@@ -24,5 +24,5 @@ for (var i = 0; i < num_other_racers; i++)
         args: [version_x_offset]
     }, nothing_closure, 1, racing_customization.other_racers_alpha);
     var name_color = other_racer.name_color;
-    draw_text_transformed_color(other_racer.x + version_x_offset, other_racer.y - 32, other_racer.name, other_racer_names_scale, other_racer_names_scale, 0, name_color, name_color, name_color, name_color, other_racer_names_alpha);
+    draw_text_transformed_color(other_racer.x + version_x_offset, other_racer.y - 50, other_racer.name, other_racer_names_scale, other_racer_names_scale, 0, name_color, name_color, name_color, name_color, other_racer_names_alpha);
 }

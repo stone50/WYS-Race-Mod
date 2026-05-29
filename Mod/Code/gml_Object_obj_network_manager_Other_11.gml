@@ -29,6 +29,7 @@ buffer_write(buffer, buffer_u8, this_racer.furthest_checkpoint);
 if (should_send_metadata)
 {
     buffer_write(buffer, buffer_string, this_racer.name);
+    buffer_write(buffer, buffer_s8, this_racer.hat);
     buffer_write(buffer, buffer_u32, this_racer.name_color);
     buffer_write(buffer, buffer_u32, this_racer.outline_color);
     buffer_write(buffer, buffer_u32, this_racer.body_color);
