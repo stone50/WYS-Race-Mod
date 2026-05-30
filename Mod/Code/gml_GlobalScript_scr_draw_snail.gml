@@ -19,49 +19,49 @@ function scr_draw_snail(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, ar
         {
             case 0:
                 hat_dist = 41;
-                hat_sprite = 447;
+                hat_sprite = spr_hat_cylinder;
                 hat_color = 16777215;
                 break;
             
             case 1:
                 hat_dist = 39;
-                hat_sprite = 131;
+                hat_sprite = spr_hat_shelly;
                 hat_color = 16777215;
                 break;
             
             case 2:
                 hat_dist = 39;
-                hat_sprite = 477;
+                hat_sprite = spr_hat_unicorn;
                 hat_color = 16777215;
                 break;
             
             case 3:
                 hat_dist = 39;
-                hat_sprite = 433;
+                hat_sprite = spr_hat_human;
                 hat_color = 16777215;
                 break;
             
             case 4:
                 hat_dist = 39;
-                hat_sprite = 407;
+                hat_sprite = spr_hat_winter;
                 hat_color = 16777215;
                 break;
             
             case 5:
                 hat_dist = 39;
-                hat_sprite = 392;
+                hat_sprite = spr_hat_squid;
                 hat_color = 16777215;
                 break;
             
             case 6:
                 hat_dist = 39;
-                hat_sprite = 24;
+                hat_sprite = spr_hat_poopoo;
                 hat_color = 16777215;
                 break;
             
             case 7:
                 hat_dist = 39;
-                hat_sprite = 467;
+                hat_sprite = spr_hat_hart;
                 var level_styler = instance_find(obj_levelstyler, 0);
                 hat_color = merge_color(level_styler.col_ai, level_styler.col_ai2, 0.5);
                 break;

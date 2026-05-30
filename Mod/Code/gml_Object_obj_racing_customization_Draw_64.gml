@@ -23,7 +23,91 @@ draw_slider(480, 330, 250, other_racer_names_alpha);
 draw_text_transformed(480, 390, "Name\nScale", 0.6, 0.6, 0);
 draw_slider(480, 450, 250, other_racer_names_scale);
 draw_set_color(c_black);
-draw_text_transformed(800, 270, "Hats\n\nComing\n\nSoon", 1.5, 1.5, 0);
+draw_text_transformed(800, 60, "Hat", 0.8, 0.8, 0);
+draw_set_color((gui_mouse_x >= 660 && gui_mouse_x <= 740 && gui_mouse_y >= 110 && gui_mouse_y <= 190) ? c_purple : c_dkgray);
+draw_rectangle(660, 110, 740, 190, false);
+draw_sprite_stretched(spr_hat_cylinder, 0, 670, 127, 60, 46);
+draw_set_color((gui_mouse_x >= 760 && gui_mouse_x <= 840 && gui_mouse_y >= 110 && gui_mouse_y <= 190) ? c_purple : c_dkgray);
+draw_rectangle(760, 110, 840, 190, false);
+draw_sprite_stretched(spr_hat_shelly, 0, 770, 129.5, 60, 41);
+draw_set_color((gui_mouse_x >= 860 && gui_mouse_x <= 940 && gui_mouse_y >= 110 && gui_mouse_y <= 190) ? c_purple : c_dkgray);
+draw_rectangle(860, 110, 940, 190, false);
+draw_sprite_stretched(spr_hat_poopoo, 0, 876.5, 120, 47, 60);
+draw_set_color((gui_mouse_x >= 660 && gui_mouse_x <= 740 && gui_mouse_y >= 210 && gui_mouse_y <= 290) ? c_purple : c_dkgray);
+draw_rectangle(660, 210, 740, 290, false);
+draw_sprite_stretched(spr_hat_human, 0, 688.5, 220, 23, 60);
+draw_set_color((gui_mouse_x >= 760 && gui_mouse_x <= 840 && gui_mouse_y >= 210 && gui_mouse_y <= 290) ? c_purple : c_dkgray);
+draw_rectangle(760, 210, 840, 290, false);
+draw_sprite_stretched(spr_hat_winter, 0, 770, 225.5, 60, 49);
+draw_set_color((gui_mouse_x >= 860 && gui_mouse_x <= 940 && gui_mouse_y >= 210 && gui_mouse_y <= 290) ? c_purple : c_dkgray);
+draw_rectangle(860, 210, 940, 290, false);
+draw_sprite_stretched(spr_hat_squid, 0, 868, 208, 70, 70);
+draw_set_color((gui_mouse_x >= 710 && gui_mouse_x <= 790 && gui_mouse_y >= 310 && gui_mouse_y <= 390) ? c_purple : c_dkgray);
+draw_rectangle(710, 310, 790, 390, false);
+draw_sprite_stretched(spr_hat_unicorn, 0, 724.5, 320, 51, 60);
+draw_set_color((gui_mouse_x >= 810 && gui_mouse_x <= 890 && gui_mouse_y >= 310 && gui_mouse_y <= 390) ? c_purple : c_dkgray);
+draw_rectangle(810, 310, 890, 390, false);
+var level_styler = instance_find(obj_levelstyler);
+draw_sprite_stretched_ext(spr_hat_hart, 0, 820, 329.5, 60, 41, merge_color(level_styler.col_ai, level_styler.col_ai2, 0.5), 1);
+draw_set_color((gui_mouse_x >= 760 && gui_mouse_x <= 840 && gui_mouse_y >= 410 && gui_mouse_y <= 490) ? c_purple : c_dkgray);
+draw_rectangle(760, 410, 840, 490, false);
+draw_sprite_stretched(spr_hat_noone, 0, 771, 421, 60, 60);
+var selected_hat_outline_center_x, selected_hat_outline_center_y;
+
+switch (this_racer.hat)
+{
+    case 0:
+        selected_hat_outline_center_x = 700;
+        selected_hat_outline_center_y = 150;
+        break;
+    
+    case 1:
+        selected_hat_outline_center_x = 800;
+        selected_hat_outline_center_y = 150;
+        break;
+    
+    case 6:
+        selected_hat_outline_center_x = 900;
+        selected_hat_outline_center_y = 150;
+        break;
+    
+    case 3:
+        selected_hat_outline_center_x = 700;
+        selected_hat_outline_center_y = 250;
+        break;
+    
+    case 4:
+        selected_hat_outline_center_x = 800;
+        selected_hat_outline_center_y = 250;
+        break;
+    
+    case 5:
+        selected_hat_outline_center_x = 900;
+        selected_hat_outline_center_y = 250;
+        break;
+    
+    case 2:
+        selected_hat_outline_center_x = 750;
+        selected_hat_outline_center_y = 350;
+        break;
+    
+    case 7:
+        selected_hat_outline_center_x = 850;
+        selected_hat_outline_center_y = 350;
+        break;
+    
+    case -1:
+        selected_hat_outline_center_x = 800;
+        selected_hat_outline_center_y = 450;
+        break;
+}
+
+draw_set_color(c_aqua);
+draw_rectangle(selected_hat_outline_center_x - 44, selected_hat_outline_center_y - 44, selected_hat_outline_center_x + 44, selected_hat_outline_center_y - 40);
+draw_rectangle(selected_hat_outline_center_x - 44, selected_hat_outline_center_y + 40, selected_hat_outline_center_x + 44, selected_hat_outline_center_y + 44);
+draw_rectangle(selected_hat_outline_center_x - 44, selected_hat_outline_center_y - 44, selected_hat_outline_center_x - 40, selected_hat_outline_center_y + 44);
+draw_rectangle(selected_hat_outline_center_x + 40, selected_hat_outline_center_y - 44, selected_hat_outline_center_x + 44, selected_hat_outline_center_y + 44);
+draw_set_color(c_black);
 draw_set_halign(fa_left);
 draw_text_transformed(25, 595, this_racer.name, 1.1, 1.1, 0);
 draw_set_color(this_racer.name_color);

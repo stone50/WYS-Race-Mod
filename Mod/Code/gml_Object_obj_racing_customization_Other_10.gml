@@ -118,6 +118,75 @@ if (device_mouse_check_button(0, mb_left))
 if (!device_mouse_check_button_released(0, mb_left))
     exit;
 
+var should_save_hat = false;
+
+if (gui_mouse_x >= 660 && gui_mouse_x <= 740 && gui_mouse_y >= 110 && gui_mouse_y <= 190)
+{
+    this_racer.hat = 0;
+    should_save_hat = true;
+}
+
+if (gui_mouse_x >= 760 && gui_mouse_x <= 840 && gui_mouse_y >= 110 && gui_mouse_y <= 190)
+{
+    this_racer.hat = 1;
+    should_save_hat = true;
+}
+
+if (gui_mouse_x >= 860 && gui_mouse_x <= 940 && gui_mouse_y >= 110 && gui_mouse_y <= 190)
+{
+    this_racer.hat = 6;
+    should_save_hat = true;
+}
+
+if (gui_mouse_x >= 660 && gui_mouse_x <= 740 && gui_mouse_y >= 210 && gui_mouse_y <= 290)
+{
+    this_racer.hat = 3;
+    should_save_hat = true;
+}
+
+if (gui_mouse_x >= 760 && gui_mouse_x <= 840 && gui_mouse_y >= 210 && gui_mouse_y <= 290)
+{
+    this_racer.hat = 4;
+    should_save_hat = true;
+}
+
+if (gui_mouse_x >= 860 && gui_mouse_x <= 940 && gui_mouse_y >= 210 && gui_mouse_y <= 290)
+{
+    this_racer.hat = 5;
+    should_save_hat = true;
+}
+
+if (gui_mouse_x >= 710 && gui_mouse_x <= 790 && gui_mouse_y >= 310 && gui_mouse_y <= 390)
+{
+    this_racer.hat = 2;
+    should_save_hat = true;
+}
+
+if (gui_mouse_x >= 810 && gui_mouse_x <= 890 && gui_mouse_y >= 310 && gui_mouse_y <= 390)
+{
+    this_racer.hat = 7;
+    should_save_hat = true;
+}
+
+if (gui_mouse_x >= 760 && gui_mouse_x <= 840 && gui_mouse_y >= 410 && gui_mouse_y <= 490)
+{
+    this_racer.hat = -1;
+    should_save_hat = true;
+}
+
+if (should_save_hat)
+{
+    global.save_equipped_hat = this_racer.hat;
+    
+    if (instance_exists(obj_player))
+        scr_spawn_correct_hat();
+    
+    ini_open("racing_settings.ini");
+    ini_write_real("Customization", "hat", this_racer.hat);
+    ini_close();
+    exit;
+}
+
 if (gui_mouse_x >= 760 && gui_mouse_x <= 940 && gui_mouse_y >= 565 && gui_mouse_y <= 615)
 {
     var name = get_string("Name (max 20 characters)", this_racer.name);
