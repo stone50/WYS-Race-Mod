@@ -16,6 +16,7 @@ this_racer =
     y: 0,
     on_speedrunner_version: scr_get_is_speedrunner_version(),
     is_looking_right: true,
+    gun: 0,
     house_height: 1,
     house_tilt: 0,
     eye_1_x: 8,

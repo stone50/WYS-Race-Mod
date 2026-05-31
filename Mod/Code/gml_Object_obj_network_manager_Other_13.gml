@@ -15,6 +15,7 @@ while (ds_list_size(other_racers) < num_other_racers)
         y: 0,
         on_speedrunner_version: true,
         is_looking_right: true,
+        gun: 0,
         house_height: 1,
         house_tilt: 0,
         eye_1_x: 8,
@@ -46,6 +47,7 @@ switch (packet_type)
             var flags = buffer_read(data_buffer, buffer_u8);
             other_racer.is_looking_right = (flags & 1) != 0;
             other_racer.on_speedrunner_version = (flags & 2) != 0;
+            other_racer.gun = (flags >> 2) & 7;
             other_racer.house_height = buffer_read(data_buffer, buffer_f32);
             other_racer.house_tilt = buffer_read(data_buffer, buffer_f32);
             other_racer.eye_1_x = buffer_read(data_buffer, buffer_f32);
