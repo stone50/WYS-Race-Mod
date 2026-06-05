@@ -32,7 +32,7 @@ if (device_mouse_check_button_released(0, mb_left))
     var button_scale = racing_customization.leaderboard_scale * 32;
     var button_x = 1920 - (29 * button_scale);
     
-    if (gui_mouse_x >= button_x && gui_mouse_x <= (button_x + button_scale))
+    if (gui_mouse_x >= button_x)
     {
         for (i = 0; i < ds_list_size(other_racers); i++)
         {
