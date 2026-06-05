@@ -13,6 +13,8 @@
         private static readonly ConcurrentQueue<Packet> PacketQueue = new();
         private static readonly List<Racer> Racers = new(Constants.NumMaxRacers);
         private static DateTime LastMetaDataPacketSentDate = DateTime.UtcNow;
+        private static int Countdown = -1;
+        private static DateTime CountdownStartDate = DateTime.UtcNow - TimeSpan.FromSeconds(Constants.NumFullCountdownCycleSeconds);
         private static readonly CancellationTokenSource CancellationTokenSource = new();
 
         private static async Task Main(string[] args) {
@@ -75,6 +77,7 @@
                 }
 
                 CalculateLeaderboardData();
+                CalculateCountdown();
                 SendRegularPackets();
                 if ((DateTime.UtcNow - LastMetaDataPacketSentDate).TotalSeconds > Constants.MetaDataTickRateSeconds) {
                     SendMetaDataPackets();
@@ -132,6 +135,28 @@
             }
         }
 
+        private static void CalculateCountdown() {
+            var secondsSinceCountdownStart = (DateTime.UtcNow - CountdownStartDate).TotalSeconds;
+            if (secondsSinceCountdownStart > Constants.NumFullCountdownCycleSeconds) {
+                var allRacersAreReady = true;
+                foreach (var racer in Racers) {
+                    if (!racer.GetIsReady()) {
+                        allRacersAreReady = false;
+                        break;
+                    }
+                }
+
+                if (allRacersAreReady) {
+                    Countdown = Constants.NumCountdownSeconds;
+                    CountdownStartDate = DateTime.UtcNow;
+                } else {
+                    Countdown = -1;
+                }
+            } else {
+                Countdown = Math.Max(Constants.NumCountdownSeconds - (int)secondsSinceCountdownStart, 0);
+            }
+        }
+
         private static void SendRegularPackets() {
             var numOtherRacers = Racers.Count - 1;
             var numRegularPacketBytes =
@@ -144,7 +169,8 @@
                     sizeof(float)   // diff_to_first
                 ) * numOtherRacers +
                 sizeof(byte) +  // placement
-                sizeof(float);  // diff_to_first
+                sizeof(float) + // diff_to_first
+                sizeof(sbyte);  // countdown  
             for (var i = 0; i < Racers.Count; i++) {
                 var packet = new byte[numRegularPacketBytes];
                 packet[0] = Constants.RegularPacketType;
@@ -164,6 +190,8 @@
 
                 var racer = Racers[i];
                 racer.Data.AsSpan(Constants.PlacementRacerDataOffset, sizeof(byte) + sizeof(float)).CopyTo(packet.AsSpan(offset));
+                offset += sizeof(byte) + sizeof(float);
+                packet[offset] = (byte)Countdown;
                 try {
                     _ = Client.Send(packet, racer.IPEndPoint);
                 } catch {

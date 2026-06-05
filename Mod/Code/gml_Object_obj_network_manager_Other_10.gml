@@ -38,6 +38,34 @@ for (var i = 0; i < num_all_racers; i++)
     racer.diff_to_first = (racer_furthest_checkpoint == 90) ? racer.checkpoints[90] : (racer.checkpoints[racer_furthest_checkpoint] - first_racer_checkpoints[racer_furthest_checkpoint]);
 }
 
+if ((current_time - countdown_start_time) > 13000)
+{
+    var all_racers_are_ready = true;
+    
+    for (var i = 0; i < num_all_racers; i++)
+    {
+        if (!all_racers[i].is_ready)
+        {
+            all_racers_are_ready = false;
+            break;
+        }
+    }
+    
+    if (all_racers_are_ready)
+    {
+        countdown = 10;
+        countdown_start_time = current_time;
+    }
+    else
+    {
+        countdown = -1;
+    }
+}
+else
+{
+    countdown = max(10 - floor((current_time - countdown_start_time) / 1000), 0);
+}
+
 for (var i = 0; i < num_other_racers; i++)
 {
     var other_racer = ds_list_find_value(other_racers, i);
@@ -51,7 +79,7 @@ for (var i = 0; i < num_other_racers; i++)
         buffer_write(buffer, buffer_u16, other_other_racer.current_room);
         buffer_write(buffer, buffer_f32, other_other_racer.x);
         buffer_write(buffer, buffer_f32, other_other_racer.y);
-        var flags = (other_other_racer.gun << 2) | (real(other_other_racer.on_speedrunner_version) << 1) | real(other_other_racer.is_looking_right);
+        var flags = (other_other_racer.is_ready << 5) | (other_other_racer.gun << 2) | (real(other_other_racer.on_speedrunner_version) << 1) | real(other_other_racer.is_looking_right);
         buffer_write(buffer, buffer_u8, flags);
         buffer_write(buffer, buffer_f32, other_other_racer.house_height);
         buffer_write(buffer, buffer_f32, other_other_racer.house_tilt);
@@ -66,6 +94,7 @@ for (var i = 0; i < num_other_racers; i++)
     
     buffer_write(buffer, buffer_u8, other_racer.placement);
     buffer_write(buffer, buffer_f32, other_racer.diff_to_first);
+    buffer_write(buffer, buffer_s8, countdown);
     network_send_udp_raw(server, other_racer.ip, other_racer.port, buffer, buffer_tell(buffer));
 }
 

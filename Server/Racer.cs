@@ -26,7 +26,8 @@
                         packet.Data.Length -
                         Constants.CurrentRoomPacketDataOffset +
                         sizeof(byte) +  // placement
-                        sizeof(float);  // diff_to_first
+                        sizeof(float) + // diff_to_first
+                        sizeof(sbyte);  // countdown
                     break;
             }
 
@@ -40,5 +41,7 @@
         internal void SetPlacement(byte placement) => Data[Constants.PlacementRacerDataOffset] = placement;
 
         internal void SetDiffToFirst(float diffToFirst) => BinaryPrimitives.WriteSingleLittleEndian(Data.AsSpan(Constants.DiffToFirstRacerDataOffset), diffToFirst);
+
+        internal bool GetIsReady() => Data[Constants.FlagsRacerDataOffset] >> Constants.IsReadyRacerDataFlagsOffset == 1;
     }
 }

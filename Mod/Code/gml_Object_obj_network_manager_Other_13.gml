@@ -11,17 +11,18 @@ while (ds_list_size(other_racers) < num_other_racers)
     ds_list_add(other_racers, 
     {
         current_room: -1,
-        x: 0,
-        y: 0,
+        x: -infinity,
+        y: -infinity,
         on_speedrunner_version: true,
         is_looking_right: true,
         gun: 0,
+        is_ready: false,
         house_height: 1,
         house_tilt: 0,
-        eye_1_x: 8,
-        eye_1_y: -15,
-        eye_2_x: 20,
-        eye_2_y: -15,
+        eye_1_x: -infinity,
+        eye_1_y: -infinity,
+        eye_2_x: -infinity,
+        eye_2_y: -infinity,
         furthest_checkpoint: 0,
         placement: 0,
         diff_to_first: 0,
@@ -48,6 +49,7 @@ switch (packet_type)
             other_racer.is_looking_right = (flags & 1) != 0;
             other_racer.on_speedrunner_version = (flags & 2) != 0;
             other_racer.gun = (flags >> 2) & 7;
+            other_racer.is_ready = (flags >> 5) == 1;
             other_racer.house_height = buffer_read(data_buffer, buffer_f32);
             other_racer.house_tilt = buffer_read(data_buffer, buffer_f32);
             other_racer.eye_1_x = buffer_read(data_buffer, buffer_f32);
@@ -61,6 +63,7 @@ switch (packet_type)
         
         this_racer.placement = buffer_read(data_buffer, buffer_u8);
         this_racer.diff_to_first = buffer_read(data_buffer, buffer_f32);
+        countdown = buffer_read(data_buffer, buffer_s8);
         break;
     
     case 2:

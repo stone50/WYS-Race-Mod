@@ -12,7 +12,7 @@ buffer_write(buffer, buffer_u8, should_send_metadata ? 2 : 1);
 buffer_write(buffer, buffer_u16, this_racer.current_room);
 buffer_write(buffer, buffer_f32, this_racer.x);
 buffer_write(buffer, buffer_f32, this_racer.y);
-var flags = (this_racer.gun << 2) | (real(this_racer.on_speedrunner_version) << 1) | real(this_racer.is_looking_right);
+var flags = (this_racer.is_ready << 5) | (this_racer.gun << 2) | (real(this_racer.on_speedrunner_version) << 1) | real(this_racer.is_looking_right);
 buffer_write(buffer, buffer_u8, flags);
 buffer_write(buffer, buffer_f32, this_racer.house_height);
 buffer_write(buffer, buffer_f32, this_racer.house_tilt);

@@ -8,21 +8,25 @@ server = -1;
 buffer = buffer_create(1024, buffer_fixed, 1);
 latest_packet_time = 0;
 send_metadata_cooldown = 0;
+allow_ready_up = false;
+countdown = -1;
+countdown_start_time = -13000;
 other_racers = ds_list_create();
 this_racer = 
 {
     current_room: room,
-    x: 0,
-    y: 0,
+    x: -infinity,
+    y: -infinity,
     on_speedrunner_version: scr_get_is_speedrunner_version(),
     is_looking_right: true,
     gun: 0,
+    is_ready: false,
     house_height: 1,
     house_tilt: 0,
-    eye_1_x: 8,
-    eye_1_y: -15,
-    eye_2_x: 20,
-    eye_2_y: -15,
+    eye_1_x: -infinity,
+    eye_1_y: -infinity,
+    eye_2_x: -infinity,
+    eye_2_y: -infinity,
     checkpoints: array_create(91, 0),
     furthest_checkpoint: 0,
     placement: 0,

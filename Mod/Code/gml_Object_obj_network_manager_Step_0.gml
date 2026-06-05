@@ -1,3 +1,6 @@
+allow_ready_up = room == T_01_first_contact && global.save_speedrun_timer_game == 0;
+this_racer.is_ready = allow_ready_up && this_racer.is_ready;
+
 if (!visible)
     exit;
 

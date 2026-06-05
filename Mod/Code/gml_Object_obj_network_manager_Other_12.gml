@@ -46,6 +46,7 @@ var flags = buffer_read(data_buffer, buffer_u8);
 other_racer.is_looking_right = (flags & 1) != 0;
 other_racer.on_speedrunner_version = (flags & 2) != 0;
 other_racer.gun = (flags >> 2) & 7;
+other_racer.is_ready = (flags >> 5) == 1;
 other_racer.house_height = buffer_read(data_buffer, buffer_f32);
 other_racer.house_tilt = buffer_read(data_buffer, buffer_f32);
 other_racer.eye_1_x = buffer_read(data_buffer, buffer_f32);

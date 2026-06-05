@@ -24,6 +24,11 @@
       "name": "obj_spectator_view",
       "room": "menu",
       "layer": "Spots"
+    },
+    {
+      "name": "obj_race_countdown",
+      "room": "T_01_first_contact",
+      "layer": "Spots"
     }
   ]
 }

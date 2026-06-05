@@ -7,16 +7,25 @@
         internal const int NumMaxPackets = NumMaxRacers * 2;
         internal const double DisconnectTimeoutSeconds = 3d;
         internal const int EmptyServerSleepMillis = 3000;
+        internal const int NumCountdownSeconds = 10;
+        internal const int NumCountdownEndDelaySeconds = 3;
+        internal const int NumFullCountdownCycleSeconds = NumCountdownSeconds + NumCountdownEndDelaySeconds;
 
         internal const int NumCheckpoints = 91;
         internal const int NumCheckpointBytes = NumCheckpoints * sizeof(float);
         internal const int NumMaxNameChars = 21; // 20 chars + null char
 
-        internal const int CheckpointRacerDataOffset =
+        internal const int FlagsRacerDataOffset =
             sizeof(ushort) +    // current_room
             sizeof(float) +     // x
-            sizeof(float) +     // y
-            sizeof(sbyte) +     // look_dir
+            sizeof(float);      // y
+        internal const int IsReadyRacerDataFlagsOffset =
+            1 + // is_looking_right
+            1 + // on_speedrunner_version
+            3;  // gun
+        internal const int CheckpointRacerDataOffset =
+            FlagsRacerDataOffset +
+            sizeof(byte) +      // flags
             sizeof(float) +     // house_height
             sizeof(float) +     // house_tilt
             sizeof(float) +     // eye_1_x
@@ -63,7 +72,8 @@
                 NumPastCheckpointsRacerOutboundPacketDataBytes
             ) * NumMaxRacers +
             sizeof(byte) +  // placement
-            sizeof(float);  // diff_to_first
+            sizeof(float) + // diff_to_first
+            sizeof(sbyte);  // countdown
         internal const int NumMaxPacketDataBytes =
             NamePacketDataOffset +
             NumMaxNameChars +

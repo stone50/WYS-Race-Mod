@@ -205,6 +205,18 @@ draw_set_color(make_color_rgb(255 - selected_green, 255, 255 - selected_green));
 draw_slider(620, 907.5, 600, selected_green / 255);
 draw_set_color(make_color_rgb(255 - selected_blue, 255 - selected_blue, 255));
 draw_slider(620, 1022.5, 600, selected_blue / 255);
+var should_shift_this_racer = !instance_exists(obj_player);
+
+if (should_shift_this_racer)
+{
+    this_racer.x = 0;
+    this_racer.y = 0;
+    this_racer.eye_1_x = 8;
+    this_racer.eye_1_y = -15;
+    this_racer.eye_2_x = 20;
+    this_racer.eye_2_y = -15;
+}
+
 scr_draw_snail_from_racer_object_transformed(this_racer, 
 {
     transform: transform_preview_x_closure_transform,
@@ -214,4 +226,15 @@ scr_draw_snail_from_racer_object_transformed(this_racer,
     transform: transform_preview_y_closure_transform,
     args: [this_racer.y]
 }, 5, 1);
+
+if (should_shift_this_racer)
+{
+    this_racer.x = -infinity;
+    this_racer.y = -infinity;
+    this_racer.eye_1_x = -infinity;
+    this_racer.eye_1_y = -infinity;
+    this_racer.eye_2_x = -infinity;
+    this_racer.eye_2_y = -infinity;
+}
+
 scr_draw_mouse();
