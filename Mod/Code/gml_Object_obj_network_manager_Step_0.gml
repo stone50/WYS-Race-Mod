@@ -48,7 +48,7 @@ else if (gui_mouse_y >= 858 && gui_mouse_y <= 957)
     }
     else
     {
-        var input = get_string("Connection String (default is 127.0.0.1:25565)", connection_string);
+        var input = get_string("Connection String (default is 127.0.0.1:25565)" + server_list_string, connection_string);
         
         if (input == "")
             exit;

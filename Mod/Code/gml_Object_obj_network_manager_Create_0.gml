@@ -8,6 +8,7 @@ server = -1;
 buffer = buffer_create(1024, buffer_fixed, 1);
 latest_packet_time = 0;
 send_metadata_cooldown = 0;
+server_list_string = "";
 allow_ready_up = false;
 countdown = -1;
 countdown_start_time = -13000;
