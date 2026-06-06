@@ -18,6 +18,7 @@ draw_set_halign(fa_right);
 draw_set_valign(fa_top);
 draw_set_font(font_aiTalk);
 var text_alpha = racing_customization.leaderboard_text_alpha;
+var should_draw_check_marks = !instance_exists(obj_spectator_view);
 
 for (var i = 0; i < num_all_racers; i++)
 {
@@ -51,4 +52,9 @@ for (var i = 0; i < num_all_racers; i++)
     var line = placement_text + "." + name_text + " " + scr_get_checkpoint_name(furthest_checkpoint) + " " + time_text;
     var racer_name_color = racer.name_color;
     draw_text_transformed_color(1920, i * 33 * scale, line, scale, scale, 0, racer_name_color, racer_name_color, racer_name_color, racer_name_color, text_alpha);
+    
+    if (!should_draw_check_marks || !racer.is_ready)
+        continue;
+    
+    draw_sprite_ext(spr_dialog_arrows, 1, 1920 - (920 * scale), i * 34 * scale, 0.8 * scale, 0.8 * scale, 0, c_lime, text_alpha);
 }

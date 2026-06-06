@@ -15,6 +15,8 @@ while (ds_list_size(other_racers) < num_other_racers)
         y: -infinity,
         on_speedrunner_version: true,
         is_looking_right: true,
+        gun: 0,
+        is_ready: false,
         house_height: 1,
         house_tilt: 0,
         eye_1_x: -infinity,
@@ -25,6 +27,7 @@ while (ds_list_size(other_racers) < num_other_racers)
         placement: 0,
         diff_to_first: 0,
         name: "Player",
+        hat: -1,
         name_color: 16777215,
         outline_color: make_color_rgb(18, 20, 66),
         body_color: make_color_rgb(60, 92, 153),
@@ -45,6 +48,8 @@ switch (packet_type)
             var flags = buffer_read(data_buffer, buffer_u8);
             other_racer.is_looking_right = (flags & 1) != 0;
             other_racer.on_speedrunner_version = (flags & 2) != 0;
+            other_racer.gun = (flags >> 2) & 7;
+            other_racer.is_ready = (flags >> 5) == 1;
             other_racer.house_height = buffer_read(data_buffer, buffer_f32);
             other_racer.house_tilt = buffer_read(data_buffer, buffer_f32);
             other_racer.eye_1_x = buffer_read(data_buffer, buffer_f32);
@@ -58,6 +63,7 @@ switch (packet_type)
         
         this_racer.placement = buffer_read(data_buffer, buffer_u8);
         this_racer.diff_to_first = buffer_read(data_buffer, buffer_f32);
+        countdown = buffer_read(data_buffer, buffer_s8);
         break;
     
     case 2:
@@ -65,6 +71,7 @@ switch (packet_type)
         {
             var other_racer = ds_list_find_value(other_racers, i);
             other_racer.name = buffer_read(data_buffer, buffer_string);
+            other_racer.hat = buffer_read(data_buffer, buffer_s8);
             other_racer.name_color = buffer_read(data_buffer, buffer_u32);
             other_racer.outline_color = buffer_read(data_buffer, buffer_u32);
             other_racer.body_color = buffer_read(data_buffer, buffer_u32);

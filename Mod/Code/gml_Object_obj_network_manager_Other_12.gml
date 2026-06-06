@@ -23,6 +23,7 @@ if (other_racer == -4)
         placement: 0,
         diff_to_first: 0,
         name: "Player",
+        hat: -1,
         name_color: 16777215,
         outline_color: make_color_rgb(18, 20, 66),
         body_color: make_color_rgb(60, 92, 153),
@@ -44,6 +45,8 @@ other_racer.y = buffer_read(data_buffer, buffer_f32);
 var flags = buffer_read(data_buffer, buffer_u8);
 other_racer.is_looking_right = (flags & 1) != 0;
 other_racer.on_speedrunner_version = (flags & 2) != 0;
+other_racer.gun = (flags >> 2) & 7;
+other_racer.is_ready = (flags >> 5) == 1;
 other_racer.house_height = buffer_read(data_buffer, buffer_f32);
 other_racer.house_tilt = buffer_read(data_buffer, buffer_f32);
 other_racer.eye_1_x = buffer_read(data_buffer, buffer_f32);
@@ -59,6 +62,7 @@ other_racer.furthest_checkpoint = buffer_read(data_buffer, buffer_u8);
 if (packet_type == 2)
 {
     other_racer.name = buffer_read(data_buffer, buffer_string);
+    other_racer.hat = buffer_read(data_buffer, buffer_s8);
     other_racer.name_color = buffer_read(data_buffer, buffer_u32);
     other_racer.outline_color = buffer_read(data_buffer, buffer_u32);
     other_racer.body_color = buffer_read(data_buffer, buffer_u32);
