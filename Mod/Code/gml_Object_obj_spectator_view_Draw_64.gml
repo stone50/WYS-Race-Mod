@@ -10,7 +10,7 @@ for (var i = 0; i < ds_list_size(other_racers); i++)
     var other_racer = ds_list_find_value(other_racers, i);
     var button_y = other_racer.placement * button_scale;
     var button_y_2 = button_y + button_scale;
-    var is_hovering = gui_mouse_x >= button_x && gui_mouse_x <= button_x_2 && gui_mouse_y >= button_y && gui_mouse_y <= button_y_2;
+    var is_hovering = gui_mouse_x >= button_x && gui_mouse_y >= button_y && gui_mouse_y <= button_y_2;
     var alpha = is_hovering ? 1 : 0.5;
     draw_set_alpha(alpha);
     var pupil_padding = 0.359375 * button_scale;

@@ -13,6 +13,7 @@ WYS Race Mod is a multiplayer extension for Will You Snail? designed for racing.
 - Automatic disabling of "Automatic Difficulty"
 - Snail customization
 - A spectator view
+- A ready-up system with a countdown
 
 ---
 
@@ -69,6 +70,12 @@ Press **F3** while in the pause menu to toggle the spectator view.
 - Click and drag to pan around.
 - Use the scroll wheel to zoom in or out.
 - Click the pink buttons next to players' names on the leaderboard to follow them
+
+### Readying-Up
+
+Press **F4** while in a fresh save to toggle being ready
+
+- Once all players are ready, a countdown will begin
 
 ### Racing & Leaderboards
 

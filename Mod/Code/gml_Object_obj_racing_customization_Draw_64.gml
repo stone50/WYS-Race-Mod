@@ -23,7 +23,91 @@ draw_slider(480, 330, 250, other_racer_names_alpha);
 draw_text_transformed(480, 390, "Name\nScale", 0.6, 0.6, 0);
 draw_slider(480, 450, 250, other_racer_names_scale);
 draw_set_color(c_black);
-draw_text_transformed(800, 270, "Hats\n\nComing\n\nSoon", 1.5, 1.5, 0);
+draw_text_transformed(800, 60, "Hat", 0.8, 0.8, 0);
+draw_set_color((gui_mouse_x >= 660 && gui_mouse_x <= 740 && gui_mouse_y >= 110 && gui_mouse_y <= 190) ? c_purple : c_dkgray);
+draw_rectangle(660, 110, 740, 190, false);
+draw_sprite_stretched(spr_hat_cylinder, 0, 670, 127, 60, 46);
+draw_set_color((gui_mouse_x >= 760 && gui_mouse_x <= 840 && gui_mouse_y >= 110 && gui_mouse_y <= 190) ? c_purple : c_dkgray);
+draw_rectangle(760, 110, 840, 190, false);
+draw_sprite_stretched(spr_hat_shelly, 0, 770, 129.5, 60, 41);
+draw_set_color((gui_mouse_x >= 860 && gui_mouse_x <= 940 && gui_mouse_y >= 110 && gui_mouse_y <= 190) ? c_purple : c_dkgray);
+draw_rectangle(860, 110, 940, 190, false);
+draw_sprite_stretched(spr_hat_poopoo, 0, 876.5, 120, 47, 60);
+draw_set_color((gui_mouse_x >= 660 && gui_mouse_x <= 740 && gui_mouse_y >= 210 && gui_mouse_y <= 290) ? c_purple : c_dkgray);
+draw_rectangle(660, 210, 740, 290, false);
+draw_sprite_stretched(spr_hat_human, 0, 688.5, 220, 23, 60);
+draw_set_color((gui_mouse_x >= 760 && gui_mouse_x <= 840 && gui_mouse_y >= 210 && gui_mouse_y <= 290) ? c_purple : c_dkgray);
+draw_rectangle(760, 210, 840, 290, false);
+draw_sprite_stretched(spr_hat_winter, 0, 770, 225.5, 60, 49);
+draw_set_color((gui_mouse_x >= 860 && gui_mouse_x <= 940 && gui_mouse_y >= 210 && gui_mouse_y <= 290) ? c_purple : c_dkgray);
+draw_rectangle(860, 210, 940, 290, false);
+draw_sprite_stretched(spr_hat_squid, 0, 868, 208, 70, 70);
+draw_set_color((gui_mouse_x >= 710 && gui_mouse_x <= 790 && gui_mouse_y >= 310 && gui_mouse_y <= 390) ? c_purple : c_dkgray);
+draw_rectangle(710, 310, 790, 390, false);
+draw_sprite_stretched(spr_hat_unicorn, 0, 724.5, 320, 51, 60);
+draw_set_color((gui_mouse_x >= 810 && gui_mouse_x <= 890 && gui_mouse_y >= 310 && gui_mouse_y <= 390) ? c_purple : c_dkgray);
+draw_rectangle(810, 310, 890, 390, false);
+var level_styler = instance_find(obj_levelstyler);
+draw_sprite_stretched_ext(spr_hat_hart, 0, 820, 329.5, 60, 41, merge_color(level_styler.col_ai, level_styler.col_ai2, 0.5), 1);
+draw_set_color((gui_mouse_x >= 760 && gui_mouse_x <= 840 && gui_mouse_y >= 410 && gui_mouse_y <= 490) ? c_purple : c_dkgray);
+draw_rectangle(760, 410, 840, 490, false);
+draw_sprite_stretched(spr_hat_noone, 0, 771, 421, 60, 60);
+var selected_hat_outline_center_x, selected_hat_outline_center_y;
+
+switch (this_racer.hat)
+{
+    case 0:
+        selected_hat_outline_center_x = 700;
+        selected_hat_outline_center_y = 150;
+        break;
+    
+    case 1:
+        selected_hat_outline_center_x = 800;
+        selected_hat_outline_center_y = 150;
+        break;
+    
+    case 6:
+        selected_hat_outline_center_x = 900;
+        selected_hat_outline_center_y = 150;
+        break;
+    
+    case 3:
+        selected_hat_outline_center_x = 700;
+        selected_hat_outline_center_y = 250;
+        break;
+    
+    case 4:
+        selected_hat_outline_center_x = 800;
+        selected_hat_outline_center_y = 250;
+        break;
+    
+    case 5:
+        selected_hat_outline_center_x = 900;
+        selected_hat_outline_center_y = 250;
+        break;
+    
+    case 2:
+        selected_hat_outline_center_x = 750;
+        selected_hat_outline_center_y = 350;
+        break;
+    
+    case 7:
+        selected_hat_outline_center_x = 850;
+        selected_hat_outline_center_y = 350;
+        break;
+    
+    case -1:
+        selected_hat_outline_center_x = 800;
+        selected_hat_outline_center_y = 450;
+        break;
+}
+
+draw_set_color(c_aqua);
+draw_rectangle(selected_hat_outline_center_x - 44, selected_hat_outline_center_y - 44, selected_hat_outline_center_x + 44, selected_hat_outline_center_y - 40);
+draw_rectangle(selected_hat_outline_center_x - 44, selected_hat_outline_center_y + 40, selected_hat_outline_center_x + 44, selected_hat_outline_center_y + 44);
+draw_rectangle(selected_hat_outline_center_x - 44, selected_hat_outline_center_y - 44, selected_hat_outline_center_x - 40, selected_hat_outline_center_y + 44);
+draw_rectangle(selected_hat_outline_center_x + 40, selected_hat_outline_center_y - 44, selected_hat_outline_center_x + 44, selected_hat_outline_center_y + 44);
+draw_set_color(c_black);
 draw_set_halign(fa_left);
 draw_text_transformed(25, 595, this_racer.name, 1.1, 1.1, 0);
 draw_set_color(this_racer.name_color);
@@ -121,37 +205,36 @@ draw_set_color(make_color_rgb(255 - selected_green, 255, 255 - selected_green));
 draw_slider(620, 907.5, 600, selected_green / 255);
 draw_set_color(make_color_rgb(255 - selected_blue, 255 - selected_blue, 255));
 draw_slider(620, 1022.5, 600, selected_blue / 255);
-var preview_scale = 10;
-var preview_x = 1920 - (26 * preview_scale) - 100;
-var preview_y = 1080 - (20 * preview_scale) - 100;
-var house_x = preview_x - (15 * preview_scale);
-var house_y = preview_y + (16 * preview_scale);
-var outline_color = this_racer.outline_color;
-draw_sprite_ext(spr_snail_house, 0, house_x, house_y, preview_scale, preview_scale, 0, this_racer.shell_color, 1);
-draw_sprite_ext(spr_snail_house, 1, house_x, house_y, preview_scale, preview_scale, 0, outline_color, 1);
-var body_color = this_racer.body_color;
-draw_sprite_ext(spr_player_base, 0, preview_x, preview_y, preview_scale, preview_scale, 0, body_color, 1);
-draw_sprite_ext(spr_player_base, 1, preview_x, preview_y, preview_scale, preview_scale, 0, outline_color, 1);
-var eye_y_connection = preview_y + (15 * preview_scale);
-var eye_1_x = preview_x + (8 * preview_scale);
-var eye_1_y = preview_y - (15 * preview_scale);
-var eye_1_x_connection = preview_x + (8 * preview_scale);
-var eye_1_x_scale = point_distance(eye_1_x, eye_1_y, eye_1_x_connection, eye_y_connection) / 11;
-var eye_1_dir = point_direction(eye_1_x_connection, eye_y_connection, eye_1_x, eye_1_y);
-var eye_color = this_racer.eye_color;
-draw_sprite_ext(spr_snail_eye_connection, 0, eye_1_x_connection, eye_y_connection, eye_1_x_scale, preview_scale, eye_1_dir, body_color, 1);
-draw_sprite_ext(spr_snail_eye_connection, 1, eye_1_x_connection, eye_y_connection, eye_1_x_scale, preview_scale, eye_1_dir, outline_color, 1);
-draw_sprite_ext(spr_snail_eye, 0, eye_1_x, eye_1_y, preview_scale, preview_scale, 0, eye_color, 1);
-draw_sprite_ext(spr_snail_eye, 1, eye_1_x, eye_1_y, preview_scale, preview_scale, 0, outline_color, 1);
-draw_sprite_ext(spr_snail_pupil, 0, eye_1_x + (2 * preview_scale), eye_1_y, preview_scale, preview_scale, 0, outline_color, 1);
-var eye_2_x = preview_x + (20 * preview_scale);
-var eye_2_y = preview_y - (15 * preview_scale);
-var eye_2_x_connection = preview_x + (20 * preview_scale);
-var eye_2_x_scale = point_distance(eye_2_x, eye_2_y, eye_2_x_connection, eye_y_connection) / 11;
-var eye_2_dir = point_direction(eye_2_x_connection, eye_y_connection, eye_2_x, eye_2_y);
-draw_sprite_ext(spr_snail_eye_connection, 0, eye_2_x_connection, eye_y_connection, eye_2_x_scale, preview_scale, eye_2_dir, body_color, 1);
-draw_sprite_ext(spr_snail_eye_connection, 1, eye_2_x_connection, eye_y_connection, eye_2_x_scale, preview_scale, eye_2_dir, outline_color, 1);
-draw_sprite_ext(spr_snail_eye, 0, eye_2_x, eye_2_y, preview_scale, preview_scale, 0, eye_color, 1);
-draw_sprite_ext(spr_snail_eye, 1, eye_2_x, eye_2_y, preview_scale, preview_scale, 0, outline_color, 1);
-draw_sprite_ext(spr_snail_pupil, 0, eye_2_x + (2 * preview_scale), eye_2_y, preview_scale, preview_scale, 0, outline_color, 1);
+var should_shift_this_racer = !instance_exists(obj_player);
+
+if (should_shift_this_racer)
+{
+    this_racer.x = 0;
+    this_racer.y = 0;
+    this_racer.eye_1_x = 8;
+    this_racer.eye_1_y = -15;
+    this_racer.eye_2_x = 20;
+    this_racer.eye_2_y = -15;
+}
+
+scr_draw_snail_from_racer_object_transformed(this_racer, 
+{
+    transform: transform_preview_x_closure_transform,
+    args: [this_racer.x]
+}, 
+{
+    transform: transform_preview_y_closure_transform,
+    args: [this_racer.y]
+}, 5, 1);
+
+if (should_shift_this_racer)
+{
+    this_racer.x = -infinity;
+    this_racer.y = -infinity;
+    this_racer.eye_1_x = -infinity;
+    this_racer.eye_1_y = -infinity;
+    this_racer.eye_2_x = -infinity;
+    this_racer.eye_2_y = -infinity;
+}
+
 scr_draw_mouse();

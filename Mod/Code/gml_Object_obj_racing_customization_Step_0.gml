@@ -16,3 +16,11 @@ player.eye2.col_snail_outline = this_racer.outline_color;
 player.eye2.col_snail_body = this_racer.body_color;
 player.eye2.col_snail_shell = this_racer.shell_color;
 player.eye2.col_snail_eye = this_racer.eye_color;
+
+if (this_racer.hat != global.save_equipped_hat)
+{
+    this_racer.hat = global.save_equipped_hat;
+    ini_open("racing_settings.ini");
+    ini_write_real("Customization", "hat", this_racer.hat);
+    ini_close();
+}
