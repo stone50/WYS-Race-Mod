@@ -130,7 +130,7 @@
                 if (racerFurthestCheckpoint == Constants.NumCheckpoints - 1) {
                     racer.SetDiffToFirst(racer.GetCheckpointTimeAt(Constants.NumCheckpoints - 1));
                 } else {
-                    racer.SetDiffToFirst(sortedRacers[0].GetCheckpointTimeAt(racerFurthestCheckpoint) - racer.GetCheckpointTimeAt(racerFurthestCheckpoint));
+                    racer.SetDiffToFirst(racer.GetCheckpointTimeAt(racerFurthestCheckpoint) - sortedRacers[0].GetCheckpointTimeAt(racerFurthestCheckpoint));
                 }
             }
         }
