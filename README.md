@@ -19,6 +19,8 @@ WYS Race Mod is a multiplayer extension for Will You Snail? designed for racing.
 
 ## Installation
 
+Follow the instructions below or use [Möhrchen's mod launcher](https://github.com/ThiMenz/WYS-Race-Mod-Launcher)
+
 1.  **Install the Base Game**: Purchase and install [Will You Snail?](https://store.steampowered.com/app/1115050/Will_You_Snail/) via Steam.
     - _Note: To find your game folder, right-click the game in Steam > Manage > Browse local files._
 2.  **Obtain the Sandbox Version**:
