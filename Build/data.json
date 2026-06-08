@@ -31,6 +31,11 @@
       "layer": "Spots"
     },
     {
+      "name": "obj_mouse",
+      "room": "empty_start_room",
+      "layer": "FadeOutIn"
+    },
+    {
       "name": "obj_server_list_fetcher",
       "room": "empty_start_room",
       "layer": "FadeOutIn"

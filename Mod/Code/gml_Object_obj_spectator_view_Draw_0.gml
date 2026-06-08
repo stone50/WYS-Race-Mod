@@ -42,5 +42,3 @@ for (var i = 0; i < 170; i++)
         draw_text_transformed(level_x, level_y, level_name, scale, scale, 0);
     }
 }
-
-scr_draw_mouse();

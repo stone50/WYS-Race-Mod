@@ -236,5 +236,3 @@ if (should_shift_this_racer)
     this_racer.eye_2_x = -infinity;
     this_racer.eye_2_y = -infinity;
 }
-
-scr_draw_mouse();
