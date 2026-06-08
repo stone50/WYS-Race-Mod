@@ -1,6 +1,5 @@
 visible = false;
 persistent = true;
-depth = -1;
 this_racer = instance_find(obj_network_manager).this_racer;
 auto_auto_difficulty_off = true;
 selected_color_category = 0;

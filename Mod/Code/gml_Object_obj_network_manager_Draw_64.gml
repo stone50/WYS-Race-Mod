@@ -29,4 +29,3 @@ draw_set_color(c_white);
 draw_text_transformed(200, 1004, is_host ? "Stop Hosting" : "Become Host", 0.9, 0.9);
 draw_set_color(c_white);
 draw_text_transformed(200, 1062, "F1 to close", 0.5, 0.5, 0);
-scr_draw_mouse();
