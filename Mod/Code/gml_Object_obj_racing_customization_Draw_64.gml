@@ -236,3 +236,6 @@ if (should_shift_this_racer)
     this_racer.eye_2_x = -infinity;
     this_racer.eye_2_y = -infinity;
 }
+
+draw_set_halign(fa_center);
+draw_text_transformed(480, 1062, "F2 to close", 0.5, 0.5, 0);
