@@ -18,7 +18,8 @@ draw_set_halign(fa_right);
 draw_set_valign(fa_top);
 draw_set_font(font_aiTalk);
 var text_alpha = racing_customization.leaderboard_text_alpha;
-var should_draw_check_marks = !instance_exists(obj_spectator_view);
+var spectator_view = instance_find(obj_spectator_view);
+var should_draw_check_marks = spectator_view == -4 || !spectator_view.is_spectating;
 
 for (var i = 0; i < num_all_racers; i++)
 {
