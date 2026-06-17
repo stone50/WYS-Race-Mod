@@ -13,63 +13,67 @@ function scr_draw_snail(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, ar
     draw_sprite_ext(house_sprite, 1, house_x, house_y, house_x_scale, house_y_scale, arg4, arg10, arg14);
     draw_sprite_ext(spr_player_base, 0, arg0, arg1, scaled_look_dir, arg9, 0, arg11, arg14);
     draw_sprite_ext(spr_player_base, 1, arg0, arg1, scaled_look_dir, arg9, 0, arg10, arg14);
+    var should_draw_hat = true;
+    var hat_dist, hat_sprite, hat_color;
     
-    if (arg15 != -1)
+    switch (arg15)
     {
-        var hat_dist, hat_sprite, hat_color;
+        case 0:
+            hat_dist = 41;
+            hat_sprite = spr_hat_cylinder;
+            hat_color = 16777215;
+            break;
         
-        switch (arg15)
-        {
-            case 0:
-                hat_dist = 41;
-                hat_sprite = spr_hat_cylinder;
-                hat_color = 16777215;
-                break;
-            
-            case 1:
-                hat_dist = 39;
-                hat_sprite = spr_hat_shelly;
-                hat_color = 16777215;
-                break;
-            
-            case 2:
-                hat_dist = 39;
-                hat_sprite = spr_hat_unicorn;
-                hat_color = 16777215;
-                break;
-            
-            case 3:
-                hat_dist = 39;
-                hat_sprite = spr_hat_human;
-                hat_color = 16777215;
-                break;
-            
-            case 4:
-                hat_dist = 39;
-                hat_sprite = spr_hat_winter;
-                hat_color = 16777215;
-                break;
-            
-            case 5:
-                hat_dist = 39;
-                hat_sprite = spr_hat_squid;
-                hat_color = 16777215;
-                break;
-            
-            case 6:
-                hat_dist = 39;
-                hat_sprite = spr_hat_poopoo;
-                hat_color = 16777215;
-                break;
-            
-            case 7:
-                hat_dist = 39;
-                hat_sprite = spr_hat_hart;
-                var level_styler = instance_find(obj_levelstyler, 0);
-                hat_color = merge_color(level_styler.col_ai, level_styler.col_ai2, 0.5);
-                break;
-        }
+        case 1:
+            hat_dist = 39;
+            hat_sprite = spr_hat_shelly;
+            hat_color = 16777215;
+            break;
         
+        case 2:
+            hat_dist = 39;
+            hat_sprite = spr_hat_unicorn;
+            hat_color = 16777215;
+            break;
+        
+        case 3:
+            hat_dist = 39;
+            hat_sprite = spr_hat_human;
+            hat_color = 16777215;
+            break;
+        
+        case 4:
+            hat_dist = 39;
+            hat_sprite = spr_hat_winter;
+            hat_color = 16777215;
+            break;
+        
+        case 5:
+            hat_dist = 39;
+            hat_sprite = spr_hat_squid;
+            hat_color = 16777215;
+            break;
+        
+        case 6:
+            hat_dist = 39;
+            hat_sprite = spr_hat_poopoo;
+            hat_color = 16777215;
+            break;
+        
+        case 7:
+            hat_dist = 39;
+            hat_sprite = spr_hat_hart;
+            var level_styler = instance_find(obj_levelstyler, 0);
+            hat_color = merge_color(level_styler.col_ai, level_styler.col_ai2, 0.5);
+            break;
+        
+        default:
+            should_draw_hat = false;
+            break;
+    }
+    
+    if (should_draw_hat)
+    {
         var hat_scaled_dist = hat_dist * house_y_scale;
         var house_tangent = arg4 + 90;
         var hat_x, hat_angle, hat_y;
