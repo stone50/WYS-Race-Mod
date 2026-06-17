@@ -1,4 +1,4 @@
-if (!visible)
+if (!is_spectating)
     exit;
 
 var num_other_racers = ds_list_size(other_racers);

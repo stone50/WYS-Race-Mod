@@ -1,4 +1,10 @@
-draw_set_color(c_fuchsia);
+draw_set_halign(fa_left);
+draw_set_color(c_white);
+draw_text_transformed(10, 1070, "F3 to toggle spectator view", 0.5, 0.5, 0);
+
+if (!is_spectating)
+    exit;
+
 var gui_mouse_x = device_mouse_x_to_gui(0);
 var gui_mouse_y = device_mouse_y_to_gui(0);
 var button_scale = racing_customization.leaderboard_scale * 32;

@@ -1,4 +1,4 @@
-visible = false;
+is_spectating = false;
 scale = 1;
 x_offset = 0;
 y_offset = 0;
