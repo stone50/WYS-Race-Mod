@@ -207,6 +207,7 @@
                 sizeof(byte) +  // num_other_racers
                 (
                     Constants.NumMaxNameChars +
+                    sizeof(sbyte) + // hat
                     sizeof(uint) +  // name_color
                     sizeof(uint) +  // outline_color
                     sizeof(uint) +  // body_color

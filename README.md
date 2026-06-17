@@ -100,7 +100,7 @@ Press **F4** while in a fresh save to toggle being ready
 1.  **Repository Setup**: Fork [this repository](https://github.com/stone50/WYS-Race-Mod) and clone it.
 2.  **Preparation**:
     - In `/Build`, run the `setup` script (`setup.ps1` for Windows, `setup.sh` for Linux).
-    - This will download [UndertaleModCli](https://github.com/UnderminersTeam/UndertaleModTool/releases/0.9.0.0), [xdelta3](https://github.com/jmacd/xdelta-gpl/releases/v3.0.11) (or install it via `apt-get` on Linux), and [DepotDownloader](https://github.com/SteamRE/DepotDownloader/releases/DepotDownloader_3.4.0) which is then used to automatically download the game files.
+    - This will download [UndertaleModCli](https://github.com/UnderminersTeam/UndertaleModTool/releases/0.9.0.0), [xdelta3](https://github.com/jmacd/xdelta-gpl/releases/v3.1.0) (or install it via `apt-get` on Linux), and [DepotDownloader](https://github.com/SteamRE/DepotDownloader/releases/DepotDownloader_3.4.0) which is then used to automatically download the game files.
     - Python 3.10+ is needed to run the `build.py` script, and .NET 10 is needed to build the `Server`.
 3.  **Project Setup**:
     - Use the game files from `/Build/Game/1.42` to replace the game files installed by Steam.

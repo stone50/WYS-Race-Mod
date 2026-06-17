@@ -1,3 +1,6 @@
+if (!is_spectating)
+    exit;
+
 draw_set_valign(fa_top);
 var did_prefetch_this_frame = false;
 var top_left_visible_limit = -2048 * scale;

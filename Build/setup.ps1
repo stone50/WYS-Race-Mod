@@ -52,9 +52,9 @@ if (Test-Path $xdeltaPath) {
     $zipPath = Join-Path $PSScriptRoot "xdelta.zip"
     $destDir = Join-Path $toolsDir "xdelta3"
     try {
-        Invoke-WebRequest -Uri "https://github.com/jmacd/xdelta-gpl/releases/download/v3.0.11/xdelta3-3.0.11-x86_64.exe.zip" -OutFile $zipPath
+        Invoke-WebRequest -Uri "https://github.com/jmacd/xdelta-gpl/releases/download/v3.1.0/xdelta3-3.1.0-x86_64.exe.zip" -OutFile $zipPath
         Expand-Archive $zipPath -DestinationPath $destDir
-        Move-Item (Join-Path $destDir "xdelta3-3.0.11-x86_64.exe") $xdeltaPath -Force
+        Move-Item (Join-Path $destDir "xdelta3-3.1.0-x86_64.exe") $xdeltaPath -Force
         Remove-Item $zipPath
         Write-Host "xdelta3 installed" -ForegroundColor Green
     } catch {

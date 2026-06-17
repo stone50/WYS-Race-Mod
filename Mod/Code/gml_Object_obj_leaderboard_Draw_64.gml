@@ -18,7 +18,8 @@ draw_set_halign(fa_right);
 draw_set_valign(fa_top);
 draw_set_font(font_aiTalk);
 var text_alpha = racing_customization.leaderboard_text_alpha;
-var should_draw_check_marks = !instance_exists(obj_spectator_view);
+var spectator_view = instance_find(obj_spectator_view);
+var should_draw_check_marks = spectator_view == -4 || !spectator_view.is_spectating;
 
 for (var i = 0; i < num_all_racers; i++)
 {
@@ -48,7 +49,9 @@ for (var i = 0; i < num_all_racers; i++)
     var furthest_checkpoint = racer.furthest_checkpoint;
     var diff_to_first = racer.diff_to_first;
     var abs_diff_to_first = abs(diff_to_first);
-    var time_text = ((furthest_checkpoint == 90) ? " " : ((diff_to_first >= 0) ? "+" : "-")) + scr_return_timer_string(abs_diff_to_first) + scr_return_timer_string_ms(abs_diff_to_first);
+    var time_text = scr_return_timer_string(abs_diff_to_first);
+    time_text = string_delete(time_text, 1, string_length(time_text) - 5);
+    time_text = ((furthest_checkpoint == 90) ? " " : ((diff_to_first >= 0) ? "+" : "-")) + time_text + scr_return_timer_string_ms(abs_diff_to_first);
     var line = placement_text + "." + name_text + " " + scr_get_checkpoint_name(furthest_checkpoint) + " " + time_text;
     var racer_name_color = racer.name_color;
     draw_text_transformed_color(1920, i * 33 * scale, line, scale, scale, 0, racer_name_color, racer_name_color, racer_name_color, racer_name_color, text_alpha);
