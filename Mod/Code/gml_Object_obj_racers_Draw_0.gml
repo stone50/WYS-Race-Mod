@@ -6,7 +6,7 @@ if (spectator_view == -4)
     exit;
 }
 
-if (!spectator_view.visible)
+if (!spectator_view.is_spectating)
     exit;
 
 depth = spectator_view.depth - 1;

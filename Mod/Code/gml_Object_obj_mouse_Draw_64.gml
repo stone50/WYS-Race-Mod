@@ -2,7 +2,7 @@ if (!network_manager.visible && !racing_customization.visible)
 {
     var spectator_view = instance_find(obj_spectator_view);
     
-    if (spectator_view == -4 || !spectator_view.visible)
+    if (spectator_view == -4 || !spectator_view.is_spectating)
         exit;
 }
 

@@ -26,8 +26,7 @@
                         packet.Data.Length -
                         Constants.CurrentRoomPacketDataOffset +
                         sizeof(byte) +  // placement
-                        sizeof(float) + // diff_to_first
-                        sizeof(sbyte);  // countdown
+                        sizeof(float);  // diff_to_first
                     break;
             }
 
